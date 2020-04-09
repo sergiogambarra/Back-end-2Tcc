@@ -7,6 +7,8 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +28,13 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     public ServicoCRUD<Usuario> getService() {
         return servico;
     }
-    @PostMapping("aluno/")
-    public ResponseEntity<Usuario> cadastroAluno(@RequestBody Usuario u){
-        return servico.cadastrarAluno(u);
-    }
     
+    @PostMapping("alunos/")
+    public ResponseEntity<Usuario> cadastroAluno(@RequestBody Usuario u){
+        return servico.cadastrar(u);
+    }
+    @GetMapping("pesquisa/{userName}")
+    public ResponseEntity<Usuario> pesquisaLogin(@PathVariable ("userName") String userName){
+        return servico.pesquisaLogin(userName);
+    }
 }

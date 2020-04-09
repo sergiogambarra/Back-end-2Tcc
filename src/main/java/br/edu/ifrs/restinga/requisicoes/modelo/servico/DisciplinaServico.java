@@ -25,5 +25,7 @@ public class DisciplinaServico extends ServicoCRUD<Disciplina>{
     @Override
     public RegraNenocio<Disciplina> rn() {
         return rn;
-    }                  
+    } 
+    
+    
 }

@@ -21,7 +21,7 @@ public abstract class ServicoCRUD<T extends Entidade> {
         return new ResponseEntity(getDAO().save(entidade), HttpStatus.CREATED);
     }
 
-   
+  
     public ResponseEntity<T> listar() {
         return new ResponseEntity(getDAO().findAll(), HttpStatus.OK);
     }

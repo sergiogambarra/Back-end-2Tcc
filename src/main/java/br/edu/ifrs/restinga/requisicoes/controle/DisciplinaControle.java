@@ -22,4 +22,5 @@ public class DisciplinaControle extends CRUDControle<Disciplina>{
     public ServicoCRUD<Disciplina> getService() {
         return servico;
     }
+    
 }
