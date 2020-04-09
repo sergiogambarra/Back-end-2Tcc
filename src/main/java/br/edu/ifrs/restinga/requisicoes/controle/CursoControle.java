@@ -27,9 +27,9 @@ public class CursoControle extends CRUDControle<Curso>{
 
     @Override
     public ServicoCRUD<Curso> getService() {
-        return servico;
+       return servico;
     }
-    
+      
     @PostMapping("{id}/disciplinas/")
     public ResponseEntity<List<Disciplina>> cadastrarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d){
         return new ResponseEntity(servico.cadastrarDisciplinaNoCurso(id, d).getBody(),HttpStatus.CREATED);

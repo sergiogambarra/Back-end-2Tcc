@@ -23,10 +23,10 @@ public class Xinicializador {
     
     @PostConstruct
     public void init() {
-        Usuario user = usuarioDAO.findByUserName("root");
+        Usuario user = usuarioDAO.findByUserName("ROOt");
         if (user == null) {
             Usuario usuario = new Usuario();
-            usuario.setUserName("root");
+            usuario.setUserName("ROOT");
             usuario.setPassword(encode.encode("123"));
             usuario.setPermissao("ADMIN");
             PerfilServidor perfilServidor = new PerfilServidor(1, "Administrador","ADMIN");

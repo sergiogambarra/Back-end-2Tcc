@@ -60,17 +60,18 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
     @Override
     public ResponseEntity<Usuario> cadastrar(Usuario u) {
         rn.validar(u);
+        String NomeCase = u.getPerfil().getNome().toUpperCase();
+        u.getPerfil().setNome(NomeCase);
+        String toUpperCase = u.getUsername().toUpperCase();
+        u.setUserName(toUpperCase);
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         perfilServico.salvarPerfil(u);
         return new ResponseEntity(dao.save(u), HttpStatus.CREATED);
     }
 
     @Transactional
-    public ResponseEntity<Usuario> cadastrarAluno(Usuario u) {
-        rn.validar(u);
-        u.setPassword(passwordEncoder.encode(u.getPassword()));
-        perfilServico.salvarPerfil(u);
-        return new ResponseEntity(dao.save(u), HttpStatus.CREATED);
-    }
+    public ResponseEntity<Usuario>pesquisaLogin(String nome){
+        return new ResponseEntity(dao.findByUserName(nome.toUpperCase()).getUsername(), HttpStatus.CREATED);
+   }
 
 }

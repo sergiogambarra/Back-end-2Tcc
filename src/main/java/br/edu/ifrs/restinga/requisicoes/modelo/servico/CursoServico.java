@@ -25,7 +25,7 @@ public class CursoServico extends ServicoCRUD<Curso>{
 
     @Override
     public CrudRepository<Curso, Long> getDAO() {
-        return  dao;
+          return  dao;
     }
 
     @Override
@@ -40,6 +40,13 @@ public class CursoServico extends ServicoCRUD<Curso>{
         Curso cursoRetorno = dao.save(curso);
         return new ResponseEntity(cursoRetorno.getDisciplinas(),HttpStatus.CREATED);
     }
+
+    @Override
+    public ResponseEntity<Curso> atualizar(Curso entidade) {
+        
+        return super.atualizar(entidade); 
+    }
+
     
-    
+
 }

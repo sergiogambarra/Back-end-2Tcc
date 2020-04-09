@@ -29,7 +29,7 @@ public class Curso implements Entidade{
     private String nome;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disciplina> disciplinas;
 
 

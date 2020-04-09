@@ -28,7 +28,6 @@ public class RequisicaoRN implements RegraNenocio<Requisicao>{
         validaCampo(req.getTipo(), "tipo");
         validaCampo(req.getDisciplinasCursadasAnterior(), "disciplina cursadas anteriormente");
         validaCampo(req.getDeferido(), "deferido");
-        validaData(req.getDataRequisicao(), "data da requisição");
         validaAnexos(req.getAnexos(), "anexos");
     }
 
