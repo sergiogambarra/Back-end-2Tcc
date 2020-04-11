@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface CursoDao extends CrudRepository<Curso, Long>{
 
     public void save(ResponseEntity<Curso> curso);
+
+    public Curso findByNome(String nome);
 }

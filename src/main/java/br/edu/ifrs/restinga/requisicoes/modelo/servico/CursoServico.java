@@ -12,6 +12,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class CursoServico extends ServicoCRUD<Curso> {
@@ -65,4 +66,9 @@ public class CursoServico extends ServicoCRUD<Curso> {
         }
         dao.save(curso);
     }
+    public ResponseEntity<Curso>pesquisarDisciplinaNomeCurso(String nome){
+        List<Disciplina> cursoDisciplina = dao.findByNome(nome).getDisciplinas();
+        return new ResponseEntity(cursoDisciplina,HttpStatus.OK);
+    }
+    
 }
