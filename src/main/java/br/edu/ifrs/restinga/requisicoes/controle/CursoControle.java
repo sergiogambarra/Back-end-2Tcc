@@ -22,26 +22,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api("Api : Cursos")
 @RequestMapping("/api/cursos/")
-public class CursoControle extends CRUDControle<Curso>{
+public class CursoControle extends CRUDControle<Curso> {
 
     @Autowired
     private CursoServico servico;
 
     @Override
     public ServicoCRUD<Curso> getService() {
-       return servico;
+        return servico;
     }
-      
+
     @PostMapping("{id}/disciplinas/")
-    public ResponseEntity<List<Disciplina>> cadastrarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d){
-        return new ResponseEntity(servico.cadastrarDisciplinaNoCurso(id, d).getBody(),HttpStatus.CREATED);
+    public ResponseEntity<List<Disciplina>> cadastrarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d) {
+        return new ResponseEntity(servico.cadastrarDisciplinaNoCurso(id, d).getBody(), HttpStatus.CREATED);
     }
+
     @GetMapping("{id}/disciplinas/")
-    public ResponseEntity<List<Curso>> listarDSisciplinas(@PathVariable Long id){
-         return new ResponseEntity(servico.listarDisciplinas(id),HttpStatus.OK);  
+    public ResponseEntity<List<Curso>> listarDSisciplinas(@PathVariable Long id) {
+        return new ResponseEntity(servico.listarDisciplinas(id), HttpStatus.OK);
     }
+
     @DeleteMapping("{id}/disciplinas/{idDisciplina}")
-    public void apagarDisciplina(@PathVariable Long idDisciplina, @PathVariable Long id){
+    public void apagarDisciplina(@PathVariable Long idDisciplina, @PathVariable Long id) {
         servico.deletarDisciplina(id, idDisciplina);
+    }
+
+    @GetMapping("/pesquisar/nome/{nome}")
+    public ResponseEntity<Curso> listarDisciplinasPorNomeCurso(@PathVariable("nome") String nome) {
+        return new ResponseEntity(servico.pesquisarDisciplinaNomeCurso(nome),HttpStatus.OK);
     }
 }
