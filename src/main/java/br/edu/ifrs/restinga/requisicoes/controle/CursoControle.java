@@ -38,8 +38,8 @@ public class CursoControle extends CRUDControle<Curso> {
     }
 
     @GetMapping("{id}/disciplinas/")
-    public ResponseEntity<List<Curso>> listarDSisciplinas(@PathVariable Long id) {
-        return new ResponseEntity(servico.listarDisciplinas(id), HttpStatus.OK);
+    public ResponseEntity<List<Disciplina>> listarDSisciplinas(@PathVariable Long id) {
+        return new ResponseEntity(servico.listarDisciplinas(id).getBody(), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}/disciplinas/{idDisciplina}")
@@ -48,7 +48,7 @@ public class CursoControle extends CRUDControle<Curso> {
     }
 
     @GetMapping("/pesquisar/nome/{nome}")
-    public ResponseEntity<Curso> listarDisciplinasPorNomeCurso(@PathVariable("nome") String nome) {
-        return new ResponseEntity(servico.pesquisarDisciplinaNomeCurso(nome),HttpStatus.OK);
+    public ResponseEntity<List<Disciplina>> listarDisciplinasPorNomeCurso(@PathVariable("nome") String nome) {
+        return new ResponseEntity(servico.pesquisarDisciplinaNomeCurso(nome).getBody(),HttpStatus.OK);
     }
 }

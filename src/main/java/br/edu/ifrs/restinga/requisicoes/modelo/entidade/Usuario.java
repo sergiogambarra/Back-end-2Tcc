@@ -37,6 +37,11 @@ public class Usuario  implements Serializable, UserDetails, Entidade{
     @OneToOne
     private Perfil perfil;
 
+    public Usuario(Long id, String user) {
+        this.id = id;
+        this.userName = user;
+    }
+
 
     
     @Override

@@ -13,6 +13,7 @@ public class TokenDto {
     private String tipo;
     private String token;
     private String login;
+    private Long id;
     private String permissao; 
 
     public TokenDto(String token, Usuario u) {
@@ -20,6 +21,7 @@ public class TokenDto {
         this.token = token;
         this.login = u.getUsername();
         this.permissao = u.getPermissao();
+        this.id = u.getId();
     }
 
 }

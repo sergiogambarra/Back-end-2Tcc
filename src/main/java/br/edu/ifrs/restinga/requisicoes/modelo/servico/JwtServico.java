@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class JwtServico {
@@ -18,7 +21,6 @@ public class JwtServico {
     private String expiracao;
     @Value("${security.segredo}")
     private String segredo;
-
 
     public Claims obterClaims(String token){
         return Jwts
@@ -39,8 +41,8 @@ public class JwtServico {
         }
     }
 
-    public String obterUsuario(String token){
-        return obterClaims(token).getSubject();
+    public Usuario obterUsuario(String token){
+        return new Usuario(Long.valueOf(obterClaims(token).get("id").toString()),obterClaims(token).get("user").toString());
     }
 
 
@@ -49,9 +51,13 @@ public class JwtServico {
         LocalDateTime dataExpiracao = LocalDateTime.now().plusMinutes(minutosExpiracao);
         Instant instant = dataExpiracao.atZone(ZoneId.systemDefault()).toInstant();
         Date date = Date.from(instant);
+        HashMap<String, Object> clains = new HashMap<>();
+        clains.put("id", u.getId());
+        clains.put("user", u.getUsername());
         return Jwts
                 .builder()
                 .setSubject(u.getUsername())
+                .setClaims(clains)
                 .setExpiration(date)
                 .signWith(SignatureAlgorithm.HS512,this.segredo)
                 .compact();

@@ -25,10 +25,10 @@ public class RequisicaoRN implements RegraNenocio<Requisicao>{
 
        
     private void validaAproveitamento(RequisicaoAproveitamento req) {
-        validaCampo(req.getTipo(), "tipo");
-        validaCampo(req.getDisciplinasCursadasAnterior(), "disciplina cursadas anteriormente");
-        validaCampo(req.getDeferido(), "deferido");
-        validaAnexos(req.getAnexos(), "anexos");
+//        validaCampo(req.getTipo(), "tipo");
+//        validaCampo(req.getDisciplinasCursadasAnterior(), "disciplina cursadas anteriormente");
+//        validaCampo(req.getDeferido(), "deferido");
+//        validaAnexos(req.getAnexos(), "anexos");
     }
 
     private void validaCertificacao(RequisicaoCertificacao req) {

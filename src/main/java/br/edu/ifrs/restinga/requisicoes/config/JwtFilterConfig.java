@@ -44,7 +44,7 @@ public class JwtFilterConfig extends OncePerRequestFilter {
         if(authorization != null && authorization.startsWith(TIPO_TOKEN)){
             String token = authorization.split(" ")[1];
             if (jwtService.tokenIsValido(token)){
-                UserDetails userDetails = usuarioServico.loadUserByUsername(jwtService.obterUsuario(token));
+                UserDetails userDetails = usuarioServico.loadUserByUsername(jwtService.obterUsuario(token).getUsername());
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
