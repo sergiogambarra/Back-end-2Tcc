@@ -38,7 +38,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
     RequisicaoRN requisicaoRN;
     
     @Autowired
-    UsuarioDao daoUsuario;
+    UsuarioServico servicoUsuario;
     
 
     @Override
@@ -68,12 +68,12 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return new ResponseEntity(daoCertificacaoDao.findAll(),HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Requisicao>> listarCertificacaoLogin(String nome) {
-        Usuario user = daoUsuario.findByUserName(nome);
+    public ResponseEntity<List<Requisicao>> listarCertificacaoSolicitante(Long id) {
+        Usuario user = servicoUsuario.recuperar(id).getBody();
         Iterable<Requisicao> requisicoes = requisicaoDao.findAll();
         ArrayList<Requisicao> retorno = new ArrayList<>();
         requisicoes.forEach((t) -> {
-            if(t.getUsuario() != null && user.getId().equals(t.getUsuario().getId())){
+            if(t.getUsuario() != null && user.getId() == t.getUsuario().getId()){
                 retorno.add(t);
             }
         });

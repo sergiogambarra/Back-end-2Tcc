@@ -36,9 +36,9 @@ public class RequisicaoControle extends CRUDControle<Requisicao>{
         return requisicaoServico.listarCertificacao();
     }
     
-    @GetMapping("solicitante/{login}")
-     public ResponseEntity<List<Requisicao>> listarCertificaoUsuario(@PathVariable("login") String login){
-        return requisicaoServico.listarCertificacaoLogin(login);
+    @GetMapping("solicitante/{id}")
+     public ResponseEntity<List<Requisicao>> listarCertificaoUsuario(@PathVariable("id") Long id){
+        return requisicaoServico.listarCertificacaoSolicitante(id);
     }
      
      
