@@ -8,7 +8,6 @@ package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoAproveitamentoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoCertificacaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoDao;
-import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;

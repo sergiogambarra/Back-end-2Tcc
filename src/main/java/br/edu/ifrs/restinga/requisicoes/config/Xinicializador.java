@@ -28,7 +28,7 @@ public class Xinicializador {
             Usuario usuario = new Usuario();
             usuario.setUserName("ROOT");
             usuario.setPassword(encode.encode("123"));
-            usuario.setPermissao("ADMIN");
+            usuario.setPermissao("SERVIDOR");
             PerfilServidor perfilServidor = new PerfilServidor(1, "Administrador","ADMIN");
             perfilDao.save(perfilServidor);
             usuario.setPerfil(perfilServidor);
