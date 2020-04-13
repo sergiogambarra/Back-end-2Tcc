@@ -33,6 +33,10 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     public ResponseEntity<Usuario> cadastroAluno(@RequestBody Usuario u){
         return servico.cadastrar(u);
     }
+    @PostMapping("servidor/")
+    public ResponseEntity<Usuario> cadastroServidor(@RequestBody Usuario u){
+        return servico.cadastrar(u);
+    }
     @GetMapping("pesquisa/{userName}")
     public ResponseEntity<Usuario> pesquisaLogin(@PathVariable ("userName") String userName){
         return servico.pesquisaLogin(userName);
