@@ -46,10 +46,12 @@ public class CursoServico extends ServicoCRUD<Curso> {
 
     @Override
     public ResponseEntity<Curso> atualizar(Curso entidade) {
+        List <Disciplina> listarDisciplinas = this.listarDisciplinas(entidade.getId()).getBody();
+        entidade.setDisciplinas(listarDisciplinas);
         return super.atualizar(entidade);
     }
 
-    public ResponseEntity<Disciplina> listarDisciplinas(Long id) {
+    public ResponseEntity<List<Disciplina>> listarDisciplinas(Long id) {
         Curso curso = super.recuperar(id).getBody();
         return new ResponseEntity(curso.getDisciplinas(), HttpStatus.OK);
     }
@@ -69,6 +71,9 @@ public class CursoServico extends ServicoCRUD<Curso> {
     public ResponseEntity<List<Disciplina>>pesquisarDisciplinaNomeCurso(String nome){
         List<Disciplina> cursoDisciplina = dao.findByNome(nome).getDisciplinas();
         return new ResponseEntity(cursoDisciplina,HttpStatus.OK);
+    }
+    public ResponseEntity<Curso>listaCursoNome(String nome){
+        return new ResponseEntity(dao.findByNome(nome),HttpStatus.OK);
     }
     
 }

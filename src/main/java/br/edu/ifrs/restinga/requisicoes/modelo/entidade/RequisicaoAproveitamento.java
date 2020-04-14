@@ -20,4 +20,12 @@ public class RequisicaoAproveitamento extends Requisicao{
     private final String tipo ="aproveitamento";
     private  String disciplinasCursadasAnterior;
     private  String analiseProfessor;
+
+    public RequisicaoAproveitamento(String disciplinasCursadasAnterior, String analiseProfessor, String parecer, String deferido) {
+        super(parecer, deferido);
+        this.disciplinasCursadasAnterior = disciplinasCursadasAnterior;
+        this.analiseProfessor = analiseProfessor;
+    }
+    
+    
 }

@@ -30,6 +30,7 @@ public class Curso implements Entidade{
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Disciplina> disciplinas;
 
 
