@@ -51,4 +51,8 @@ public class CursoControle extends CRUDControle<Curso> {
     public ResponseEntity<List<Disciplina>> listarDisciplinasPorNomeCurso(@PathVariable("nome") String nome) {
         return new ResponseEntity(servico.pesquisarDisciplinaNomeCurso(nome).getBody(),HttpStatus.OK);
     }
+    @GetMapping("/pesquisar/{nome}")
+    public ResponseEntity<Curso> listarNomeCurso(@PathVariable("nome") String nome) {
+        return new ResponseEntity(servico.listaCursoNome(nome).getBody(),HttpStatus.OK);
+    }
 }

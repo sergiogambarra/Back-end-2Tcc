@@ -9,6 +9,8 @@ import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoAproveitamentoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoCertificacaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RequisicaoRN;
@@ -78,4 +80,20 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         });
         return new ResponseEntity(retorno,HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<Requisicao> atualizar(Requisicao entidade) {
+        if(entidade instanceof RequisicaoCertificacao){
+            RequisicaoCertificacao certAntiga = daoCertificacaoDao.findById(entidade.getId()).get();
+            certAntiga.setDeferido(entidade.getDeferido());
+            certAntiga.setParecer(entidade.getParecer());
+            return super.atualizar(certAntiga); 
+        }else if (entidade instanceof RequisicaoAproveitamento){
+            RequisicaoAproveitamento certAntiga = daoAproveitamento.findById(entidade.getId()).get();
+            certAntiga.setDeferido(entidade.getDeferido());
+            certAntiga.setParecer(entidade.getParecer());
+            return super.atualizar(certAntiga); 
+        }
+        return null;
+    }   
 }
