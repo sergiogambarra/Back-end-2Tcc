@@ -5,6 +5,8 @@ import br.edu.ifrs.restinga.requisicoes.modelo.dto.UsuarioDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.UsuarioRN;
+import java.util.ArrayList;
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -22,6 +24,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
 
     @Autowired
     private UsuarioDao dao;
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -74,4 +77,14 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         return new ResponseEntity(dao.findByUserName(nome.toUpperCase()).getUsername(), HttpStatus.CREATED);
    }
 
+    public ResponseEntity<Usuario> listarUsuarios() {
+        Iterable<Usuario> usuarios = dao.findAll();
+        ArrayList<Usuario> alunos = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if(usuario.getPerfil().getTipo().equals("ALUNO")){
+                alunos.add(usuario);
+            }
+        }
+                return new ResponseEntity(alunos,HttpStatus.OK); 
+    }
 }

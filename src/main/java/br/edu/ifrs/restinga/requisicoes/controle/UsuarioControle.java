@@ -41,4 +41,8 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     public ResponseEntity<Usuario> pesquisaLogin(@PathVariable ("userName") String userName){
         return servico.pesquisaLogin(userName);
     }
+    @GetMapping("alunos/")
+    public ResponseEntity<Usuario> listaAlunos(){
+        return servico.listarUsuarios();
+    }
 }
