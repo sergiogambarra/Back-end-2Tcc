@@ -43,6 +43,14 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     }
     @GetMapping("alunos/")
     public ResponseEntity<Usuario> listaAlunos(){
-        return servico.listarUsuarios();
+        return servico.listarAluno();
+    }
+    @GetMapping("professores/")
+    public ResponseEntity<Usuario> listaProfessor(){
+        return servico.listarProfessor();
+    }
+    @GetMapping("servidores/")
+    public ResponseEntity<Usuario> listaServidor(){
+        return servico.listarServidor();
     }
 }

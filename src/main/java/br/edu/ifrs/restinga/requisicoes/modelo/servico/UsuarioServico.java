@@ -77,7 +77,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         return new ResponseEntity(dao.findByUserName(nome.toUpperCase()).getUsername(), HttpStatus.CREATED);
    }
 
-    public ResponseEntity<Usuario> listarUsuarios() {
+    public ResponseEntity<Usuario> listarAluno() {
         Iterable<Usuario> usuarios = dao.findAll();
         ArrayList<Usuario> alunos = new ArrayList<>();
         for (Usuario usuario : usuarios) {
@@ -86,5 +86,25 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
             }
         }
                 return new ResponseEntity(alunos,HttpStatus.OK); 
+    }
+    public ResponseEntity<Usuario> listarProfessor() {
+        Iterable<Usuario> usuarios = dao.findAll();
+        ArrayList<Usuario> professores = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if(usuario.getPerfil().getTipo().equals("PROFESSOR")){
+                professores.add(usuario);
+            }
+        }
+                return new ResponseEntity(professores,HttpStatus.OK); 
+    }
+    public ResponseEntity<Usuario> listarServidor() {
+        Iterable<Usuario> usuarios = dao.findAll();
+        ArrayList<Usuario> servidores = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if(usuario.getPerfil().getTipo().equals("SERVIDOR")){
+                servidores.add(usuario);
+            }
+        }
+                return new ResponseEntity(servidores,HttpStatus.OK); 
     }
 }
