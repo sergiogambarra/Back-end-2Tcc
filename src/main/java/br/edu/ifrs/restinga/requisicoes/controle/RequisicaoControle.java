@@ -1,6 +1,8 @@
 package br.edu.ifrs.restinga.requisicoes.controle;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.RequisicaoServico;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import io.swagger.annotations.Api;
@@ -28,17 +30,17 @@ public class RequisicaoControle extends CRUDControle<Requisicao>{
         return requisicaoServico;
     }
     @GetMapping("aproveitamentos/")
-    public ResponseEntity<List<Requisicao>> listarAproveitamento(){
-        return requisicaoServico.listarAproveitamento();
+    public ResponseEntity<Iterable<RequisicaoAproveitamento>> listarAproveitamento(){
+        return ResponseEntity.ok().body(requisicaoServico.listarAproveitamento());
     }
     @GetMapping("certificacoes/")
-    public ResponseEntity<List<Requisicao>> listarCertificao(){
-        return requisicaoServico.listarCertificacao();
+    public ResponseEntity<Iterable<RequisicaoCertificacao>> listarCertificao(){
+        return ResponseEntity.ok().body(requisicaoServico.listarCertificacao());
     }
     
     @GetMapping("solicitante/{id}")
      public ResponseEntity<List<Requisicao>> listarCertificaoUsuario(@PathVariable("id") Long id){
-        return requisicaoServico.listarCertificacaoSolicitante(id);
+        return ResponseEntity.ok().body(requisicaoServico.listarCertificacaoSolicitante(id));
     }
      
      

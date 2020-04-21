@@ -5,7 +5,10 @@ import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.UsuarioServico;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,26 +34,37 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     
     @PostMapping("alunos/")
     public ResponseEntity<Usuario> cadastroAluno(@RequestBody Usuario u){
-        return servico.cadastrar(u);
+        return new ResponseEntity(servico.cadastrar(u),HttpStatus.CREATED);
     }
+    
     @PostMapping("servidor/")
     public ResponseEntity<Usuario> cadastroServidor(@RequestBody Usuario u){
-        return servico.cadastrar(u);
+        return new ResponseEntity(servico.cadastrar(u),HttpStatus.CREATED);
     }
+    
     @GetMapping("pesquisa/{userName}")
     public ResponseEntity<Usuario> pesquisaLogin(@PathVariable ("userName") String userName){
-        return servico.pesquisaLogin(userName);
+        return  new ResponseEntity(servico.pesquisaLogin(userName), HttpStatus.OK);
     }
+    
     @GetMapping("alunos/")
     public ResponseEntity<Usuario> listaAlunos(){
-        return servico.listarAluno();
+        return new ResponseEntity(servico.listarAluno(),HttpStatus.OK);
     }
+    
     @GetMapping("professores/")
     public ResponseEntity<Usuario> listaProfessor(){
-        return servico.listarProfessor();
+        return new ResponseEntity(servico.listarProfessor(),HttpStatus.OK);
     }
+    
     @GetMapping("servidores/")
     public ResponseEntity<Usuario> listaServidor(){
-        return servico.listarServidor();
+        return new ResponseEntity(servico.listarServidor(),HttpStatus.OK);
+    }
+    
+     @GetMapping("auth/")
+    public ResponseEntity<Usuario> getAutenticado(Authentication authentication){
+        User user =(User) authentication.getPrincipal();
+        return new ResponseEntity(servico.pesquisaLogin(user.getUsername()),HttpStatus.OK);
     }
 }

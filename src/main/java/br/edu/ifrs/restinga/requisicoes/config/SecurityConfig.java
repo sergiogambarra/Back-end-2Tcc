@@ -41,6 +41,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/api/usuarios/alunos/","/api/login/").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/usuarios/**").hasRole("SERVIDOR")
+                .antMatchers(HttpMethod.GET,"/api/usuarios/auth/","/api/requisicoes/solicitante/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/usuarios/**").hasRole("SERVIDOR")
                 .antMatchers(HttpMethod.PUT,"/api/cursos/**").hasRole("SERVIDOR")
                 .antMatchers(HttpMethod.PUT,"/api/requisicoes/**").hasRole("SERVIDOR")

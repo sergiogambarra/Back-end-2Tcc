@@ -9,10 +9,7 @@ import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class CursoServico extends ServicoCRUD<Curso> {
@@ -37,43 +34,42 @@ public class CursoServico extends ServicoCRUD<Curso> {
         return rn;
     }
 
-    public ResponseEntity<List<Disciplina>> cadastrarDisciplinaNoCurso(Long id, Disciplina d) {
-        Curso curso = super.recuperar(id).getBody();
+    public List<Disciplina> cadastrarDisciplinaNoCurso(Long id, Disciplina d) {
+        Curso curso = super.recuperar(id);
         curso.getDisciplinas().add(d);
         Curso cursoRetorno = dao.save(curso);
-        return new ResponseEntity(cursoRetorno.getDisciplinas(), HttpStatus.CREATED);
+        return cursoRetorno.getDisciplinas();
     }
 
     @Override
-    public ResponseEntity<Curso> atualizar(Curso entidade) {
-        List <Disciplina> listarDisciplinas = this.listarDisciplinas(entidade.getId()).getBody();
+    public Curso atualizar(Curso entidade) {
+        List <Disciplina> listarDisciplinas = this.listarDisciplinas(entidade.getId());
         entidade.setDisciplinas(listarDisciplinas);
         return super.atualizar(entidade);
     }
 
-    public ResponseEntity<List<Disciplina>> listarDisciplinas(Long id) {
-        Curso curso = super.recuperar(id).getBody();
-        return new ResponseEntity(curso.getDisciplinas(), HttpStatus.OK);
+    public List<Disciplina> listarDisciplinas(Long id) {
+        Curso curso = super.recuperar(id);
+        return curso.getDisciplinas();
     }
 
     public void deletarDisciplina(Long id, Long idDisciplina) {
-        Curso curso = super.recuperar(id).getBody();
+        Curso curso = super.recuperar(id);
         List<Disciplina> disciplinas = (List<Disciplina>) disciplinaDao.findAll();
         System.out.println(id);
                 for (Disciplina disciplina : disciplinas) {
             if (disciplina.getId() == idDisciplina) {
-        System.out.println(disciplina.getId());
                 curso.getDisciplinas().remove(disciplina);
             }
         }
         dao.save(curso);
     }
-    public ResponseEntity<List<Disciplina>>pesquisarDisciplinaNomeCurso(String nome){
+    public List<Disciplina> pesquisarDisciplinaNomeCurso(String nome){
         List<Disciplina> cursoDisciplina = dao.findByNome(nome).getDisciplinas();
-        return new ResponseEntity(cursoDisciplina,HttpStatus.OK);
+        return cursoDisciplina;
     }
-    public ResponseEntity<Curso>listaCursoNome(String nome){
-        return new ResponseEntity(dao.findByNome(nome),HttpStatus.OK);
+    public Curso listaCursoNome(String nome){
+        return dao.findByNome(nome);
     }
     
 }

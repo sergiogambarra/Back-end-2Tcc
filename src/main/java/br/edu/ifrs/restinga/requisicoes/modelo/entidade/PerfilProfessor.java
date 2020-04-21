@@ -28,5 +28,6 @@ public class PerfilProfessor extends Perfil  {
     
     private int siape; 
     
-    private boolean cordenador;    
+    private boolean cordenador;
+   
 }

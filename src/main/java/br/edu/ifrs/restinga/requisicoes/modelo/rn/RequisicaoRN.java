@@ -8,7 +8,6 @@ package br.edu.ifrs.restinga.requisicoes.modelo.rn;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
-import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component

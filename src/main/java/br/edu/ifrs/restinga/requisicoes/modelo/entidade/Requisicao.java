@@ -80,6 +80,9 @@ public abstract class Requisicao implements Serializable, Entidade {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(nullable = false)
     private List<Anexo> anexos;    
+    
+    @ManyToOne
+        private Usuario professor;
 
     public Requisicao(String parecer, String deferido) {
         this.parecer = parecer;

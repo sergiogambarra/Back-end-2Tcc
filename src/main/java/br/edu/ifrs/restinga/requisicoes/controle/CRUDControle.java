@@ -2,6 +2,7 @@ package br.edu.ifrs.restinga.requisicoes.controle;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Entidade;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,27 +19,29 @@ public abstract class CRUDControle<T extends Entidade> {
     
     @PostMapping
     public ResponseEntity<T> cadastrar(@RequestBody T entidade){
-        return getService().cadastrar(entidade);
+        return new ResponseEntity(getService().cadastrar(entidade),HttpStatus.CREATED);
     }
     
     @GetMapping
-    public ResponseEntity<T> listar() {
-        return getService().listar();
+    public ResponseEntity<Iterable<T>> listar() {
+        return ResponseEntity.ok(getService().listar());
     }
     
     @PutMapping("{id}")
     public ResponseEntity<T> atualizar(@PathVariable Long id, @RequestBody T entidade){
         entidade.setId(id);
-        return getService().atualizar(entidade);
+        getService().atualizar(entidade);
+        return ResponseEntity.noContent().build();
     }
     
     @DeleteMapping("{id}")
-    public ResponseEntity<T> excluir(@PathVariable Long id) {
-        return getService().excluir(id);
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        getService().excluir(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("{id}")
     public ResponseEntity<T> recuperar(@PathVariable Long id) {
-         return getService().recuperar(id);
+         return ResponseEntity.ok(getService().recuperar(id));
     }
 }

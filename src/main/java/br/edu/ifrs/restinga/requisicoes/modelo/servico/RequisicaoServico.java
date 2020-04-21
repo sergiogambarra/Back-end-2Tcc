@@ -53,24 +53,23 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
     }
 
     @Override
-    public ResponseEntity<Requisicao> cadastrar(Requisicao entidade) {
+    public Requisicao cadastrar(Requisicao entidade) {
         entidade.setDataRequisicao(new Date());
         entidade.setDeferido("EM ANÁLISE");
         requisicaoRN.validar(entidade);
-        Requisicao requi = requisicaoDao.save(entidade);
-        return new ResponseEntity(requi, HttpStatus.CREATED);
+        return requisicaoDao.save(entidade);
     }
 
-    public ResponseEntity<List<Requisicao>> listarAproveitamento(){
-        return new ResponseEntity(daoAproveitamento.findAll(),HttpStatus.OK);
+    public Iterable<RequisicaoAproveitamento> listarAproveitamento(){
+        return daoAproveitamento.findAll();
     }
     
-    public ResponseEntity<List<Requisicao>> listarCertificacao(){
-        return new ResponseEntity(daoCertificacaoDao.findAll(),HttpStatus.OK);
+    public Iterable<RequisicaoCertificacao> listarCertificacao(){
+        return daoCertificacaoDao.findAll();
     }
 
-    public ResponseEntity<List<Requisicao>> listarCertificacaoSolicitante(Long id) {
-        Usuario user = servicoUsuario.recuperar(id).getBody();
+    public List<Requisicao> listarCertificacaoSolicitante(Long id) {
+        Usuario user = servicoUsuario.recuperar(id);
         Iterable<Requisicao> requisicoes = requisicaoDao.findAll();
         ArrayList<Requisicao> retorno = new ArrayList<>();
         requisicoes.forEach((t) -> {
@@ -78,11 +77,11 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
                 retorno.add(t);
             }
         });
-        return new ResponseEntity(retorno,HttpStatus.OK);
+        return retorno;
     }
 
     @Override
-    public ResponseEntity<Requisicao> atualizar(Requisicao entidade) {
+    public Requisicao atualizar(Requisicao entidade) {
         if(entidade instanceof RequisicaoCertificacao){
             RequisicaoCertificacao certAntiga = daoCertificacaoDao.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
