@@ -2,6 +2,9 @@ package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.UsuarioDto;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilAluno;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilProfessor;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilServidor;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.UsuarioRN;
@@ -10,8 +13,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +25,9 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
 
     @Autowired
     private UsuarioDao dao;
+    
+    @Autowired
+    private PerfilServico servicoPerfilServico;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -61,23 +65,22 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
 
     @Transactional
     @Override
-    public ResponseEntity<Usuario> cadastrar(Usuario u) {
+    public Usuario cadastrar(Usuario u) {
         rn.validar(u);
         String NomeCase = u.getPerfil().getNome().toUpperCase();
         u.getPerfil().setNome(NomeCase);
-        String toUpperCase = u.getUsername().toUpperCase();
-        u.setUserName(toUpperCase);
+        u.setUserName(u.getUsername());
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         perfilServico.salvarPerfil(u);
-        return new ResponseEntity(dao.save(u), HttpStatus.CREATED);
+        return dao.save(u);
     }
 
     @Transactional
-    public ResponseEntity<Usuario>pesquisaLogin(String nome){
-        return new ResponseEntity(dao.findByUserName(nome.toUpperCase()).getUsername(), HttpStatus.CREATED);
+    public Usuario pesquisaLogin(String nome){
+        return dao.findByUserName(nome);
    }
 
-    public ResponseEntity<Usuario> listarAluno() {
+    public List<Usuario> listarAluno() {
         Iterable<Usuario> usuarios = dao.findAll();
         ArrayList<Usuario> alunos = new ArrayList<>();
         for (Usuario usuario : usuarios) {
@@ -85,9 +88,10 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
                 alunos.add(usuario);
             }
         }
-                return new ResponseEntity(alunos,HttpStatus.OK); 
+        System.out.println(alunos);
+                return alunos; 
     }
-    public ResponseEntity<Usuario> listarProfessor() {
+    public List<Usuario> listarProfessor() {
         Iterable<Usuario> usuarios = dao.findAll();
         ArrayList<Usuario> professores = new ArrayList<>();
         for (Usuario usuario : usuarios) {
@@ -95,9 +99,9 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
                 professores.add(usuario);
             }
         }
-                return new ResponseEntity(professores,HttpStatus.OK); 
+                return professores; 
     }
-    public ResponseEntity<Usuario> listarServidor() {
+    public List<Usuario> listarServidor() {
         Iterable<Usuario> usuarios = dao.findAll();
         ArrayList<Usuario> servidores = new ArrayList<>();
         for (Usuario usuario : usuarios) {
@@ -105,6 +109,37 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
                 servidores.add(usuario);
             }
         }
-                return new ResponseEntity(servidores,HttpStatus.OK); 
+        return servidores; 
     }
+
+    @Override
+    public Usuario atualizar(Usuario entidade) {
+        Usuario usuarioAntigo = recuperar(entidade.getId());
+        
+        if (entidade.getPerfil() instanceof PerfilAluno) {
+            PerfilAluno aluno = (PerfilAluno) entidade.getPerfil();
+            PerfilAluno perfilAlunoAntigo = (PerfilAluno) usuarioAntigo.getPerfil();
+            perfilAlunoAntigo.setNome(aluno.getNome());
+            perfilAlunoAntigo.setEmail(aluno.getEmail());
+            perfilAlunoAntigo.setMatricula(aluno.getMatricula());
+            perfilAlunoAntigo.setDataIngresso(aluno.getDataIngresso());
+        }else if (entidade.getPerfil() instanceof PerfilProfessor) {
+            PerfilProfessor professor = ( PerfilProfessor ) entidade.getPerfil();
+            PerfilProfessor perfilProfessor = (PerfilProfessor) usuarioAntigo.getPerfil();
+            perfilProfessor.setNome(professor.getNome());
+            perfilProfessor.setCordenador(professor.isCordenador());
+            perfilProfessor.setSiape(professor.getSiape());
+        }else if(entidade.getPerfil() instanceof PerfilServidor){
+            PerfilServidor servidor = (PerfilServidor) entidade.getPerfil();
+            PerfilServidor perfilServidor = (PerfilServidor) usuarioAntigo.getPerfil();
+            perfilServidor.setNome(servidor.getNome());
+            perfilServidor.setSiape(servidor.getSiape());
+        }
+        perfilServico.salvarPerfil(usuarioAntigo);
+        return  usuarioAntigo;
+    }
+    
+    
+   
+    
 }

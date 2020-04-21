@@ -5,8 +5,6 @@ import br.edu.ifrs.restinga.requisicoes.modelo.exception.NaoEncontradoException;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 public abstract class ServicoCRUD<T extends Entidade> {
 
@@ -15,33 +13,29 @@ public abstract class ServicoCRUD<T extends Entidade> {
     public abstract RegraNenocio<T> rn();
 
     @Transactional
-    public ResponseEntity<T> cadastrar(T entidade) {
+    public T cadastrar(T entidade) {
         entidade.setId(Long.valueOf(0));
         rn().validar(entidade);
-        return new ResponseEntity(getDAO().save(entidade), HttpStatus.CREATED);
+        return getDAO().save(entidade);
     }
 
-  
-    public ResponseEntity<T> listar() {
-        return new ResponseEntity(getDAO().findAll(), HttpStatus.OK);
+    public Iterable<T> listar() {
+        return getDAO().findAll();
     }
 
    
-    public ResponseEntity<T> atualizar(T entidade) {
+    public T atualizar(T entidade) {
         rn().validar(entidade);
-        return new ResponseEntity(getDAO().save(entidade), HttpStatus.NO_CONTENT);
+        return getDAO().save(entidade);
     }
-    
-   
-    public ResponseEntity<T> recuperar(Long id) {
+       
+    public T recuperar(Long id) {
         T entidade = getDAO().findById(id).orElseThrow(() -> new NaoEncontradoException());
-        return new ResponseEntity(entidade, HttpStatus.OK);
+        return entidade;
     }
 
-   
-    public ResponseEntity<T> excluir(Long id) {
+    public void excluir(Long id) {
         getDAO().deleteById(id);
-        return new ResponseEntity(null, HttpStatus.NO_CONTENT);
     }
 
 }

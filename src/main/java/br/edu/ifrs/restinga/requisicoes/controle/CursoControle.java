@@ -34,25 +34,26 @@ public class CursoControle extends CRUDControle<Curso> {
 
     @PostMapping("{id}/disciplinas/")
     public ResponseEntity<List<Disciplina>> cadastrarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d) {
-        return new ResponseEntity(servico.cadastrarDisciplinaNoCurso(id, d).getBody(), HttpStatus.CREATED);
+        return new ResponseEntity(servico.cadastrarDisciplinaNoCurso(id, d),HttpStatus.CREATED);
     }
 
     @GetMapping("{id}/disciplinas/")
     public ResponseEntity<List<Disciplina>> listarDSisciplinas(@PathVariable Long id) {
-        return new ResponseEntity(servico.listarDisciplinas(id).getBody(), HttpStatus.OK);
+        return ResponseEntity.ok(servico.listarDisciplinas(id));
     }
 
     @DeleteMapping("{id}/disciplinas/{idDisciplina}")
-    public void apagarDisciplina(@PathVariable Long idDisciplina, @PathVariable Long id) {
+    public ResponseEntity<Void> apagarDisciplina(@PathVariable Long idDisciplina, @PathVariable Long id) {
         servico.deletarDisciplina(id, idDisciplina);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/pesquisar/nome/{nome}")
     public ResponseEntity<List<Disciplina>> listarDisciplinasPorNomeCurso(@PathVariable("nome") String nome) {
-        return new ResponseEntity(servico.pesquisarDisciplinaNomeCurso(nome).getBody(),HttpStatus.OK);
+        return ResponseEntity.ok(servico.pesquisarDisciplinaNomeCurso(nome));
     }
     @GetMapping("/pesquisar/{nome}")
     public ResponseEntity<Curso> listarNomeCurso(@PathVariable("nome") String nome) {
-        return new ResponseEntity(servico.listaCursoNome(nome).getBody(),HttpStatus.OK);
+        return ResponseEntity.ok(servico.listaCursoNome(nome));
     }
 }
