@@ -46,14 +46,6 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     public ResponseEntity<Usuario> pesquisaLogin(@PathVariable ("userName") String userName){
         return  new ResponseEntity(servico.pesquisaLogin(userName), HttpStatus.OK);
     }
-<<<<<<< HEAD
-    
-=======
-    @GetMapping("pesquisa/aluno/{userName}")
-    public ResponseEntity<Usuario> pesquisaLoginAluno(@PathVariable ("userName") String userName){
-        return servico.pesquisaLogin(userName);
-    }
->>>>>>> 94e3023c34f73cde333a9655d1d1174b59ecae4c
     @GetMapping("alunos/")
     public ResponseEntity<Usuario> listaAlunos(){
         return new ResponseEntity(servico.listarAluno(),HttpStatus.OK);
