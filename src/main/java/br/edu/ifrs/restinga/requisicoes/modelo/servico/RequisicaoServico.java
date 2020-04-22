@@ -19,8 +19,6 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -86,13 +84,19 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
             RequisicaoCertificacao certAntiga = daoCertificacaoDao.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
             certAntiga.setParecer(entidade.getParecer());
+            certAntiga.setProfessor(entidade.getProfessor());
             return super.atualizar(certAntiga); 
         }else if (entidade instanceof RequisicaoAproveitamento){
             RequisicaoAproveitamento certAntiga = daoAproveitamento.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
             certAntiga.setParecer(entidade.getParecer());
+            certAntiga.setProfessor(entidade.getProfessor());
             return super.atualizar(certAntiga); 
         }
         return null;
     }   
+    public List<Requisicao> listarPorProfessor(Long id, String tipo){
+        if(tipo.equals("aproveitamento"))return requisicaoDao.listarRequisicaoAproveitamento(id);
+        return requisicaoDao.listarRequisicaoCertificacao(id);
+    }
 }

@@ -139,7 +139,4 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         return  usuarioAntigo;
     }
     
-    
-   
-    
 }
