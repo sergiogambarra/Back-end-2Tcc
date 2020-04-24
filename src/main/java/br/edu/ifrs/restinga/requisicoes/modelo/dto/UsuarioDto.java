@@ -12,4 +12,5 @@ public class UsuarioDto {
     
     private String userName;
     private String password;
+    
 }

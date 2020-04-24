@@ -25,9 +25,7 @@ public class PerfilProfessor extends Perfil  {
     @Transient
     @JsonProperty("tipo")
     private final String tipo = "PROFESSOR";
-    
     private int siape; 
-    
     private boolean cordenador;
    
 }
