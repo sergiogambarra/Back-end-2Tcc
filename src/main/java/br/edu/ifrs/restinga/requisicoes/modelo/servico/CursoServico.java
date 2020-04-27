@@ -4,6 +4,7 @@ import br.edu.ifrs.restinga.requisicoes.modelo.dao.CursoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.DisciplinaDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
+import br.edu.ifrs.restinga.requisicoes.modelo.exception.NaoEncontradoException;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.CursoRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import java.util.List;
@@ -47,11 +48,36 @@ public class CursoServico extends ServicoCRUD<Curso> {
         entidade.setDisciplinas(listarDisciplinas);
         return super.atualizar(entidade);
     }
+    public Curso atualizarDisciplina(Long id, Disciplina entidade) {
+        Curso curso = super.recuperar(id);
+        List<Disciplina> disciplinas = curso.getDisciplinas();
+        for (Disciplina disciplina : disciplinas) {
+            if (disciplina.getId() == entidade.getId()) {
+                disciplina.setId(disciplina.getId());
+                disciplina.setNome(entidade.getNome());
+                disciplina.setCargaHoraria(entidade.getCargaHoraria());
+              
+            } 
+        }
+        return dao.save(curso);
+    
+    }
 
     public List<Disciplina> listarDisciplinas(Long id) {
         Curso curso = super.recuperar(id);
         return curso.getDisciplinas();
     }
+    public Disciplina listarDisciplinasPeloID(Long id, Long idDisciplina) {
+        Curso curso = super.recuperar(id);
+        List<Disciplina> disciplinas = curso.getDisciplinas();
+        for (Disciplina disciplina : disciplinas) {
+            if (disciplina.getId() == idDisciplina) {
+                
+        return disciplina;
+            }
+        }
+        return null;
+ }
 
     public void deletarDisciplina(Long id, Long idDisciplina) {
         Curso curso = super.recuperar(id);
@@ -71,5 +97,5 @@ public class CursoServico extends ServicoCRUD<Curso> {
     public Curso listaCursoNome(String nome){
         return dao.findByNome(nome);
     }
-    
+
 }

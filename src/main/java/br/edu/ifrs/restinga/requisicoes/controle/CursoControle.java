@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,14 +33,23 @@ public class CursoControle extends CRUDControle<Curso> {
         return servico;
     }
 
-    @PostMapping("{id}/disciplinas/")
-    public ResponseEntity<List<Disciplina>> cadastrarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d) {
-        return new ResponseEntity(servico.cadastrarDisciplinaNoCurso(id, d),HttpStatus.CREATED);
-    }
-
     @GetMapping("{id}/disciplinas/")
     public ResponseEntity<List<Disciplina>> listarDSisciplinas(@PathVariable Long id) {
         return ResponseEntity.ok(servico.listarDisciplinas(id));
+    }
+    @GetMapping("{id}/disciplinas/{idDisciplina}")
+    public ResponseEntity<List<Disciplina>> listarDSisciplinasPeloId(@PathVariable Long id,@PathVariable Long idDisciplina) {
+        return new ResponseEntity(servico.listarDisciplinasPeloID(id, idDisciplina),HttpStatus.OK);
+    }
+
+    @PostMapping("{id}/disciplinas/")
+    public ResponseEntity<List<Disciplina>> cadastrarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d) {
+        return new ResponseEntity(servico.cadastrarDisciplinaNoCurso(id, d), HttpStatus.CREATED);
+    }
+
+    @PutMapping("{id}/disciplinas/")
+    public ResponseEntity<List<Disciplina>> editarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d) {
+        return new ResponseEntity(servico.atualizarDisciplina(id, d),HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}/disciplinas/{idDisciplina}")
@@ -52,6 +62,7 @@ public class CursoControle extends CRUDControle<Curso> {
     public ResponseEntity<List<Disciplina>> listarDisciplinasPorNomeCurso(@PathVariable("nome") String nome) {
         return ResponseEntity.ok(servico.pesquisarDisciplinaNomeCurso(nome));
     }
+
     @GetMapping("/pesquisar/{nome}")
     public ResponseEntity<Curso> listarNomeCurso(@PathVariable("nome") String nome) {
         return ResponseEntity.ok(servico.listaCursoNome(nome));

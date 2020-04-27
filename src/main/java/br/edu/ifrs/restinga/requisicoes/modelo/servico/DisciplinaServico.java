@@ -16,7 +16,7 @@ public class DisciplinaServico extends ServicoCRUD<Disciplina>{
     private  DisciplinaDao dao;
     @Autowired
     private DisciplinaRN rn;
-
+    
     @Override
     public CrudRepository<Disciplina, Long> getDAO() {
         return  dao;
