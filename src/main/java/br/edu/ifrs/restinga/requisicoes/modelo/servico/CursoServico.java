@@ -2,8 +2,10 @@ package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.CursoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.DisciplinaDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.exception.NaoEncontradoException;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.CursoRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
@@ -21,9 +23,12 @@ public class CursoServico extends ServicoCRUD<Curso> {
     private CursoRN rn;
     @Autowired
     private DisciplinaServico disciplinaServico;
-    
+
     @Autowired
     private DisciplinaDao disciplinaDao;
+
+    @Autowired
+    private RequisicaoDao requisicaoDao;
 
     @Override
     public CrudRepository<Curso, Long> getDAO() {
@@ -44,10 +49,11 @@ public class CursoServico extends ServicoCRUD<Curso> {
 
     @Override
     public Curso atualizar(Curso entidade) {
-        List <Disciplina> listarDisciplinas = this.listarDisciplinas(entidade.getId());
+        List<Disciplina> listarDisciplinas = this.listarDisciplinas(entidade.getId());
         entidade.setDisciplinas(listarDisciplinas);
         return super.atualizar(entidade);
     }
+
     public Curso atualizarDisciplina(Long id, Disciplina entidade) {
         Curso curso = super.recuperar(id);
         List<Disciplina> disciplinas = curso.getDisciplinas();
@@ -56,45 +62,57 @@ public class CursoServico extends ServicoCRUD<Curso> {
                 disciplina.setId(disciplina.getId());
                 disciplina.setNome(entidade.getNome());
                 disciplina.setCargaHoraria(entidade.getCargaHoraria());
-              
-            } 
+
+            }
         }
         return dao.save(curso);
-    
+
     }
 
     public List<Disciplina> listarDisciplinas(Long id) {
         Curso curso = super.recuperar(id);
         return curso.getDisciplinas();
     }
+
     public Disciplina listarDisciplinasPeloID(Long id, Long idDisciplina) {
         Curso curso = super.recuperar(id);
         List<Disciplina> disciplinas = curso.getDisciplinas();
         for (Disciplina disciplina : disciplinas) {
             if (disciplina.getId() == idDisciplina) {
-                
-        return disciplina;
+
+                return disciplina;
             }
         }
         return null;
- }
+    }
 
     public void deletarDisciplina(Long id, Long idDisciplina) {
         Curso curso = super.recuperar(id);
         List<Disciplina> disciplinas = (List<Disciplina>) disciplinaDao.findAll();
-        System.out.println(id);
-                for (Disciplina disciplina : disciplinas) {
+        List<Requisicao> requisicao = (List<Requisicao>) requisicaoDao.findAll();
+        Disciplina apaga = null;
+        for (Disciplina disciplina : disciplinas) {
             if (disciplina.getId() == idDisciplina) {
                 curso.getDisciplinas().remove(disciplina);
+            }
+            for (Requisicao requisicao1 : requisicao) {
+                if (requisicao1.getDisciplinaSolicitada() != null) {
+                    if (requisicao1.getDisciplinaSolicitada().getId() == idDisciplina) {
+                        requisicao1.setDisciplinaSolicitada(apaga);
+                    }
+
+                }
             }
         }
         dao.save(curso);
     }
-    public List<Disciplina> pesquisarDisciplinaNomeCurso(String nome){
+
+    public List<Disciplina> pesquisarDisciplinaNomeCurso(String nome) {
         List<Disciplina> cursoDisciplina = dao.findByNome(nome).getDisciplinas();
         return cursoDisciplina;
     }
-    public Curso listaCursoNome(String nome){
+
+    public Curso listaCursoNome(String nome) {
         return dao.findByNome(nome);
     }
 
