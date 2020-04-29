@@ -6,7 +6,6 @@ import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
-import br.edu.ifrs.restinga.requisicoes.modelo.exception.NaoEncontradoException;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.CursoRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import java.util.List;
