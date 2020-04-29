@@ -89,18 +89,9 @@ public class CursoServico extends ServicoCRUD<Curso> {
         Curso curso = super.recuperar(id);
         List<Disciplina> disciplinas = (List<Disciplina>) disciplinaDao.findAll();
         List<Requisicao> requisicao = (List<Requisicao>) requisicaoDao.findAll();
-        Disciplina apaga = null;
         for (Disciplina disciplina : disciplinas) {
             if (disciplina.getId() == idDisciplina) {
                 curso.getDisciplinas().remove(disciplina);
-            }
-            for (Requisicao requisicao1 : requisicao) {
-                if (requisicao1.getDisciplinaSolicitada() != null) {
-                    if (requisicao1.getDisciplinaSolicitada().getId() == idDisciplina) {
-                        requisicao1.setDisciplinaSolicitada(apaga);
-                    }
-
-                }
             }
         }
         dao.save(curso);
