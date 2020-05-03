@@ -14,26 +14,25 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "usuarios")
-public class Usuario  implements Serializable, UserDetails, Entidade{
-    
+public class Usuario implements Serializable, UserDetails, Entidade {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String userName;
-    
-    private String password; 
-        
-    private String permissao; 
-  
-    
+
+    private String password;
+
+    private String permissao;
+
+    private String email;
+
     @OneToOne
     private Perfil perfil;
 
@@ -42,8 +41,6 @@ public class Usuario  implements Serializable, UserDetails, Entidade{
         this.userName = user;
     }
 
-
-    
     @Override
     public String getPassword() {
         return this.password;
@@ -58,6 +55,7 @@ public class Usuario  implements Serializable, UserDetails, Entidade{
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -75,6 +73,6 @@ public class Usuario  implements Serializable, UserDetails, Entidade{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return  null;
+        return null;
     }
 }

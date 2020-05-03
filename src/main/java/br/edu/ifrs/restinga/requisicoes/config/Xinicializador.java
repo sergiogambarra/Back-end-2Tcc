@@ -2,6 +2,7 @@ package br.edu.ifrs.restinga.requisicoes.config;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.PerfilDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Perfil;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilServidor;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import javax.annotation.PostConstruct;
@@ -29,6 +30,7 @@ public class Xinicializador {
             usuario.setUserName("ROOT");
             usuario.setPassword(encode.encode("123"));
             usuario.setPermissao("SERVIDOR");
+            usuario.setEmail("root@gmail");
             PerfilServidor perfilServidor = new PerfilServidor(1, "Administrador","ADMIN");
             perfilDao.save(perfilServidor);
             usuario.setPerfil(perfilServidor);

@@ -69,6 +69,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         rn.validar(u);
         String NomeCase = u.getPerfil().getNome().toUpperCase();
         u.getPerfil().setNome(NomeCase);
+        u.setEmail(u.getEmail());
         u.setUserName(u.getUsername());
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         perfilServico.salvarPerfil(u);
@@ -117,19 +118,19 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
     @Override
     public Usuario atualizar(Usuario entidade) {
         Usuario usuarioAntigo = recuperar(entidade.getId());
+        usuarioAntigo.setEmail(entidade.getEmail());
 
         if (entidade.getPerfil() instanceof PerfilAluno) {
             PerfilAluno aluno = (PerfilAluno) entidade.getPerfil();
             PerfilAluno perfilAlunoAntigo = (PerfilAluno) usuarioAntigo.getPerfil();
             perfilAlunoAntigo.setNome(aluno.getNome());
-            perfilAlunoAntigo.setEmail(aluno.getEmail());
             perfilAlunoAntigo.setMatricula(aluno.getMatricula());
             perfilAlunoAntigo.setDataIngresso(aluno.getDataIngresso());
         } else if (entidade.getPerfil() instanceof PerfilProfessor) {
             PerfilProfessor professor = (PerfilProfessor) entidade.getPerfil();
             PerfilProfessor perfilProfessor = (PerfilProfessor) usuarioAntigo.getPerfil();
             perfilProfessor.setNome(professor.getNome());
-            perfilProfessor.setCordenador(professor.isCordenador());
+            perfilProfessor.setCoordenador(professor.isCoordenador());
             perfilProfessor.setSiape(professor.getSiape());
         } else if (entidade.getPerfil() instanceof PerfilServidor) {
             PerfilServidor servidor = (PerfilServidor) entidade.getPerfil();

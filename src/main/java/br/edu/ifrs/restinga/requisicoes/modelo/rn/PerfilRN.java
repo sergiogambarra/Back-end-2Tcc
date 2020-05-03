@@ -22,7 +22,6 @@ public class PerfilRN implements RegraNenocio<Perfil>{
     
     private void validaAluno(PerfilAluno a){
         validaCampo(a.getNome(),"Nome");
-        validaCampo(a.getEmail(), "Email");
         validaInteiro(a.getMatricula(), "Matricula");
         validaData(a.getDataIngresso(), "DataIngresso");
         validaCampo(a.getTipo(), "Tipo");
