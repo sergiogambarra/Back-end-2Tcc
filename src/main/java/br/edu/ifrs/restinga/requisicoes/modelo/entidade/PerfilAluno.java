@@ -33,6 +33,6 @@ public class PerfilAluno extends Perfil  {
     @Temporal(TemporalType.DATE)
     private Date dataIngresso;
     
-    private String email;        
+       
     
 }

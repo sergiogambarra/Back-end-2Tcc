@@ -26,6 +26,6 @@ public class PerfilProfessor extends Perfil  {
     @JsonProperty("tipo")
     private final String tipo = "PROFESSOR";
     private int siape; 
-    private boolean cordenador;
+    private boolean coordenador;
    
 }
