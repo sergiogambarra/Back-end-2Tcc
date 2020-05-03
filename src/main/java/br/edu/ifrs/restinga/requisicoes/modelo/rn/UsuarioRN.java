@@ -20,6 +20,7 @@ public class UsuarioRN implements RegraNenocio<Usuario> {
         validaCampo(u.getUsername(), "Login");
         validaCampo(u.getPassword(), "Senha");
         validaCampo(u.getPermissao(), "Permissão");
+        validaCampo(u.getEmail(), "E-mail");
         validaPerfil(u);
     }
     
