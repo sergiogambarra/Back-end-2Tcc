@@ -19,12 +19,10 @@ public class RequisicaoAproveitamento extends Requisicao{
     @JsonProperty("tipo")
     private final String tipo ="aproveitamento";
     private  String disciplinasCursadasAnterior;
-    private  String analiseProfessor;
 
-    public RequisicaoAproveitamento(String disciplinasCursadasAnterior, String analiseProfessor, String parecer, String deferido) {
-        super(parecer, deferido);
+    public RequisicaoAproveitamento(String disciplinasCursadasAnterior, String analiseProfessor, String parecerServidor, String parecerProfessor, String parecerCordenador, String deferido) {
+        super(parecerServidor, parecerProfessor, parecerCordenador, deferido);
         this.disciplinasCursadasAnterior = disciplinasCursadasAnterior;
-        this.analiseProfessor = analiseProfessor;
     }
     
     

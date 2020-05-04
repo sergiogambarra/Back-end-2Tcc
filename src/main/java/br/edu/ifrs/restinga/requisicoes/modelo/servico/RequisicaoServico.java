@@ -83,13 +83,13 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         if(entidade instanceof RequisicaoCertificacao){
             RequisicaoCertificacao certAntiga = daoCertificacaoDao.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
-            certAntiga.setParecer(entidade.getParecer());
+//            certAntiga.setParecer(entidade.getParecer());
             certAntiga.setProfessor(entidade.getProfessor());
             return super.atualizar(certAntiga); 
         }else if (entidade instanceof RequisicaoAproveitamento){
             RequisicaoAproveitamento certAntiga = daoAproveitamento.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
-            certAntiga.setParecer(entidade.getParecer());
+//            certAntiga.setParecer(entidade.getParecer());
             certAntiga.setProfessor(entidade.getProfessor());
             return super.atualizar(certAntiga); 
         }
