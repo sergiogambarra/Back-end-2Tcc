@@ -68,7 +68,9 @@ public abstract class Requisicao implements Serializable, Entidade {
     @Temporal(TemporalType.DATE)
     private Date dataRequisicao;
      
-    private String parecer;
+    private String parecerServidor;
+    private String parecerProfessor;
+    private String parecerCordenador;
     private String deferido ;
             
     @ManyToOne
@@ -84,8 +86,10 @@ public abstract class Requisicao implements Serializable, Entidade {
     @ManyToOne
         private Usuario professor;
 
-    public Requisicao(String parecer, String deferido) {
-        this.parecer = parecer;
+    public Requisicao(String parecerServidor, String parecerProfessor, String parecerCordenador, String deferido) {
+        this.parecerServidor = parecerServidor;
+        this.parecerProfessor = parecerProfessor;
+        this.parecerCordenador = parecerCordenador;
         this.deferido = deferido;
     }
 }
