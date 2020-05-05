@@ -1,10 +1,12 @@
 package br.edu.ifrs.restinga.requisicoes.controle;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.UsuarioServico;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -27,6 +29,9 @@ public class UsuarioControle extends CRUDControle<Usuario> {
 
     @Autowired
     private UsuarioServico servico;
+    
+    @Autowired
+    private UsuarioDao dao;
 
     @Override
     public ServicoCRUD<Usuario> getService() {
@@ -41,6 +46,11 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     @PostMapping("servidor/")
     public ResponseEntity<Usuario> cadastroServidor(@RequestBody Usuario u){
         return new ResponseEntity(servico.cadastrar(u),HttpStatus.CREATED);
+    }
+    
+    @GetMapping("paginacao")
+    public ResponseEntity<Usuario> paginacao(Pageable p){
+        return new ResponseEntity(servico.listarPaginacao(p), HttpStatus.OK);
     }
     
     @GetMapping("pesquisa/{userName}")

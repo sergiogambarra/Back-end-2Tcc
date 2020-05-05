@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.PerfilDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Perfil;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilAluno;
@@ -22,7 +23,7 @@ public class PerfilServico extends ServicoCRUD<Perfil>{
     private PerfilRN rn;
         
     @Override
-    public CrudRepository<Perfil, Long> getDAO() {
+    public PaginacaoRepository<Perfil, Long> getDAO() {
         return dao;
     }
 

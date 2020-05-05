@@ -2,6 +2,7 @@ package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.CursoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.DisciplinaDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
@@ -10,7 +11,8 @@ import br.edu.ifrs.restinga.requisicoes.modelo.rn.CursoRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,7 +32,7 @@ public class CursoServico extends ServicoCRUD<Curso> {
     private RequisicaoDao requisicaoDao;
 
     @Override
-    public CrudRepository<Curso, Long> getDAO() {
+    public PaginacaoRepository<Curso, Long> getDAO() {
         return dao;
     }
 
@@ -68,7 +70,7 @@ public class CursoServico extends ServicoCRUD<Curso> {
 
     }
 
-    public List<Disciplina> listarDisciplinas(Long id) {
+     public List<Disciplina> listarDisciplinas(Long id) {
         Curso curso = super.recuperar(id);
         return curso.getDisciplinas();
     }
@@ -106,4 +108,11 @@ public class CursoServico extends ServicoCRUD<Curso> {
         return dao.findByNome(nome);
     }
 
+    
+    public Page<Disciplina> listarPaginacao(Long id,Pageable p) {
+        return dao.findAll(id,p);
+    }
+    
+    
+    
 }

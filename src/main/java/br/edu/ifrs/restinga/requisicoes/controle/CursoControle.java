@@ -7,6 +7,8 @@ import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import io.swagger.annotations.Api;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,6 +39,12 @@ public class CursoControle extends CRUDControle<Curso> {
     public ResponseEntity<List<Disciplina>> listarDSisciplinas(@PathVariable Long id) {
         return ResponseEntity.ok(servico.listarDisciplinas(id));
     }
+    
+    @GetMapping("{id}/disciplinas/paginacao")
+    public ResponseEntity<Page<Disciplina>> listarDSisciplinas(@PathVariable Long id,Pageable p) {
+        return ResponseEntity.ok(servico.listarPaginacao(id, p));
+    }
+    
     @GetMapping("{id}/disciplinas/{idDisciplina}")
     public ResponseEntity<List<Disciplina>> listarDSisciplinasPeloId(@PathVariable Long id,@PathVariable Long idDisciplina) {
         return new ResponseEntity(servico.listarDisciplinasPeloID(id, idDisciplina),HttpStatus.OK);

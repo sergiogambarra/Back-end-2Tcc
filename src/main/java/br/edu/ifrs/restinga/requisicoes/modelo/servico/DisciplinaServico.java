@@ -1,11 +1,11 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.DisciplinaDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.DisciplinaRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 
@@ -18,7 +18,7 @@ public class DisciplinaServico extends ServicoCRUD<Disciplina>{
     private DisciplinaRN rn;
     
     @Override
-    public CrudRepository<Disciplina, Long> getDAO() {
+    public PaginacaoRepository<Disciplina, Long> getDAO() {
         return  dao;
     }
 
@@ -26,6 +26,4 @@ public class DisciplinaServico extends ServicoCRUD<Disciplina>{
     public RegraNenocio<Disciplina> rn() {
         return rn;
     } 
-    
-    
 }

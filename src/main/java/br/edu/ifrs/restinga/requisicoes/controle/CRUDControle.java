@@ -2,6 +2,7 @@ package br.edu.ifrs.restinga.requisicoes.controle;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Entidade;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,5 +44,10 @@ public abstract class CRUDControle<T extends Entidade> {
     @GetMapping("{id}")
     public ResponseEntity<T> recuperar(@PathVariable Long id) {
          return ResponseEntity.ok(getService().recuperar(id));
+    }
+    
+    @GetMapping("paginacao")
+    public ResponseEntity<T> paginacao(Pageable p){
+        return new ResponseEntity(getService().listarPaginacao(p), HttpStatus.OK);
     }
 }

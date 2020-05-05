@@ -5,6 +5,7 @@
  */
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoAproveitamentoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoCertificacaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoDao;
@@ -41,7 +42,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
     
 
     @Override
-    public CrudRepository<Requisicao, Long> getDAO() {
+    public PaginacaoRepository<Requisicao, Long> getDAO() {
         return requisicaoDao;
     }
 
