@@ -1,11 +1,11 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.AnexoDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Anexo;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.AnexoRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 
@@ -18,7 +18,7 @@ public class AnexoServico extends ServicoCRUD<Anexo>{
     private AnexoRN rn;
 
     @Override
-    public CrudRepository<Anexo, Long> getDAO() {
+        public PaginacaoRepository<Anexo, Long> getDAO() {
         return  dao;
     }
 

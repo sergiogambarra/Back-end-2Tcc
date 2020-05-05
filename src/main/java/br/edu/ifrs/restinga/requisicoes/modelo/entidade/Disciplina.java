@@ -21,6 +21,6 @@ public class Disciplina implements Entidade{
     private Long id;
     private String nome;
     private int cargaHoraria;
-
+    
     
 }

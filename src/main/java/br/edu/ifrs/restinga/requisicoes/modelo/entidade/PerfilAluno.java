@@ -29,7 +29,6 @@ public class PerfilAluno extends Perfil  {
     private final String tipo = "ALUNO";
     
     private int matricula; 
-//    @JsonFormat(pattern = "dd/MM/YYYY/")
     @Temporal(TemporalType.DATE)
     private Date dataIngresso;
     

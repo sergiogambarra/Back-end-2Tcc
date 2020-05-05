@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.UsuarioDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilAluno;
@@ -10,8 +11,12 @@ import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.UsuarioRN;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.OrderBy;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +44,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
     private UsuarioRN rn;
 
     @Override
-    public CrudRepository<Usuario, Long> getDAO() {
+    public PaginacaoRepository<Usuario, Long> getDAO() {
         return dao;
     }
 
@@ -104,6 +109,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         return professores;
     }
 
+//    @OrderBy(value ="ser")
     public List<Usuario> listarServidor() {
         Iterable<Usuario> usuarios = dao.findAll();
         ArrayList<Usuario> servidores = new ArrayList<>();
@@ -147,4 +153,6 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         usuarioAntigo.setPassword(passwordEncoder.encode(u.getPassword()));
         return dao.save(usuarioAntigo);
     }
+    
+
 }
