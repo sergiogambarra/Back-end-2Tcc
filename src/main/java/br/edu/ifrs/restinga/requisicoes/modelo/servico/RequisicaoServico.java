@@ -27,19 +27,18 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
 
     @Autowired
     RequisicaoDao requisicaoDao;
-    
+
     @Autowired
     RequisicaoAproveitamentoDao daoAproveitamento;
-    
+
     @Autowired
     RequisicaoCertificacaoDao daoCertificacaoDao;
 
     @Autowired
     RequisicaoRN requisicaoRN;
-    
+
     @Autowired
     UsuarioServico servicoUsuario;
-    
 
     @Override
     public PaginacaoRepository<Requisicao, Long> getDAO() {
@@ -59,11 +58,11 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return requisicaoDao.save(entidade);
     }
 
-    public Iterable<RequisicaoAproveitamento> listarAproveitamento(){
+    public Iterable<RequisicaoAproveitamento> listarAproveitamento() {
         return daoAproveitamento.findAll();
     }
-    
-    public Iterable<RequisicaoCertificacao> listarCertificacao(){
+
+    public Iterable<RequisicaoCertificacao> listarCertificacao() {
         return daoCertificacaoDao.findAll();
     }
 
@@ -72,7 +71,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         Iterable<Requisicao> requisicoes = requisicaoDao.findAll();
         ArrayList<Requisicao> retorno = new ArrayList<>();
         requisicoes.forEach((t) -> {
-            if(t.getUsuario() != null && user.getId() == t.getUsuario().getId()){
+            if (t.getUsuario() != null && user.getId() == t.getUsuario().getId()) {
                 retorno.add(t);
             }
         });
@@ -81,23 +80,30 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
 
     @Override
     public Requisicao atualizar(Requisicao entidade) {
-        if(entidade instanceof RequisicaoCertificacao){
+        if (entidade instanceof RequisicaoCertificacao) {
             RequisicaoCertificacao certAntiga = daoCertificacaoDao.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
-//            certAntiga.setParecer(entidade.getParecer());
+            certAntiga.setParecerCoordenador(entidade.getParecerCoordenador());
+            certAntiga.setParecerProfessor(entidade.getParecerProfessor());
+            certAntiga.setParecerServidor(entidade.getParecerServidor());
             certAntiga.setProfessor(entidade.getProfessor());
-            return super.atualizar(certAntiga); 
-        }else if (entidade instanceof RequisicaoAproveitamento){
+            return super.atualizar(certAntiga);
+        } else if (entidade instanceof RequisicaoAproveitamento) {
             RequisicaoAproveitamento certAntiga = daoAproveitamento.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
-//            certAntiga.setParecer(entidade.getParecer());
+            certAntiga.setParecerCoordenador(entidade.getParecerCoordenador());
+            certAntiga.setParecerProfessor(entidade.getParecerProfessor());
+            certAntiga.setParecerServidor(entidade.getParecerServidor());
             certAntiga.setProfessor(entidade.getProfessor());
-            return super.atualizar(certAntiga); 
+            return super.atualizar(certAntiga);
         }
         return null;
-    }   
-    public List<Requisicao> listarPorProfessor(Long id, String tipo){
-        if(tipo.equals("aproveitamento"))return requisicaoDao.listarRequisicaoAproveitamento(id);
+    }
+
+    public List<Requisicao> listarPorProfessor(Long id, String tipo) {
+        if (tipo.equals("aproveitamento")) {
+            return requisicaoDao.listarRequisicaoAproveitamento(id);
+        }
         return requisicaoDao.listarRequisicaoCertificacao(id);
     }
 }
