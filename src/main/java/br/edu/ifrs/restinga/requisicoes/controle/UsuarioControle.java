@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -47,12 +48,7 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     public ResponseEntity<Usuario> cadastroServidor(@RequestBody Usuario u){
         return new ResponseEntity(servico.cadastrar(u),HttpStatus.CREATED);
     }
-    
-    @GetMapping("paginacao")
-    public ResponseEntity<Usuario> paginacao(Pageable p){
-        return new ResponseEntity(servico.listarPaginacao(p), HttpStatus.OK);
-    }
-    
+
     @GetMapping("pesquisa/{userName}")
     public ResponseEntity<Usuario> pesquisaLogin(@PathVariable ("userName") String userName){
         return  new ResponseEntity(servico.pesquisaLogin(userName), HttpStatus.OK);
@@ -82,4 +78,11 @@ public class UsuarioControle extends CRUDControle<Usuario> {
         u.setId(id);
         return new ResponseEntity(servico.atualizarSenha(u),HttpStatus.OK);
     }
+    
+    @GetMapping("pages")
+    public ResponseEntity<Usuario> listarUsuariosPaginacao(Pageable p, @RequestParam String tipo){
+        return new ResponseEntity(servico.listarPaginacao(p, tipo),HttpStatus.OK);
+    }
+    
+    
 }

@@ -70,7 +70,7 @@ public abstract class Requisicao implements Serializable, Entidade {
      
     private String parecerServidor;
     private String parecerProfessor;
-    private String parecerCordenador;
+    private String parecerCoordenador;
     private String deferido ;
             
     @ManyToOne
@@ -89,7 +89,7 @@ public abstract class Requisicao implements Serializable, Entidade {
     public Requisicao(String parecerServidor, String parecerProfessor, String parecerCordenador, String deferido) {
         this.parecerServidor = parecerServidor;
         this.parecerProfessor = parecerProfessor;
-        this.parecerCordenador = parecerCordenador;
+        this.parecerCoordenador = parecerCordenador;
         this.deferido = deferido;
     }
 }

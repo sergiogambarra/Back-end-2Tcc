@@ -11,13 +11,10 @@ import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.UsuarioRN;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.OrderBy;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -109,7 +106,6 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         return professores;
     }
 
-//    @OrderBy(value ="ser")
     public List<Usuario> listarServidor() {
         Iterable<Usuario> usuarios = dao.findAll();
         ArrayList<Usuario> servidores = new ArrayList<>();
@@ -153,6 +149,11 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         usuarioAntigo.setPassword(passwordEncoder.encode(u.getPassword()));
         return dao.save(usuarioAntigo);
     }
-    
 
-}
+    
+    public Page<Usuario> listarPaginacao(Pageable p, String tipo) {
+        return dao.listarAlunos(tipo,p);
+    }
+    
+    
+ }
