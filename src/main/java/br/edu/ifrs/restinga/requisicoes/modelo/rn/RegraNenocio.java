@@ -13,6 +13,10 @@ import java.util.List;
 public interface RegraNenocio<T> {
         public void validar(T entidade);
         
+        default void validaTamanhoLogin(String campo, String nomeCampo){
+            if (campo.length() < 6 || campo.length() > 10 ) throw new MensagemErroGenericaException("Campo "+nomeCampo+ " ter que ter entre 6 e 10 caracteres");
+        }
+        
         default void validaCampo(String campo,String nomeCampo){
             if (isNull(campo))   throw new CampoNullException(nomeCampo);
             if (campo.isEmpty()) throw new CampoVazioException(nomeCampo);
