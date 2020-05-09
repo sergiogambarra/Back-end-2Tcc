@@ -125,19 +125,19 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         if (entidade.getPerfil() instanceof PerfilAluno) {
             PerfilAluno aluno = (PerfilAluno) entidade.getPerfil();
             PerfilAluno perfilAlunoAntigo = (PerfilAluno) usuarioAntigo.getPerfil();
-            perfilAlunoAntigo.setNome(aluno.getNome());
+            perfilAlunoAntigo.setNome(aluno.getNome().toUpperCase());
             perfilAlunoAntigo.setMatricula(aluno.getMatricula());
             perfilAlunoAntigo.setDataIngresso(aluno.getDataIngresso());
         } else if (entidade.getPerfil() instanceof PerfilProfessor) {
             PerfilProfessor professor = (PerfilProfessor) entidade.getPerfil();
             PerfilProfessor perfilProfessor = (PerfilProfessor) usuarioAntigo.getPerfil();
-            perfilProfessor.setNome(professor.getNome());
+            perfilProfessor.setNome(professor.getNome().toUpperCase());
             perfilProfessor.setCoordenador(professor.isCoordenador());
             perfilProfessor.setSiape(professor.getSiape());
         } else if (entidade.getPerfil() instanceof PerfilServidor) {
             PerfilServidor servidor = (PerfilServidor) entidade.getPerfil();
             PerfilServidor perfilServidor = (PerfilServidor) usuarioAntigo.getPerfil();
-            perfilServidor.setNome(servidor.getNome());
+            perfilServidor.setNome(servidor.getNome().toUpperCase());
             perfilServidor.setSiape(servidor.getSiape());
         }
         perfilServico.salvarPerfil(usuarioAntigo);
@@ -152,7 +152,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
 
     
     public Page<Usuario> listarPaginacao(Pageable p, String tipo) {
-        return dao.listarAlunos(tipo,p);
+        return dao.listarUsuarios(tipo,p);
     }
     
     

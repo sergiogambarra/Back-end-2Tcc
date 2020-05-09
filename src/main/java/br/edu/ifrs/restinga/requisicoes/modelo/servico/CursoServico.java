@@ -112,6 +112,10 @@ public class CursoServico extends ServicoCRUD<Curso> {
     public Page<Disciplina> listarPaginacao(Long id,Pageable p) {
         return dao.findAll(id,p);
     }
-    
+
+    @Override
+    public Iterable<Curso> listar() {
+        return dao.findAllCurso();
+    }
     
 }

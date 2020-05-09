@@ -10,7 +10,6 @@ import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.PerfilRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,14 +35,17 @@ public class PerfilServico extends ServicoCRUD<Perfil>{
         switch (u.getPermissao()) {
             case "SERVIDOR":
                 PerfilServidor servidor = (PerfilServidor) u.getPerfil();
+                servidor.getNome().toUpperCase();
                 rn.validar(servidor);
                 return dao.save(servidor);
             case "PROFESSOR":
                 PerfilProfessor professor = (PerfilProfessor) u.getPerfil();
+                professor.getNome().toUpperCase();
                 rn.validar(professor);
                 return dao.save(professor);
             case "ALUNO":
                 PerfilAluno aluno = (PerfilAluno) u.getPerfil();
+                aluno.getNome().toUpperCase();
                 rn.validar(aluno);
                 return dao.save(aluno);
                 default:
