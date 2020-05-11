@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -86,8 +85,8 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
             certAntiga.setParecerCoordenador(entidade.getParecerCoordenador());
             certAntiga.setParecerProfessor(entidade.getParecerProfessor());
             certAntiga.setParecerServidor(entidade.getParecerServidor());
-             if (entidade.getProfessor() != null) {
-            certAntiga.setProfessor(entidade.getProfessor());
+            if (entidade.getProfessor() != null) {
+                certAntiga.setProfessor(entidade.getProfessor());
             }
             return super.atualizar(certAntiga);
         } else if (entidade instanceof RequisicaoAproveitamento) {
@@ -97,7 +96,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
             certAntiga.setParecerProfessor(entidade.getParecerProfessor());
             certAntiga.setParecerServidor(entidade.getParecerServidor());
             if (entidade.getProfessor() != null) {
-            certAntiga.setProfessor(entidade.getProfessor());
+                certAntiga.setProfessor(entidade.getProfessor());
             }
             return super.atualizar(certAntiga);
         }
@@ -110,4 +109,13 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         }
         return requisicaoDao.listarRequisicaoCertificacao(id);
     }
+
+    public List<Requisicao> listarData(Date d) {
+        return requisicaoDao.findByDataRequisicaoAfter(d);
+    }
+    
+        public List<Requisicao> listarRequisicaoAluno(Long id) {
+        return requisicaoDao.listarRequisicoesAlunos(id);
+    }
+
 }
