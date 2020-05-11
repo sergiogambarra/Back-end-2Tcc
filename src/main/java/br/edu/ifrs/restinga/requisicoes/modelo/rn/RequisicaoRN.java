@@ -38,7 +38,7 @@ public class RequisicaoRN implements RegraNenocio<Requisicao> {
     private void validaAnexos(List<Anexo> anexos) {
         anexos.forEach((anexo) -> {
             if (!extensoesValidas.contains(anexo.getTipo())) {
-                throw new MensagemErroGenericaException("Extensão não suportada !");
+                throw new MensagemErroGenericaException("arquivo não suportado !");
             }
         });
     }

@@ -38,4 +38,8 @@ public interface RegraNenocio<T> {
             LocalDateTime localDateTime = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             if(!LocalDateTime.now().isAfter(localDateTime)) throw new MensagemErroGenericaException("Data ingresso inválida verifique !");
         }
+        default public void validaEmail(String email){
+            if (email.indexOf("@") < 1) throw new MensagemErroGenericaException("Não inseriu email valido");
+                     
+        }
 }
