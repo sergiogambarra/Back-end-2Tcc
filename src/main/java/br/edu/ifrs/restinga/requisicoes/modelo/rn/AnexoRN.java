@@ -5,10 +5,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AnexoRN implements RegraNenocio<Anexo>{
-
+    
+  
+    
     @Override
     public void validar(Anexo entidade) {
-        
+     
     }
     
 }
