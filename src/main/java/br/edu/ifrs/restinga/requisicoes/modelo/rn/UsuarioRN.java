@@ -17,6 +17,7 @@ public class UsuarioRN implements RegraNenocio<Usuario> {
     
     @Override
     public void validar(Usuario u) {
+        validaEmail(u.getEmail());
         validaCampo(u.getUsername(), "Login");
         validaCampo(u.getPassword(), "Senha");
         validaCampo(u.getPermissao(), "Permissão");
@@ -40,6 +41,7 @@ public class UsuarioRN implements RegraNenocio<Usuario> {
     }
    
     private void validaPerfil(Usuario u){
+        validaEmail(u.getEmail());
         if(isNull(u.getPerfil())) throw new ObjetoNullException("Perfil");
     }
 

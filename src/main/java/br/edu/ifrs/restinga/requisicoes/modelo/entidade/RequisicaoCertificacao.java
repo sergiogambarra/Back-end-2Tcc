@@ -20,6 +20,6 @@ public class RequisicaoCertificacao extends Requisicao implements Serializable,E
     @JsonProperty("tipo")
     private final String tipo ="certificacao";
     private String formacaoAtividadeAnterior;
-    private String criterioAvaliacao;
+    private String prova;
     
 }

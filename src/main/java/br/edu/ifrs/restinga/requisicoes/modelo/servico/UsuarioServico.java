@@ -119,6 +119,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
 
     @Override
     public Usuario atualizar(Usuario entidade) {
+        rn.validaEmail(entidade.getEmail());
         Usuario usuarioAntigo = recuperar(entidade.getId());
         usuarioAntigo.setEmail(entidade.getEmail());
 
