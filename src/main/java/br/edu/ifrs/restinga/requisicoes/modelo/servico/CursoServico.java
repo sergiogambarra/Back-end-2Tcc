@@ -8,6 +8,7 @@ import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.CursoRN;
+import br.edu.ifrs.restinga.requisicoes.modelo.rn.DisciplinaRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class CursoServico extends ServicoCRUD<Curso> {
     private CursoDao dao;
     @Autowired
     private CursoRN rn;
+    @Autowired
+    private DisciplinaRN rnDisciplina;
     @Autowired
     private DisciplinaServico disciplinaServico;
 
@@ -42,6 +45,7 @@ public class CursoServico extends ServicoCRUD<Curso> {
     }
 
     public List<Disciplina> cadastrarDisciplinaNoCurso(Long id, Disciplina d) {
+        rnDisciplina.validar(d);
         Curso curso = super.recuperar(id);
         curso.getDisciplinas().add(d);
         Curso cursoRetorno = dao.save(curso);
@@ -56,6 +60,7 @@ public class CursoServico extends ServicoCRUD<Curso> {
     }
 
     public Curso atualizarDisciplina(Long id, Disciplina entidade) {
+        rnDisciplina.validar(entidade);
         Curso curso = super.recuperar(id);
         List<Disciplina> disciplinas = curso.getDisciplinas();
         for (Disciplina disciplina : disciplinas) {
@@ -114,7 +119,7 @@ public class CursoServico extends ServicoCRUD<Curso> {
     }
 
     @Override
-    public Iterable<Curso> listar() {
+    public List<Curso> listar() {
         return dao.findAllCurso();
     }
     
