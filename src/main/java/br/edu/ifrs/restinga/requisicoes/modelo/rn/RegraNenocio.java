@@ -20,6 +20,7 @@ public interface RegraNenocio<T> {
         default void validaCampo(String campo,String nomeCampo){
             if (isNull(campo))   throw new CampoNullException(nomeCampo);
             if (campo.isEmpty()) throw new CampoVazioException(nomeCampo);
+            if (campo.trim() == "") throw new CampoVazioException(nomeCampo);
         }
 
         default  void validaInteiro(Integer campo, String nomeCampo ){

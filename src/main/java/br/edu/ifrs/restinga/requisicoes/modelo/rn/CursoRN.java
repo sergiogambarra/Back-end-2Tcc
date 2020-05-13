@@ -8,7 +8,8 @@ public class CursoRN implements RegraNenocio<Curso>{
 
     @Override
     public void validar(Curso entidade) {
-        validaCampo(entidade.getNome(), "Nome");
+        String nome = entidade.getNome().trim();
+        validaCampo(nome, "Nome");
               
         
     }
