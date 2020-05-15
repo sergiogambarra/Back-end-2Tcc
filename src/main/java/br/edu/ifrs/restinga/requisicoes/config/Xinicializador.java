@@ -24,7 +24,7 @@ public class Xinicializador {
     
     @PostConstruct
     public void init() {
-        Usuario user = usuarioDAO.findByUserName("ROOt");
+        Usuario user = usuarioDAO.findByUserName("ROOT");
         if (user == null) {
             Usuario usuario = new Usuario();
             usuario.setUserName("ROOT");
