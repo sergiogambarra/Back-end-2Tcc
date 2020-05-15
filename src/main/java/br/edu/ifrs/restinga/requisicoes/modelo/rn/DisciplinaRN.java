@@ -14,8 +14,8 @@ public class DisciplinaRN implements RegraNenocio<Disciplina>{
         if (entidade.getCargaHoraria() < 15 ) {
         throw new MensagemErroGenericaException("Campo carga horária não pode ser inferior a 15 horas");
         }
-        if (entidade.getCargaHoraria() > 200 ) {
-        throw new MensagemErroGenericaException("Campo carga horária não pode ser superior a 200 horas");
+        if (entidade.getCargaHoraria() > 300 ) {
+        throw new MensagemErroGenericaException("Campo carga horária não pode ser superior a 300 horas");
         }
         if (nome.length() > 45) {
             throw new MensagemErroGenericaException("Limite máximo de 45 caracteres para cadastro");
