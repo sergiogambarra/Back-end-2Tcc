@@ -14,12 +14,14 @@ public class TokenDto {
     private String token;
     private String login;
     private String permissao; 
+    private Boolean alterouSenha;
 
     public TokenDto(String token, Usuario u) {
         this.tipo = "Bearer";
         this.token = token;
         this.login = u.getUsername();
         this.permissao = u.getPermissao();
+        this.alterouSenha = u.getAlterouSenha();
     }
 
 }

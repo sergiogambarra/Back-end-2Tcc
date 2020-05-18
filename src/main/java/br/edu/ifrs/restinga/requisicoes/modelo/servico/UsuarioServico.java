@@ -121,6 +121,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
     public Usuario atualizar(Usuario entidade) {
         rn.validaEmail(entidade.getEmail());
         Usuario usuarioAntigo = recuperar(entidade.getId());
+        usuarioAntigo.setAlterouSenha(false);
         usuarioAntigo.setEmail(entidade.getEmail());
 
         if (entidade.getPerfil() instanceof PerfilAluno) {
@@ -148,6 +149,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
     public Usuario atualizarSenha(Usuario u) {
         Usuario usuarioAntigo = recuperar(u.getId());
         usuarioAntigo.setPassword(passwordEncoder.encode(u.getPassword()));
+        usuarioAntigo.setAlterouSenha(false);
         return dao.save(usuarioAntigo);
     }
 

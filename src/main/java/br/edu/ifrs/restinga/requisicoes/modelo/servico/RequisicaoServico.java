@@ -58,11 +58,11 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
     }
 
     public Iterable<RequisicaoAproveitamento> listarAproveitamento() {
-        return daoAproveitamento.findAll();
+        return daoAproveitamento.findAllRequisicaoAproveitamentos();
     }
 
     public Iterable<RequisicaoCertificacao> listarCertificacao() {
-        return daoCertificacaoDao.findAll();
+        return daoCertificacaoDao.findAllRequisicaoCertificacao();
     }
 
     public List<Requisicao> listarCertificacaoSolicitante(Long id) {
