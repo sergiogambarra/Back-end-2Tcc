@@ -32,15 +32,17 @@ public class Usuario implements Serializable, UserDetails, Entidade {
     private String permissao;
 
     private String email;
+    
+    private Boolean alterouSenha = false;
 
     @OneToOne
     private Perfil perfil;
-
+    
     public Usuario(Long id, String user) {
         this.id = id;
         this.userName = user;
     }
-
+    
     @Override
     public String getPassword() {
         return this.password;
@@ -56,6 +58,8 @@ public class Usuario implements Serializable, UserDetails, Entidade {
         return true;
     }
 
+    
+    
     @Override
     public boolean isAccountNonLocked() {
         return true;

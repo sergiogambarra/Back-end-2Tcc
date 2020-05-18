@@ -28,9 +28,9 @@ public class Xinicializador {
         if (user == null) {
             Usuario usuario = new Usuario();
             usuario.setUserName("ROOT");
-            usuario.setPassword(encode.encode("123"));
+            usuario.setPassword(encode.encode("1"));
             usuario.setPermissao("SERVIDOR");
-            usuario.setEmail("root@gmail");
+            usuario.setEmail("jader.mmoura@gmail.com");
             PerfilServidor perfilServidor = new PerfilServidor(1, "Administrador","ADMIN");
             perfilDao.save(perfilServidor);
             usuario.setPerfil(perfilServidor);
