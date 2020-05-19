@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -57,12 +59,12 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return requisicaoDao.save(entidade);
     }
 
-    public Iterable<RequisicaoAproveitamento> listarAproveitamento() {
-        return daoAproveitamento.findAllRequisicaoAproveitamentos();
+    public Page<RequisicaoAproveitamento> listarAproveitamento(Pageable page) {
+        return daoAproveitamento.findAllRequisicaoAproveitamentos(page);
     }
 
-    public Iterable<RequisicaoCertificacao> listarCertificacao() {
-        return daoCertificacaoDao.findAllRequisicaoCertificacao();
+    public Page<RequisicaoCertificacao> listarCertificacao(Pageable page) {
+        return daoCertificacaoDao.findAllRequisicaoCertificacao(page);
     }
 
     public List<Requisicao> listarCertificacaoSolicitante(Long id) {
@@ -103,19 +105,19 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return null;
     }
 
-    public List<Requisicao> listarPorProfessor(Long id, String tipo) {
+    public Page<Requisicao> listarPorProfessor(Long id, String tipo,Pageable p) {
         if (tipo.equals("aproveitamento")) {
-            return requisicaoDao.listarRequisicaoAproveitamento(id);
+            return requisicaoDao.listarRequisicaoAproveitamento(id,p);
         }
-        return requisicaoDao.listarRequisicaoCertificacao(id);
+        return requisicaoDao.listarRequisicaoCertificacao(id,p);
     }
 
-    public List<Requisicao> listarData(Date d) {
-        return requisicaoDao.findByDataRequisicaoAfter(d);
+    public Page<Requisicao> listarData(Date d, Pageable p) {
+        return requisicaoDao.findByDataRequisicaoAfter(d,p);
     }
     
-        public List<Requisicao> listarRequisicaoAluno(Long id) {
-        return requisicaoDao.listarRequisicoesAlunos(id);
+        public Page<Requisicao> listarRequisicaoAluno(Long id, Pageable p) {
+        return requisicaoDao.listarRequisicoesAlunos(id, p);
     }
 
 }

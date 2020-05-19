@@ -8,8 +8,9 @@ import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import io.swagger.annotations.Api;
 import java.util.Date;
 import java.util.List;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,14 +34,14 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
         return requisicaoServico;
     }
 
-    @GetMapping("aproveitamentos/")
-    public ResponseEntity<Iterable<RequisicaoAproveitamento>> listarAproveitamento() {
-        return ResponseEntity.ok().body(requisicaoServico.listarAproveitamento());
+    @GetMapping("aproveitamentos")
+    public ResponseEntity<Page<RequisicaoAproveitamento>> listarAproveitamento(Pageable page) {
+        return ResponseEntity.ok().body(requisicaoServico.listarAproveitamento(page));
     }
 
-    @GetMapping("certificacoes/")
-    public ResponseEntity<Iterable<RequisicaoCertificacao>> listarCertificao() {
-        return ResponseEntity.ok().body(requisicaoServico.listarCertificacao());
+    @GetMapping("certificacoes")
+    public ResponseEntity<Page<RequisicaoCertificacao>> listarCertificao(Pageable page) {
+        return ResponseEntity.ok().body(requisicaoServico.listarCertificacao(page));
     }
 
     @GetMapping("solicitante/{id}")
@@ -49,17 +50,17 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
     }
 
     @GetMapping("professor/{id}")
-    public ResponseEntity<List<Requisicao>> listarRequisicoesProfessor(@PathVariable("id") Long id, @RequestParam(value = "tipo") String tipo) {
-        return ResponseEntity.ok().body(requisicaoServico.listarPorProfessor(id, tipo));
+    public ResponseEntity<Page<Requisicao>> listarRequisicoesProfessor(@PathVariable("id") Long id, @RequestParam(value = "tipo") String tipo, Pageable page) {
+        return ResponseEntity.ok().body(requisicaoServico.listarPorProfessor(id, tipo,page));
     }
 
     @GetMapping("data/{data}")
-    public ResponseEntity<List<Requisicao>> listarData(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date data ) {
-        return ResponseEntity.ok(requisicaoServico.listarData(data));
+    public ResponseEntity<Page<Requisicao>> listarData(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date data, Pageable page) {
+        return ResponseEntity.ok(requisicaoServico.listarData(data,page));
     }
     
     @GetMapping("alunos/{id}")
-    public ResponseEntity<List<Requisicao>> listarTodas(@PathVariable Long id) {
-        return ResponseEntity.ok(requisicaoServico.listarRequisicaoAluno(id));
+    public ResponseEntity<Page<Requisicao>> listarTodas(@PathVariable Long id, Pageable page) {
+        return ResponseEntity.ok(requisicaoServico.listarRequisicaoAluno(id,page));
     }
 }
