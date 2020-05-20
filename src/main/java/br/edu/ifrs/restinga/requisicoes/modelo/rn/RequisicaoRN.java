@@ -9,6 +9,7 @@ import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Anexo;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
+import br.edu.ifrs.restinga.requisicoes.modelo.exception.CampoVazioException;
 import br.edu.ifrs.restinga.requisicoes.modelo.exception.MensagemErroGenericaException;
 import java.util.Arrays;
 import java.util.List;
@@ -30,9 +31,15 @@ public class RequisicaoRN implements RegraNenocio<Requisicao> {
     }
 
     private void validaAproveitamento(RequisicaoAproveitamento req) {
+        if (req.getDisciplinasCursadasAnterior().length() > 45) {
+            throw new MensagemErroGenericaException("Limite máximo de 45 caracteres para cadastro de disciplinas cursadas anteriormente.");
+        }
     }
 
     private void validaCertificacao(RequisicaoCertificacao req) {
+        if (req.getFormacaoAtividadeAnterior(). length() > 45) {
+            throw new MensagemErroGenericaException("Limite máximo de 45 caracteres para cadastro de atividade exercida anteriormente.");
+        }
     }
 
     private void validaAnexos(List<Anexo> anexos) {
