@@ -12,4 +12,7 @@ public interface RequisicaoAproveitamentoDao extends PaginacaoRepository<Requisi
     
     @Query(value = "SELECT r FROM RequisicaoAproveitamento r ORDER BY r.id DESC")
     public Page<RequisicaoAproveitamento> findAllRequisicaoAproveitamentos(Pageable page);
+    
+    @Query("SELECT r FROM RequisicaoAproveitamento r join r.usuario u WHERE u.permissao='ALUNO' AND u.id=?1  ORDER BY r.id DESC")
+    public Page<RequisicaoAproveitamento> requisicaoAlunoAproveitamento(Long id, Pageable p);
 }

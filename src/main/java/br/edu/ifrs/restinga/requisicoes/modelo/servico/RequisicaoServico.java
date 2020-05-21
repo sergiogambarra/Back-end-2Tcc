@@ -90,7 +90,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
             if (entidade.getProfessor() != null) {
                 certAntiga.setProfessor(entidade.getProfessor());
             }
-            return super.atualizar(certAntiga);
+            return super.atualizar(certAntiga); 
         } else if (entidade instanceof RequisicaoAproveitamento) {
             RequisicaoAproveitamento certAntiga = daoAproveitamento.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
@@ -119,5 +119,11 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         public Page<Requisicao> listarRequisicaoAluno(Long id, Pageable p) {
         return requisicaoDao.listarRequisicoesAlunos(id, p);
     }
-
+        public Page<RequisicaoAproveitamento> listarRequisicaoAlunoAproveitamento(Long id, Pageable p) {
+        return daoAproveitamento.requisicaoAlunoAproveitamento(id, p);
+    }
+        public Page<RequisicaoCertificacao> listarRequisicaoAlunoCertificacao(Long id, Pageable p) {
+        return daoCertificacaoDao.requisicaoAlunoCertificacao(id, p);
+    }
+    
 }
