@@ -12,5 +12,8 @@ public interface RequisicaoCertificacaoDao extends PaginacaoRepository<Requisica
     
  @Query(value = "SELECT r FROM RequisicaoCertificacao r ORDER BY r.id DESC")
     public Page<RequisicaoCertificacao> findAllRequisicaoCertificacao(Pageable page);
-//    public Page<RequisicaoCertificacao> findAllRequisicaoCertificacao(Pageable p);
+    
+     @Query("SELECT r FROM RequisicaoCertificacao r join r.usuario u WHERE u.permissao='ALUNO' AND u.id=?1  ORDER BY r.id DESC")
+    public Page<RequisicaoCertificacao> requisicaoAlunoCertificacao(Long id, Pageable p);
+
 }
