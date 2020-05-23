@@ -25,7 +25,7 @@ public interface RequisicaoDao extends PaginacaoRepository<Requisicao, Long> {
     @Query("SELECT r FROM Requisicao r join r.usuario u WHERE u.permissao='ALUNO' AND u.id=?1  ORDER BY r.id DESC")
     public Page<Requisicao> listarRequisicoesAlunos(Long id, Pageable p);
 
-   public Page<Requisicao> findByDataRequisicaoAfter(Date data, Pageable p);
+   public Page<Requisicao> findByDataRequisicaoBetween(Date i, Date f, Pageable p);
 //   
 //   public List<Requisicao> findByDataRequisicaoBefore(Date data);
 //   
