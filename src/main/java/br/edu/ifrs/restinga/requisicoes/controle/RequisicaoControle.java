@@ -54,9 +54,9 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
         return ResponseEntity.ok().body(requisicaoServico.listarPorProfessor(id, tipo,page));
     }
 
-    @GetMapping("data/{data}")
-    public ResponseEntity<Page<Requisicao>> listarData(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date data, Pageable page) {
-        return ResponseEntity.ok(requisicaoServico.listarData(data,page));
+    @GetMapping("data/{dataInicial}/{dataFinal}/")
+    public ResponseEntity<Page<Requisicao>> listarData(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date dataInicial,@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date dataFinal ,Pageable page) {
+        return ResponseEntity.ok(requisicaoServico.listarData(dataInicial, dataFinal, page));
     }
     
     @GetMapping("alunos/{id}")

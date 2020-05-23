@@ -112,8 +112,10 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return requisicaoDao.listarRequisicaoCertificacao(id,p);
     }
 
-    public Page<Requisicao> listarData(Date d, Pageable p) {
-        return requisicaoDao.findByDataRequisicaoAfter(d,p);
+    public Page<Requisicao> listarData(Date i, Date f, Pageable p) {
+        System.out.println(i);
+        System.out.println(f);
+        return requisicaoDao.findByDataRequisicaoBetween(i, f, p);
     }
     
         public Page<Requisicao> listarRequisicaoAluno(Long id, Pageable p) {
