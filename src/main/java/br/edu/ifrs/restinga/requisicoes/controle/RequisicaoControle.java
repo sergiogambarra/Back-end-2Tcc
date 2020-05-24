@@ -71,4 +71,12 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
     public ResponseEntity<Page<RequisicaoCertificacao>> listarRequisicoesCertificacaoAluno(@PathVariable Long id, Pageable page) {
         return ResponseEntity.ok(requisicaoServico.listarRequisicaoAlunoCertificacao(id, page));
     }
+    @GetMapping("status/{status}")
+        public ResponseEntity<Page<Requisicao>> listarStatus(@PathVariable String status, Pageable page) {
+        return ResponseEntity.ok(requisicaoServico.listarStatus(status, page));
+    } 
+    @GetMapping("curso/{id}")
+    public ResponseEntity<Page<Requisicao>> listarCurso(@PathVariable Long id, Pageable page) {
+        return ResponseEntity.ok(requisicaoServico.listarRequisicaoCurso(id, page));
+    } 
 }
