@@ -26,13 +26,13 @@ public interface RequisicaoDao extends PaginacaoRepository<Requisicao, Long> {
     public Page<Requisicao> listarRequisicoesAlunos(Long id, Pageable p);
 
    public Page<Requisicao> findByDataRequisicaoBetween(Date i, Date f, Pageable p);
-//   
-//   public List<Requisicao> findByDataRequisicaoBefore(Date data);
-//   
-//   public List<Requisicao> findByDataRequisicaoBetween(Date data);
+   
+    @Query("SELECT r FROM Requisicao r WHERE r.deferido=?1 ORDER BY r.id DESC")
+   public Page<Requisicao> findByDeferido(String status , Pageable p);
+   
+    @Query("SELECT r FROM Requisicao r WHERE r.disciplinaSolicitada.id=?1  ORDER BY r.id DESC")
+   public Page<Requisicao> findByDisciplinaSolicitada(Long id , Pageable p);
 
 }
-//data inicial e data final – 2 campos de calendários 
 //curso – select com a lista de cursos
-//aluno – select com a lista de alunos
 //status da requisição – select com as opções Não iniciada, Em andamento, e Finalizada

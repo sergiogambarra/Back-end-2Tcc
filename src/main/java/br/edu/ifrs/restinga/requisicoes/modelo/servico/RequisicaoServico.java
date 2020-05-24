@@ -90,7 +90,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
             if (entidade.getProfessor() != null) {
                 certAntiga.setProfessor(entidade.getProfessor());
             }
-            return super.atualizar(certAntiga); 
+            return super.atualizar(certAntiga);
         } else if (entidade instanceof RequisicaoAproveitamento) {
             RequisicaoAproveitamento certAntiga = daoAproveitamento.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
@@ -105,27 +105,34 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return null;
     }
 
-    public Page<Requisicao> listarPorProfessor(Long id, String tipo,Pageable p) {
+    public Page<Requisicao> listarPorProfessor(Long id, String tipo, Pageable p) {
         if (tipo.equals("aproveitamento")) {
-            return requisicaoDao.listarRequisicaoAproveitamento(id,p);
+            return requisicaoDao.listarRequisicaoAproveitamento(id, p);
         }
-        return requisicaoDao.listarRequisicaoCertificacao(id,p);
+        return requisicaoDao.listarRequisicaoCertificacao(id, p);
     }
 
     public Page<Requisicao> listarData(Date i, Date f, Pageable p) {
-        System.out.println(i);
-        System.out.println(f);
         return requisicaoDao.findByDataRequisicaoBetween(i, f, p);
     }
-    
-        public Page<Requisicao> listarRequisicaoAluno(Long id, Pageable p) {
+
+    public Page<Requisicao> listarRequisicaoAluno(Long id, Pageable p) {
         return requisicaoDao.listarRequisicoesAlunos(id, p);
     }
-        public Page<RequisicaoAproveitamento> listarRequisicaoAlunoAproveitamento(Long id, Pageable p) {
+
+    public Page<Requisicao> listarStatus(String status , Pageable p) {
+        return requisicaoDao.findByDeferido(status, p);
+    }
+
+    public Page<RequisicaoAproveitamento> listarRequisicaoAlunoAproveitamento(Long id, Pageable p) {
         return daoAproveitamento.requisicaoAlunoAproveitamento(id, p);
     }
-        public Page<RequisicaoCertificacao> listarRequisicaoAlunoCertificacao(Long id, Pageable p) {
+
+    public Page<RequisicaoCertificacao> listarRequisicaoAlunoCertificacao(Long id, Pageable p) {
         return daoCertificacaoDao.requisicaoAlunoCertificacao(id, p);
     }
-    
+    public Page<Requisicao> listarRequisicaoCurso(Long id, Pageable p) {
+        return requisicaoDao.findByDisciplinaSolicitada(id, p);
+    }
+
 }
