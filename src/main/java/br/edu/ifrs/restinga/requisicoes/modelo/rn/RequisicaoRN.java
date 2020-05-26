@@ -9,7 +9,6 @@ import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Anexo;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
-import br.edu.ifrs.restinga.requisicoes.modelo.exception.CampoVazioException;
 import br.edu.ifrs.restinga.requisicoes.modelo.exception.MensagemErroGenericaException;
 import java.util.Arrays;
 import java.util.List;
@@ -48,5 +47,10 @@ public class RequisicaoRN implements RegraNenocio<Requisicao> {
                 throw new MensagemErroGenericaException("arquivo não suportado !");
             }
         });
+    }
+    public void validaParecer(Requisicao entidade){
+        if(entidade.getParecerServidor() == null || "".equals(entidade.getParecerServidor().trim())){
+            throw new MensagemErroGenericaException("Campo parecer é obrigatório");
+        }
     }
 }

@@ -41,7 +41,7 @@ public interface RegraNenocio<T> {
             if(!LocalDateTime.now().isAfter(localDateTime)) throw new MensagemErroGenericaException("Data ingresso inválida verifique !");
         }
         default public void validaEmail(String email){
-            if (email.indexOf("@") < 1) throw new MensagemErroGenericaException("Não inseriu email valido");
-                     
+            final String regex = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$";
+            if (!email.matches(regex)) throw new MensagemErroGenericaException("Não inseriu email valido");
         }
 }

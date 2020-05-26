@@ -5,6 +5,7 @@
  */
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.AnexoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoAproveitamentoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoCertificacaoDao;
@@ -45,6 +46,8 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
     public PaginacaoRepository<Requisicao, Long> getDAO() {
         return requisicaoDao;
     }
+    @Autowired
+    AnexoDao daoAnexo;
 
     @Override
     public RegraNenocio<Requisicao> rn() {
@@ -81,6 +84,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
 
     @Override
     public Requisicao atualizar(Requisicao entidade) {
+        requisicaoRN.validaParecer(entidade);
         if (entidade instanceof RequisicaoCertificacao) {
             RequisicaoCertificacao certAntiga = daoCertificacaoDao.findById(entidade.getId()).get();
             certAntiga.setDeferido(entidade.getDeferido());
@@ -88,6 +92,10 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
             certAntiga.setParecerCoordenador(entidade.getParecerCoordenador());
             certAntiga.setParecerProfessor(entidade.getParecerProfessor());
             certAntiga.setParecerServidor(entidade.getParecerServidor());
+            if (((RequisicaoCertificacao) entidade).getProva() != null) {
+            daoAnexo.save(((RequisicaoCertificacao) entidade).getProva());
+            }
+            certAntiga.setProva(((RequisicaoCertificacao) entidade).getProva());
             if (entidade.getProfessor() != null) {
                 certAntiga.setProfessor(entidade.getProfessor());
             }
@@ -122,7 +130,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return requisicaoDao.listarRequisicoesAlunos(id, p);
     }
 
-    public Page<Requisicao> listarStatus(String status , Pageable p) {
+    public Page<Requisicao> listarStatus(String status, Pageable p) {
         return requisicaoDao.findByDeferido(status, p);
     }
 
@@ -133,6 +141,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
     public Page<RequisicaoCertificacao> listarRequisicaoAlunoCertificacao(Long id, Pageable p) {
         return daoCertificacaoDao.requisicaoAlunoCertificacao(id, p);
     }
+
     public Page<Requisicao> listarRequisicaoCurso(Long id, Pageable p) {
         return requisicaoDao.findByDisciplinaSolicitada(id, p);
     }

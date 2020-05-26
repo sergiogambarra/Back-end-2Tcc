@@ -3,6 +3,7 @@ package br.edu.ifrs.restinga.requisicoes.modelo.entidade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class RequisicaoCertificacao extends Requisicao implements Serializable,E
     @JsonProperty("tipo")
     private final String tipo ="certificacao";
     private String formacaoAtividadeAnterior;
-    private String prova;
+    @OneToOne
+    private Anexo prova;
     
 }
