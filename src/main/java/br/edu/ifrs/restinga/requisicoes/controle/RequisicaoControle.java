@@ -50,7 +50,7 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
     }
 
     @GetMapping("professor/{id}")
-    public ResponseEntity<Page<Requisicao>> listarRequisicoesProfessor(@PathVariable("id") Long id, @RequestParam(value = "tipo") String tipo, Pageable page) {
+    public ResponseEntity<Page<Requisicao>> listarRequisicoesProfessor( Pageable page ,@PathVariable("id") Long id, @RequestParam(value = "tipo") String tipo) {
         return ResponseEntity.ok().body(requisicaoServico.listarPorProfessor(id, tipo,page));
     }
 

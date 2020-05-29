@@ -1,8 +1,6 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.dao;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
-import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
-import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import java.util.Date;
 import java.util.List;
