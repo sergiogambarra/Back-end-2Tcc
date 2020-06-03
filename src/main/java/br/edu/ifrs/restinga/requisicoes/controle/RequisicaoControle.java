@@ -43,6 +43,12 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
     public ResponseEntity<Page<RequisicaoCertificacao>> listarCertificao(Pageable page) {
         return ResponseEntity.ok().body(requisicaoServico.listarCertificacao(page));
     }
+    
+    @GetMapping("teste")
+    public ResponseEntity<List<RequisicaoAproveitamento>> listarCertificao(String teste) {
+        return ResponseEntity.ok().body(requisicaoServico.testeAll(teste));
+    }
+    
 
     @GetMapping("solicitante/{id}")
     public ResponseEntity<List<Requisicao>> listarCertificaoUsuario(@PathVariable("id") Long id) {
@@ -57,6 +63,10 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
     @GetMapping("data/{dataInicial}/{dataFinal}/")
     public ResponseEntity<Page<Requisicao>> listarData(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date dataInicial,@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date dataFinal ,Pageable page) {
         return ResponseEntity.ok(requisicaoServico.listarData(dataInicial, dataFinal, page));
+    }
+    @GetMapping("relatorio/data/{dataInicial}/{dataFinal}/")
+    public ResponseEntity<List<Requisicao>> listarDataRelatorio(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date dataInicial,@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy")  Date dataFinal) {
+        return ResponseEntity.ok(requisicaoServico.listarDataRelatorio(dataInicial, dataFinal));
     }
     
     @GetMapping("alunos/{id}")

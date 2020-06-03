@@ -25,6 +25,9 @@ public interface RequisicaoDao extends PaginacaoRepository<Requisicao, Long> {
 
    public Page<Requisicao> findByDataRequisicaoBetween(Date i, Date f, Pageable p);
    
+//   @Query("SELECT r FROM Requisicao r ORDER BY r.usuario.perfil.nome")
+   public List<Requisicao> findByDataRequisicaoBetween(Date i, Date f);
+   
     @Query("SELECT r FROM Requisicao r WHERE r.deferido=?1 ORDER BY r.id DESC")
    public Page<Requisicao> findByDeferido(String status , Pageable p);
    

@@ -6,6 +6,7 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.AnexoDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.FilterDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoAproveitamentoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoCertificacaoDao;
@@ -29,6 +30,9 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
 
     @Autowired
     RequisicaoDao requisicaoDao;
+    
+    @Autowired
+    FilterDao filterDao;
 
     @Autowired
     RequisicaoAproveitamentoDao daoAproveitamento;
@@ -125,6 +129,9 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
     public Page<Requisicao> listarData(Date i, Date f, Pageable p) {
         return requisicaoDao.findByDataRequisicaoBetween(i, f, p);
     }
+    public List<Requisicao> listarDataRelatorio(Date i, Date f) {
+        return requisicaoDao.findByDataRequisicaoBetween(i, f);
+    }
 
     public Page<Requisicao> listarRequisicaoAluno(Long id, Pageable p) {
         return requisicaoDao.listarRequisicoesAlunos(id, p);
@@ -146,4 +153,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return requisicaoDao.findByDisciplinaSolicitada(id, p);
     }
 
+    public List<RequisicaoAproveitamento> testeAll(String teste) {
+        return filterDao.filtro(teste);
+    }
 }
