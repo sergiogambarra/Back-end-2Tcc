@@ -71,7 +71,7 @@ public abstract class Requisicao implements Serializable, Entidade {
     private String parecerServidor;
     private String parecerProfessor;
     private String parecerCoordenador;
-    private String deferido ;
+    private String deferido;
     private String responsavelPelaRequisicao = "SERVIDOR";
             
     @ManyToOne
