@@ -1,6 +1,7 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PerfilAlunoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.UsuarioDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilAluno;
@@ -29,13 +30,13 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
     private UsuarioDao dao;
 
     @Autowired
-    private PerfilServico servicoPerfilServico;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private PerfilServico perfilServico;
+    
+    @Autowired
+    private PerfilAlunoDao perfilAlunoDao;
 
     @Autowired
     private UsuarioRN rn;
@@ -153,6 +154,9 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         return dao.save(usuarioAntigo);
     }
 
+    public Usuario listaUsuarioMatricula(int matricula){
+        return perfilAlunoDao.findByMatricula(matricula);
+    }
     
     public Page<Usuario> listarPaginacao(Pageable p, String tipo) {
         return dao.listarUsuarios(tipo,p);

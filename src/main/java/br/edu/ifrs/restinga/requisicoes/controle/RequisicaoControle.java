@@ -45,7 +45,7 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
     }
     
     @GetMapping("teste")
-    public ResponseEntity<List<RequisicaoAproveitamento>> listarCertificao(String teste) {
+    public ResponseEntity<List<Requisicao>> listarCertificao(String teste) {
         return ResponseEntity.ok().body(requisicaoServico.testeAll(teste));
     }
     

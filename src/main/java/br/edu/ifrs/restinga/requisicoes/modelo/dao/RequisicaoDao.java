@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RequisicaoDao extends PaginacaoRepository<Requisicao, Long> {
-
+   
+    
     public List<Requisicao> findByUsuario(Usuario u);
 
     @Query("SELECT r FROM RequisicaoAproveitamento r WHERE r.professor.id = ?1 ORDER BY r.id DESC")
@@ -25,7 +26,7 @@ public interface RequisicaoDao extends PaginacaoRepository<Requisicao, Long> {
 
    public Page<Requisicao> findByDataRequisicaoBetween(Date i, Date f, Pageable p);
    
-//   @Query("SELECT r FROM Requisicao r ORDER BY r.usuario.perfil.nome")
+   @Query("SELECT r FROM Requisicao r WHERE data_requisicao BETWEEN ?1 AND ?2  ORDER BY r.usuario.perfil.nome")
    public List<Requisicao> findByDataRequisicaoBetween(Date i, Date f);
    
     @Query("SELECT r FROM Requisicao r WHERE r.deferido=?1 ORDER BY r.id DESC")
@@ -35,5 +36,3 @@ public interface RequisicaoDao extends PaginacaoRepository<Requisicao, Long> {
    public Page<Requisicao> findByDisciplinaSolicitada(Long id , Pageable p);
 
 }
-//curso – select com a lista de cursos
-//status da requisição – select com as opções Não iniciada, Em andamento, e Finalizada
