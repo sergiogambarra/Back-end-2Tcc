@@ -153,7 +153,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return requisicaoDao.findByDisciplinaSolicitada(id, p);
     }
 
-    public List<RequisicaoAproveitamento> testeAll(String teste) {
-        return filterDao.filtro(teste);
+    public List<Requisicao> testeAll(String teste) {
+        return filterDao.filtro();
     }
 }
