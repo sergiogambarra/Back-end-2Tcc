@@ -155,7 +155,11 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
     }
 
     public Usuario listaUsuarioMatricula(int matricula){
-        return perfilAlunoDao.findByMatricula(matricula);
+        return dao.findByPerfilMatricula(matricula);
+    }
+    
+    public Usuario listaProfessorSiape(Integer siape){
+        return dao.findByPerfilSiape(siape);
     }
     
     public Page<Usuario> listarPaginacao(Pageable p, String tipo) {

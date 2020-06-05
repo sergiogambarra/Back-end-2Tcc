@@ -11,6 +11,7 @@ import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoAproveitamentoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoCertificacaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dto.FiltroDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
@@ -153,7 +154,7 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return requisicaoDao.findByDisciplinaSolicitada(id, p);
     }
 
-    public List<Requisicao> testeAll(String teste) {
-        return filterDao.filtro();
+    public List<Requisicao> filtrarRequisicao(FiltroDto filtro) {
+        return filterDao.filtro(filtro);
     }
 }

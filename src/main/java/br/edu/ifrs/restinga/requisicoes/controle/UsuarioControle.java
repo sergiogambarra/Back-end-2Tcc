@@ -67,6 +67,14 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     public ResponseEntity<Usuario> listaServidor(){
         return new ResponseEntity(servico.listarServidor(),HttpStatus.OK);
     }
+    @GetMapping("matricula/{matricula}")
+    public ResponseEntity<Usuario> listaMatricula(@PathVariable int matricula){
+        return new ResponseEntity(servico.listaUsuarioMatricula(matricula),HttpStatus.OK);
+    }
+    @GetMapping("siape/{siape}")
+    public ResponseEntity<Usuario> listaSiape(@PathVariable Integer siape){
+        return new ResponseEntity(servico.listaProfessorSiape(siape),HttpStatus.OK);
+    }
     
      @GetMapping("auth/")
     public ResponseEntity<Usuario> getAutenticado(Authentication authentication){
@@ -83,6 +91,5 @@ public class UsuarioControle extends CRUDControle<Usuario> {
     public ResponseEntity<Usuario> listarUsuariosPaginacao(Pageable p, @RequestParam String tipo){
         return new ResponseEntity(servico.listarPaginacao(p, tipo),HttpStatus.OK);
     }
-    
     
 }
