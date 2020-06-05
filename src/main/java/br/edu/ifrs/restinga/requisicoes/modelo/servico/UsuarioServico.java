@@ -166,5 +166,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
         return dao.listarUsuarios(tipo,p);
     }
     
-    
+    public List<Usuario> listarPesquisaNome(String nome){
+        return dao.findByNome(nome);
+    }
  }

@@ -92,4 +92,8 @@ public class UsuarioControle extends CRUDControle<Usuario> {
         return new ResponseEntity(servico.listarPaginacao(p, tipo),HttpStatus.OK);
     }
     
+      @GetMapping("pesquisaNome/{nome}")
+    public ResponseEntity<Usuario> listaPesquisaNome(@PathVariable ("nome") String nome){
+        return new ResponseEntity(servico.listarPesquisaNome(nome),HttpStatus.OK);
+    }
 }
