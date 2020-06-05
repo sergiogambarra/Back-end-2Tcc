@@ -1,6 +1,7 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.dao;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -19,8 +20,9 @@ public interface UsuarioDao extends PaginacaoRepository<Usuario, Long>{
     @Query("SELECT u FROM Usuario u join u.perfil p WHERE u.permissao='ALUNO' AND p.matricula=?1")
     public Usuario findByPerfilMatricula(int matricula);
     
-    @Query("SELECT u FROM Usuario u join u.perfil p WHERE u.permissao='PROFESSOR' AND p.siape=?1")
+    @Query("SELECT u FROM Usuario u join u.perfil p WHERE p.siape=?1")
     public Usuario findByPerfilSiape(Integer siape);
     
-    
+    @Query("SELECT u FROM Usuario u join u.perfil p WHERE p.nome=?1 ")
+    public List<Usuario> findByNome(String nome);
 }
