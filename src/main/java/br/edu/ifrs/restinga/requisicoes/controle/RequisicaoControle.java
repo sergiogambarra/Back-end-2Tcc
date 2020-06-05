@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.requisicoes.controle;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.dto.FiltroDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,8 +47,8 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
     }
     
     @GetMapping("teste")
-    public ResponseEntity<List<Requisicao>> listarCertificao(String teste) {
-        return ResponseEntity.ok().body(requisicaoServico.testeAll(teste));
+    public ResponseEntity<List<Requisicao>> listarCertificao(@RequestBody FiltroDto filtro) {
+        return ResponseEntity.ok().body(requisicaoServico.filtrarRequisicao(filtro));
     }
     
 

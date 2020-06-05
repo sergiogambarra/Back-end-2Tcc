@@ -15,5 +15,12 @@ public interface UsuarioDao extends PaginacaoRepository<Usuario, Long>{
     
     @Query("SELECT u FROM Usuario u WHERE u.permissao=?1 ORDER BY u.perfil.nome")
     public Page<Usuario> listarUsuarios(String tipo,Pageable p);
+   
+    @Query("SELECT u FROM Usuario u join u.perfil p WHERE u.permissao='ALUNO' AND p.matricula=?1")
+    public Usuario findByPerfilMatricula(int matricula);
+    
+    @Query("SELECT u FROM Usuario u join u.perfil p WHERE u.permissao='PROFESSOR' AND p.siape=?1")
+    public Usuario findByPerfilSiape(Integer siape);
+    
     
 }
