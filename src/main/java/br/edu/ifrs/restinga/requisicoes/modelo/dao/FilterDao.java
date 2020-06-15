@@ -7,7 +7,9 @@ package br.edu.ifrs.restinga.requisicoes.modelo.dao;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.FiltroDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.RequisicaoDto;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -46,8 +48,6 @@ public class FilterDao {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             sqlBase.append(" AND r.data_requisicao  between '").append(formatter.format(filtro.getDataInicio())).append("' and '").append(formatter.format(filtro.getDataFinal())).append("';");
         }
-        
-        System.out.println(filtro.getStatusRequisicao());
         Query query = manager.createNativeQuery(sqlBase.toString());
         List<Object[]> lista = query.getResultList();
         ArrayList<RequisicaoDto> result = new ArrayList<>();
