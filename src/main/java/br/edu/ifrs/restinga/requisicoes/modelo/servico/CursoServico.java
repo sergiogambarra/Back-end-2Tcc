@@ -4,12 +4,14 @@ import br.edu.ifrs.restinga.requisicoes.modelo.dao.CursoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.DisciplinaDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.CursoRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.DisciplinaRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +32,9 @@ public class CursoServico extends ServicoCRUD<Curso> {
 
     @Autowired
     private DisciplinaDao disciplinaDao;
+
+    @Autowired
+    private UsuarioDao usuarioDao;
 
     @Autowired
     private RequisicaoDao requisicaoDao;
@@ -68,14 +73,13 @@ public class CursoServico extends ServicoCRUD<Curso> {
                 disciplina.setId(disciplina.getId());
                 disciplina.setNome(entidade.getNome());
                 disciplina.setCargaHoraria(entidade.getCargaHoraria());
-
             }
         }
         return dao.save(curso);
 
     }
 
-     public List<Disciplina> listarDisciplinas(Long id) {
+    public List<Disciplina> listarDisciplinas(Long id) {
         Curso curso = super.recuperar(id);
         return curso.getDisciplinas();
     }
@@ -113,14 +117,25 @@ public class CursoServico extends ServicoCRUD<Curso> {
         return dao.findByNome(nome);
     }
 
-    
-    public Page<Disciplina> listarPaginacao(Long id,Pageable p) {
-        return dao.findAll(id,p);
+    public Page<Disciplina> listarPaginacao(Long id, Pageable p) {
+        return dao.findAll(id, p);
+    }
+
+    public ArrayList<String> listarPeloCoordenador(Long id) {
+
+        Iterable<Curso> cursos = dao.findAllCurso();
+        ArrayList<String> mostraNomeCurso = new ArrayList<>();
+        for (Curso curso : cursos) {
+                if (curso.getUsuario().getId() == id) {
+                    mostraNomeCurso.add(curso.getNome());
+            }
+        }
+        return mostraNomeCurso;
     }
 
     @Override
     public List<Curso> listar() {
         return dao.findAllCurso();
     }
-    
+
 }
