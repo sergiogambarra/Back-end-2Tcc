@@ -2,6 +2,7 @@ package br.edu.ifrs.restinga.requisicoes.controle;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.CursoServico;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import io.swagger.annotations.Api;
@@ -48,6 +49,10 @@ public class CursoControle extends CRUDControle<Curso> {
     @GetMapping("{id}/disciplinas/{idDisciplina}")
     public ResponseEntity<List<Disciplina>> listarDSisciplinasPeloId(@PathVariable Long id,@PathVariable Long idDisciplina) {
         return new ResponseEntity(servico.listarDisciplinasPeloID(id, idDisciplina),HttpStatus.OK);
+    }
+    @GetMapping("coordenador/{id}")
+    public ResponseEntity<Curso> listarNomeCursoPeloCoordenador(@PathVariable Long id) {
+        return new ResponseEntity(servico.listarPeloCoordenador(id),HttpStatus.OK);
     }
 
     @PostMapping("{id}/disciplinas/")
