@@ -27,55 +27,62 @@ import org.springframework.web.bind.annotation.RestController;
 @Api("Api : Cursos")
 @RequestMapping("/api/cursos/")
 public class CursoControle extends CRUDControle<Curso> {
-
+    
     @Autowired
     private CursoServico servico;
-
+    
     @Override
     public ServicoCRUD<Curso> getService() {
         return servico;
     }
-
+    
     @GetMapping("{id}/disciplinas/")
     public ResponseEntity<List<Disciplina>> listarDSisciplinas(@PathVariable Long id) {
         return ResponseEntity.ok(servico.listarDisciplinas(id));
     }
     
     @GetMapping("{id}/disciplinas/paginacao")
-    public ResponseEntity<Page<Disciplina>> listarDSisciplinas(@PathVariable Long id,Pageable p) {
+    public ResponseEntity<Page<Disciplina>> listarDSisciplinas(@PathVariable Long id, Pageable p) {
         return ResponseEntity.ok(servico.listarPaginacao(id, p));
     }
     
     @GetMapping("{id}/disciplinas/{idDisciplina}")
-    public ResponseEntity<List<Disciplina>> listarDSisciplinasPeloId(@PathVariable Long id,@PathVariable Long idDisciplina) {
-        return new ResponseEntity(servico.listarDisciplinasPeloID(id, idDisciplina),HttpStatus.OK);
-    }
-    @GetMapping("coordenador/{id}")
-    public ResponseEntity<Curso> listarNomeCursoPeloCoordenador(@PathVariable Long id) {
-        return new ResponseEntity(servico.listarPeloCoordenador(id),HttpStatus.OK);
+    public ResponseEntity<List<Disciplina>> listarDSisciplinasPeloId(@PathVariable Long id, @PathVariable Long idDisciplina) {
+        return new ResponseEntity(servico.listarDisciplinasPeloID(id, idDisciplina), HttpStatus.OK);
     }
 
+    @GetMapping("coordenador/{id}")
+    public ResponseEntity<Curso> listarNomeCursoPeloCoordenador(@PathVariable Long id) {
+        return new ResponseEntity(servico.listarPeloCoordenador(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("coordenador/{id}")
+    public ResponseEntity<Curso> deletarCoordenador(@PathVariable Long id) {
+        servico.deletarCoordenador(id);
+        return ResponseEntity.noContent().build();
+    }
+    
     @PostMapping("{id}/disciplinas/")
     public ResponseEntity<List<Disciplina>> cadastrarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d) {
         return new ResponseEntity(servico.cadastrarDisciplinaNoCurso(id, d), HttpStatus.CREATED);
     }
-
+    
     @PutMapping("{id}/disciplinas/")
     public ResponseEntity<List<Disciplina>> editarDisciplinaNoCurso(@PathVariable Long id, @RequestBody Disciplina d) {
-        return new ResponseEntity(servico.atualizarDisciplina(id, d),HttpStatus.CREATED);
+        return new ResponseEntity(servico.atualizarDisciplina(id, d), HttpStatus.CREATED);
     }
-
+    
     @DeleteMapping("{id}/disciplinas/{idDisciplina}")
     public ResponseEntity<Void> apagarDisciplina(@PathVariable Long idDisciplina, @PathVariable Long id) {
         servico.deletarDisciplina(id, idDisciplina);
         return ResponseEntity.noContent().build();
     }
-
+    
     @GetMapping("/pesquisar/nome/{nome}")
     public ResponseEntity<List<Disciplina>> listarDisciplinasPorNomeCurso(@PathVariable("nome") String nome) {
         return ResponseEntity.ok(servico.pesquisarDisciplinaNomeCurso(nome));
     }
-
+    
     @GetMapping("/pesquisar/{nome}")
     public ResponseEntity<Curso> listarNomeCurso(@PathVariable("nome") String nome) {
         return ResponseEntity.ok(servico.listaCursoNome(nome));
