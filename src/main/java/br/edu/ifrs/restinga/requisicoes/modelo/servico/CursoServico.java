@@ -122,6 +122,22 @@ public class CursoServico extends ServicoCRUD<Curso> {
         return dao.findAll(id, p);
     }
 
+    public String listarCuroPeloIdDisciplina(Long id) {
+        List<Curso> cursos = dao.findAllCurso();
+        
+        for (Curso curso : cursos) {
+            if (curso.getDisciplinas() != null) {
+                List<Disciplina> disciplinas = curso.getDisciplinas();
+                for (Disciplina disciplina : disciplinas) {
+                    if(disciplina.getId() == id){
+                        return curso.getNome();
+                    }
+                }
+            }
+        }
+        return "Curso não encontrado";
+    }
+
     public ArrayList<Curso> listarPeloCoordenador(Long id) {
         Iterable<Curso> cursos = dao.findAllCurso();
         ArrayList<Curso> mostraNomeCurso = new ArrayList<>();
