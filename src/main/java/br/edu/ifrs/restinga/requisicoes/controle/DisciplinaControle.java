@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.requisicoes.controle;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.DisciplinaDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.DisciplinaServico;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
@@ -17,6 +18,9 @@ public class DisciplinaControle extends CRUDControle<Disciplina>{
 
     @Autowired
     private DisciplinaServico servico;
+    
+    @Autowired
+    private DisciplinaDao dao;
 
     @Override
     public ServicoCRUD<Disciplina> getService() {

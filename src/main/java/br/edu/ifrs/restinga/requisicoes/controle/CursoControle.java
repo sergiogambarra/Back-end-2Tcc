@@ -37,15 +37,15 @@ public class CursoControle extends CRUDControle<Curso> {
     }
     
     @GetMapping("{id}/disciplinas/")
-    public ResponseEntity<List<Disciplina>> listarDSisciplinas(@PathVariable Long id) {
+    public ResponseEntity<List<Disciplina>> listarDisciplinas(@PathVariable Long id) {
         return ResponseEntity.ok(servico.listarDisciplinas(id));
     }
     
     @GetMapping("{id}/disciplinas/paginacao")
-    public ResponseEntity<Page<Disciplina>> listarDSisciplinas(@PathVariable Long id, Pageable p) {
+    public ResponseEntity<Page<Disciplina>> listarDisciplinas(@PathVariable Long id, Pageable p) {
         return ResponseEntity.ok(servico.listarPaginacao(id, p));
     }
-    
+        
     @GetMapping("{id}/disciplinas/{idDisciplina}")
     public ResponseEntity<List<Disciplina>> listarDSisciplinasPeloId(@PathVariable Long id, @PathVariable Long idDisciplina) {
         return new ResponseEntity(servico.listarDisciplinasPeloID(id, idDisciplina), HttpStatus.OK);
