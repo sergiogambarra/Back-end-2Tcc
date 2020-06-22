@@ -2,7 +2,6 @@ package br.edu.ifrs.restinga.requisicoes.controle;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
-import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.CursoServico;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import io.swagger.annotations.Api;
