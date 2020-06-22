@@ -28,7 +28,8 @@ public class FilterDao {
     private EntityManager manager;
 
     public List<RequisicaoDto> filtro(FiltroDto filtro) {
-
+        Date date = new Date(0);
+       
         StringBuilder sqlBase = new StringBuilder("Select r.id, p.nome, a.matricula, r.data_requisicao, d.nome as Disciplina, r.deferido from requisicao as r ");
         sqlBase.append(" INNER JOIN disciplinas as d on (r.disciplina_solicitada_id=d.id) INNER JOIN cursos_disciplinas as cd on (cd.disciplinas_id=d.id)");
         sqlBase.append(" INNER JOIN cursos as c on (c.id=cd.curso_id) INNER JOIN usuarios as u on (r.usuario_id=u.id)");

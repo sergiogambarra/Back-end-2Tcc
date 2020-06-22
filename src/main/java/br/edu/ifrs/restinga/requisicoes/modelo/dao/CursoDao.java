@@ -2,9 +2,7 @@ package br.edu.ifrs.restinga.requisicoes.modelo.dao;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
-import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
