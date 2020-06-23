@@ -29,6 +29,9 @@ public class ConfiguracaoServico extends ServicoCRUD<ConfiguracaoSistema>{
     }
  
  
+    public Boolean verificaDataSistema(){
+        return "1".equals(dao.validaSistema());
+    }
 
     
 }
