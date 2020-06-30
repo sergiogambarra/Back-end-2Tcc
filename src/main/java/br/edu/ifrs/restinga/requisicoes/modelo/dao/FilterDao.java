@@ -35,7 +35,7 @@ public class FilterDao {
         sqlBase.append(" INNER JOIN cursos as c on (c.id=cd.curso_id) INNER JOIN usuarios as u on (r.usuario_id=u.id)");
         sqlBase.append(" INNER JOIN ").append(filtro.getTipoRequisicao()).append(" as rt on r.id=rt.id ").append(" INNER JOIN perfis as p on (u.perfil_id=p.id)");
         sqlBase.append(" INNER JOIN alunos as a on (p.id=a.id) WHERE r.id=rt.id");
-
+        
          if (filtro.getStatusRequisicao() != null) {
             sqlBase.append(" AND r.deferido='").append(filtro.getStatusRequisicao()).append("'");
         }
@@ -45,10 +45,19 @@ public class FilterDao {
         if (filtro.getIdDisciplina() != null) {
             sqlBase.append(" AND d.id=").append(filtro.getIdDisciplina());
         }
+        
+        System.out.println(filtro.getIdAluno());
+        if(filtro.getIdAluno() != null){
+            sqlBase.append(" AND a.id=").append(filtro.getIdAluno());
+        }
+        
         if (filtro.getDataInicio() != null && filtro.getDataFinal() != null) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             sqlBase.append(" AND r.data_requisicao  between '").append(formatter.format(filtro.getDataInicio())).append("' and '").append(formatter.format(filtro.getDataFinal())).append("';");
         }
+        
+        
+        System.out.println(sqlBase.toString());
         Query query = manager.createNativeQuery(sqlBase.toString());
         List<Object[]> lista = query.getResultList();
         ArrayList<RequisicaoDto> result = new ArrayList<>();
