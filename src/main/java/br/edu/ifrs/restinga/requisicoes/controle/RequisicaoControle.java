@@ -94,7 +94,7 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
         return ResponseEntity.ok(requisicaoServico.listarRequisicaoCurso(id, page));
     } 
     @GetMapping("teste/")
-    public ResponseEntity<Page<Requisicao>> teste(Pageable page) {
-        return ResponseEntity.ok(requisicaoServico.teste(page));
+    public ResponseEntity<List<RequisicaoDto>> teste(@RequestBody FiltroDto filtro) {
+        return ResponseEntity.ok().body(requisicaoServico.filtrarRequisicao(filtro));
     } 
 }

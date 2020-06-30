@@ -5,7 +5,6 @@
  */
 package br.edu.ifrs.restinga.requisicoes.modelo.dto;
 
-import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Entidade;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.Temporal;
@@ -27,6 +26,7 @@ public class FiltroDto {
     private Long idDisciplina;
     private String statusRequisicao;
     private String tipoRequisicao;
+    private Long idAluno;
     
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Temporal(TemporalType.DATE)

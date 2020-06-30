@@ -158,7 +158,5 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
     public List<RequisicaoDto> filtrarRequisicao(FiltroDto filtro) {
         return filterDao.filtro(filtro);
     }
-    public Page<Requisicao> teste(Pageable p) {
-        return requisicaoDao.teste(p);
-    }
+  
 }
