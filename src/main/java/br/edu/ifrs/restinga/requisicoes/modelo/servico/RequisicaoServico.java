@@ -159,4 +159,12 @@ public class RequisicaoServico extends ServicoCRUD<Requisicao> {
         return filterDao.filtro(filtro);
     }
   
+      public Page<RequisicaoCertificacao> listarRequisicaoCoordenador(Long id, Pageable p) {
+        return daoCertificacaoDao.requisicaocertificacaoCoordenador(id, p);
+    }
+      
+        public Page<RequisicaoAproveitamento> listarRequisicaoCoordenadorAproveitamento(Long id, Pageable p) {
+        return daoAproveitamento.requisicaoAproveitamentoCoordenador(id, p);
+    }
+    
 }
