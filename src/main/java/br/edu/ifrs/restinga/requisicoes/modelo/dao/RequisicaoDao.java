@@ -34,21 +34,5 @@ public interface RequisicaoDao extends PaginacaoRepository<Requisicao, Long> {
     @Query("SELECT r FROM Requisicao r WHERE r.disciplinaSolicitada.id=?1  ORDER BY r.id DESC")
     public Page<Requisicao> findByDisciplinaSolicitada(Long id, Pageable p);
 
-    @Query(value = "Select r.id, r.data_requisicao,d.nome,r.deferido,p.nome as Aluno, (select nome from perfis where id=r.professor_id) as Professor from requisicao as r"
-            + " INNER JOIN disciplinas as d on (r.disciplina_solicitada_id=d.id)"
-            + " INNER JOIN cursos_disciplinas as cd on (cd.disciplinas_id=d.id)"
-            + " INNER JOIN requisicoes_aproveitamento as rt on (r.id = rt.id )"
-            + " INNER JOIN usuarios as u on (u.id = r.usuario_id)"
-            + " INNER JOIN perfis as p on (p.id=u.id)"
-            + " INNER JOIN cursos as c on (cd.curso_id=c.id) WHERE c.usuario_id=3",nativeQuery = true)
-    public Page<Requisicao>teste( Pageable p);
     
-    @Query(value = "Select r.id, r.data_requisicao,d.nome,r.deferido,p.nome as Aluno, (select nome from perfis where id=r.professor_id) as Professor from requisicao as r INNER JOIN disciplinas as d on (r.disciplina_solicitada_id=d.id)"
-            + " INNER JOIN cursos_disciplinas as cd on (cd.disciplinas_id=d.id)"
-            + " INNER JOIN requisicoes_certificacao as rt on (r.id = rt.id )"
-            + " INNER JOIN usuarios as u on (u.id = r.usuario_id)"
-            + " INNER JOIN perfis as p on (p.id=u.id)"
-            + " INNER JOIN cursos as c on (cd.curso_id=c.id) WHERE c.usuario_id=4",nativeQuery = true)
-    public Page<Requisicao>teste2( Pageable p);
-
 }

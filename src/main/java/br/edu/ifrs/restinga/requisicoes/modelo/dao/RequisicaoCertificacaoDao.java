@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.dao;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,14 @@ public interface RequisicaoCertificacaoDao extends PaginacaoRepository<Requisica
      @Query("SELECT r FROM RequisicaoCertificacao r join r.usuario u WHERE u.permissao='ALUNO' AND u.id=?1  ORDER BY r.id DESC")
     public Page<RequisicaoCertificacao> requisicaoAlunoCertificacao(Long id, Pageable p);
 
+     @Query("SELECT r FROM RequisicaoCertificacao r join r.usuario u WHERE u.permissao='ALUNO' AND u.id=?1  ORDER BY r.id DESC")
+      public Page<RequisicaoCertificacao> requisicaoDoCoordenador(Long id, Pageable p);
+      
+      @Query(value = "Select r.id from requisicao as r INNER JOIN disciplinas as d on (r.disciplina_solicitada_id=d.id) " +
+                    "INNER JOIN cursos_disciplinas as cd on (cd.disciplinas_id=d.id) " +
+                    "INNER JOIN cursos as c on (c.id=cd.curso_id) " +
+                    "INNER JOIN requisicoes_certificacao as rt " +
+                    "INNER JOIN usuarios as u on (r.usuario_id=u.id) Where r.id=rt.id AND c.usuario_id = ?1;", nativeQuery = true)
+    public Page<RequisicaoCertificacao> requisicaocertificacaoCoordenador(Long id, Pageable p);
+ 
 }

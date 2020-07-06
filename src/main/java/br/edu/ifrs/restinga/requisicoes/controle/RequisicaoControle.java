@@ -1,5 +1,7 @@
 package br.edu.ifrs.restinga.requisicoes.controle;
 
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoAproveitamentoDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.RequisicaoCertificacaoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.FiltroDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.RequisicaoDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Requisicao;
@@ -32,6 +34,12 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
 
     @Autowired
     RequisicaoServico requisicaoServico;
+    
+    @Autowired
+    RequisicaoCertificacaoDao requisicaoCertificacaoDao;
+    
+    @Autowired
+    RequisicaoAproveitamentoDao requisicaoAproveitamentoDao;
 
     @Override
     public ServicoCRUD<Requisicao> getService() {
@@ -93,8 +101,13 @@ public class RequisicaoControle extends CRUDControle<Requisicao> {
     public ResponseEntity<Page<Requisicao>> listarCurso(@PathVariable Long id, Pageable page) {
         return ResponseEntity.ok(requisicaoServico.listarRequisicaoCurso(id, page));
     } 
-    @GetMapping("teste/")
-    public ResponseEntity<List<RequisicaoDto>> teste(@RequestBody FiltroDto filtro) {
-        return ResponseEntity.ok().body(requisicaoServico.filtrarRequisicao(filtro));
+    
+    @GetMapping("coordenador/cert/{id}")
+    public ResponseEntity<Page<RequisicaoCertificacao>> listaRequisicaoCoordenadorCertificacao(@PathVariable Long id , Pageable page) {
+        return ResponseEntity.ok().body(requisicaoCertificacaoDao.requisicaocertificacaoCoordenador(id, page));
+    } 
+     @GetMapping("coordenador/apro/{id}")
+    public ResponseEntity<Page<RequisicaoAproveitamento>> listaRequisicaoCoordenadorAproveitamento(@PathVariable Long id , Pageable page) {
+        return ResponseEntity.ok().body(requisicaoAproveitamentoDao.requisicaoAproveitamentoCoordenador(id, page));
     } 
 }
