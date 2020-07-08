@@ -9,7 +9,6 @@ import br.edu.ifrs.restinga.requisicoes.modelo.dto.FiltroDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.RequisicaoDto;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
