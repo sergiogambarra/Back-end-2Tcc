@@ -18,7 +18,7 @@ public interface RequisicaoAproveitamentoDao extends PaginacaoRepository<Requisi
     
      @Query(value = "Select r.id,r.data_requisicao,r.deferido,r.disciplina_solicitada_id,r.parecer_coordenador, r.parecer_professor,r.parecer_servidor, r.professor_id, r.responsavel_pela_requisicao, r.usuario_id, rt.disciplinas_cursadas_anterior from requisicao as r INNER JOIN disciplinas as d on (r.disciplina_solicitada_id=d.id) "
             + "INNER JOIN cursos_disciplinas as cd on (cd.disciplinas_id=d.id) INNER JOIN cursos as c on (c.id=cd.curso_id) "
-            + "INNER JOIN requisicoes_aproveitamento as rt INNER JOIN usuarios as u on (r.usuario_id=u.id) Where r.id=rt.id AND c.usuario_id=?1", nativeQuery = true)
+            + "INNER JOIN requisicoes_aproveitamento as rt INNER JOIN usuarios as u on (r.usuario_id=u.id) Where r.id=rt.id AND c.usuario_id=?1  ORDER BY r.id DESC", nativeQuery = true)
     public Page<RequisicaoAproveitamento> requisicaoAproveitamentoCoordenador(Long id, Pageable p);
 
     
