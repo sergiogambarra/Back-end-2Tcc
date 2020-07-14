@@ -63,4 +63,4 @@ public class FilterDao {
         lista.forEach( objects  -> result.add(new RequisicaoDto(objects)) );
         return result;
     }
-}
+} 
