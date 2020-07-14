@@ -1,6 +1,5 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.dao;
 
-import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoAproveitamento;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.RequisicaoCertificacao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
