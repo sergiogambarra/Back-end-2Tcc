@@ -7,6 +7,7 @@ import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilServidor;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,13 @@ public class Xinicializador {
     @Autowired
     UsuarioDao usuarioDAO;
     
+    @Value("${admin.nome}")
+    private String admin;
+    @Value("${admin.senha}")
+    private String senha;
+    @Value("${admin.email}")
+    private String emailContato;
+    
     @Autowired
     PerfilDao perfilDao;
     
@@ -23,14 +31,13 @@ public class Xinicializador {
     PasswordEncoder encode;
     
     @PostConstruct
-    public void init() {
-        Usuario user = usuarioDAO.findByUserName("ROOT");
-        if (user == null) {
+    public void init() {        
+        if (!usuarioDAO.findById(1L).isPresent()) {
             Usuario usuario = new Usuario();
-            usuario.setUserName("ROOT");
-            usuario.setPassword(encode.encode("1"));
+            usuario.setUserName(this.admin);
+            usuario.setPassword(encode.encode(this.senha));
             usuario.setPermissao("SERVIDOR");
-            usuario.setEmail("jader.mmoura@gmail.com");
+            usuario.setEmail(this.emailContato);
             PerfilServidor perfilServidor = new PerfilServidor(1, "Administrador","ADMIN");
             perfilDao.save(perfilServidor);
             usuario.setPerfil(perfilServidor);
