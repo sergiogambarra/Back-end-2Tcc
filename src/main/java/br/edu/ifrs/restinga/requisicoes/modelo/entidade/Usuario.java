@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.entidade;
 
+import com.opencsv.bean.CsvRecurse;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
@@ -42,7 +43,8 @@ public class Usuario implements Serializable, UserDetails, Entidade {
         this.id = id;
         this.userName = user;
     }
-    
+
+        
     @Override
     public String getPassword() {
         return this.password;

@@ -1,6 +1,8 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.entidade;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvRecurse;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +28,7 @@ public class Curso implements Entidade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @CsvBindByName
     private String nome;
 
     @JsonIgnore
@@ -36,4 +39,8 @@ public class Curso implements Entidade {
 
     @OneToOne
     private Usuario usuario;
+
+    public Curso(String nome) {
+       this.nome = nome;
+    }
 }
