@@ -26,7 +26,13 @@
             <version>2.7.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-		
+       <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+<dependency>
+    <groupId>com.opencsv</groupId>
+    <artifactId>opencsv</artifactId>
+    <version>5.2</version>
+</dependency>
+	
         <!-- SWAGGER -->
         <dependency>
             <groupId>io.springfox</groupId>
