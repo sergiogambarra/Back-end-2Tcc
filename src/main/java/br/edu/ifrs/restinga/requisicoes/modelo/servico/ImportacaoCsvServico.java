@@ -6,12 +6,15 @@
 package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.CursoDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.DisciplinaDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.PerfilDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
-import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Perfil;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.PerfilProfessor;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
+import br.edu.ifrs.restinga.requisicoes.modelo.exception.MensagemErroGenericaException;
+import br.edu.ifrs.restinga.requisicoes.modelo.rn.DisciplinaRN;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,7 +35,15 @@ public class ImportacaoCsvServico {
     @Autowired
     PerfilDao perfilDao;
 
-    public void importacaoCsv(MultipartFile arquivo) throws IOException {
+    @Autowired
+    DisciplinaDao disciplinaDao;
+
+    @Autowired
+    private DisciplinaRN rn;
+
+    int contLinhaErro = 0;
+
+    public void importacaoCsvCurso(MultipartFile arquivo) throws IOException {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(arquivo.getInputStream(), "UTF-8"))) {
             fileReader.lines().forEach((t)
                     -> {
@@ -47,6 +58,29 @@ public class ImportacaoCsvServico {
                     curso.setUsuario(usuario);
                     cursoDao.save(curso);
                 }
+            });
+
+        }
+    }
+
+    public void ImportarDisciplinas(MultipartFile arquivo) throws IOException {
+        contLinhaErro = 0;
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(arquivo.getInputStream(), "UTF-8"))) {
+            fileReader.lines().forEach((t)
+                    -> {
+                String[] csv = t.split(";");
+                contLinhaErro++;
+                if (contLinhaErro == 1) {
+
+                } else {
+                    Disciplina disciplina = new Disciplina(csv[0], Integer.parseInt(csv[1]));
+                    if (disciplina.getCargaHoraria() < 15 || disciplina.getCargaHoraria() > 300 || disciplina.getNome().length() > 45 || "".equals(disciplina.getNome().trim())) {
+                        System.out.println("Não foi possível cadastrar linha " + contLinhaErro + " campo vazio ou carga horária não está correta. ");
+                    } else {
+                        disciplinaDao.save(disciplina);
+                    }
+                }
+
             });
 
         }
