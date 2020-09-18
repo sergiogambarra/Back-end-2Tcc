@@ -31,8 +31,12 @@ public class AnexoControle extends CRUDControle<Anexo> {
         return servico;
     }
 
-    @RequestMapping(value = "/teste", method = RequestMethod.POST)
-    public void teste(@RequestParam("umArquivo") MultipartFile arquivo) throws IOException {
-        importacaoCsvServico.importacaoCsv(arquivo);
+    @RequestMapping(value = "/cursos", method = RequestMethod.POST)
+    public void importarCursos(@RequestParam("umArquivo") MultipartFile arquivo) throws IOException {
+        importacaoCsvServico.importacaoCsvCurso(arquivo);
+    }
+    @RequestMapping(value = "/disciplinas", method = RequestMethod.POST)
+    public void importarDisciplinas(@RequestParam("umArquivo") MultipartFile arquivo) throws IOException {
+        importacaoCsvServico.ImportarDisciplinas(arquivo);
     }
 }
