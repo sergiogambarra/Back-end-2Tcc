@@ -27,5 +27,5 @@ public class PerfilProfessor extends Perfil  {
     private final String tipo = "PROFESSOR";
     private Integer siape; 
     private boolean coordenador;
-   
+    
 }

@@ -44,6 +44,13 @@ public class Usuario implements Serializable, UserDetails, Entidade {
         this.userName = user;
     }
 
+    public Usuario( String email) {
+        this.email = email;
+      
+    }
+    
+    
+
         
     @Override
     public String getPassword() {
@@ -81,4 +88,6 @@ public class Usuario implements Serializable, UserDetails, Entidade {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
+
+    
 }

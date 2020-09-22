@@ -48,24 +48,6 @@ public class Xinicializador {
     @PostConstruct
     public void init() {
 
-//        File arquivoCsv = new File("C:\\Users\\jader\\Área de Trabalho\\TCC\\cursos.csv");
-//
-//        try {
-//            String linhasArquivo = new String();
-//            Scanner leitor = new Scanner(arquivoCsv);
-//            leitor.nextLine();
-//            while (leitor.hasNext()) {
-//                linhasArquivo = leitor.nextLine();
-//                String[] valoresEntreVirgulas = linhasArquivo.split(";");
-//                Curso curso = new Curso();
-//                curso.setNome(valoresEntreVirgulas[0]);
-//                servico.cadastrar(curso);
-//                
-//            }
-//
-//        } catch (Exception e) {
-//        };
-
         if (!usuarioDAO.findById(1L).isPresent()) {
             Usuario usuario = new Usuario();
             usuario.setUserName(this.admin);
