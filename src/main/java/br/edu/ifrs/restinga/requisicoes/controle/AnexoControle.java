@@ -39,4 +39,12 @@ public class AnexoControle extends CRUDControle<Anexo> {
     public void importarDisciplinas(@RequestParam("umArquivo") MultipartFile arquivo) throws IOException {
         importacaoCsvServico.ImportarDisciplinas(arquivo);
     }
+    @RequestMapping(value = "/professor", method = RequestMethod.POST)
+    public void importarProfessor(@RequestParam("umArquivo") MultipartFile arquivo) throws IOException {
+        importacaoCsvServico.ImportarProfessor(arquivo);
+    }
+    @RequestMapping(value = "/servidor", method = RequestMethod.POST)
+    public void importarServidor(@RequestParam("umArquivo") MultipartFile arquivo) throws IOException {
+        importacaoCsvServico.ImportarServidor(arquivo);
+    }
 }
