@@ -34,4 +34,11 @@ public class PerfilServidor extends Perfil implements Entidade{
         this.cargo = cargo;
         super.setNome(nome);
     }
+
+    public PerfilServidor(int siape, String nome) {
+        super.setNome(nome);
+        this.setSiape(siape);
+    }
+    
+    
 }
