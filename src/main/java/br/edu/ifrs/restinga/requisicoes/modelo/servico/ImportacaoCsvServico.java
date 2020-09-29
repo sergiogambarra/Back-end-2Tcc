@@ -45,8 +45,6 @@ public class ImportacaoCsvServico {
     @Autowired
     PasswordEncoder encode;
 
-    
-    
     int contLinhaErro = 0;
 
     public void importacaoCsvCurso(MultipartFile arquivo) throws IOException {
@@ -79,18 +77,45 @@ public class ImportacaoCsvServico {
     public void ImportarDisciplinas(MultipartFile arquivo) throws IOException {
         contLinhaErro = 0;
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(arquivo.getInputStream(), "UTF-8"))) {
-            fileReader.lines().forEach((t)
+            fileReader.lines().forEach((String t)
                     -> {
+                Disciplina disciplina = new Disciplina();
                 String[] csv = t.split(";");
                 contLinhaErro++;
+                Boolean verifica = false;
                 if (contLinhaErro == 1) {
 
+                } else if (csv.length < 3) {
+                    System.out.println("Não foi possível cadastrar linha " + contLinhaErro + " campo vazio ou carga horária não está correta. ");
+                } else if (Integer.parseInt(csv[1]) < 15 || Integer.parseInt(csv[1]) > 300 || csv[0].length() > 45 || "".equals(csv[0].trim())) {
+                    System.out.println("Não foi possível cadastrar linha " + contLinhaErro + " campo vazio ou carga horária não está correta. ");
                 } else {
-                    Disciplina disciplina = new Disciplina(csv[0], Integer.parseInt(csv[1]));
-                    if (disciplina.getCargaHoraria() < 15 || disciplina.getCargaHoraria() > 300 || disciplina.getNome().length() > 45 || "".equals(disciplina.getNome().trim())) {
-                        System.out.println("Não foi possível cadastrar linha " + contLinhaErro + " campo vazio ou carga horária não está correta. ");
+                    Curso curso = cursoDao.findByNome(csv[2]);
+                    if (curso != null) {
+                        Iterable<Disciplina> disciplinasSalva = disciplinaDao.findAll();
+                        if (disciplinasSalva == null) {
+                            verifica = true;
+                        }
+                        for (Disciplina disciplina1 : disciplinasSalva) {
+                            verifica = true;
+                            if (disciplina1.getNome().equals(csv[0])) {
+                                System.out.println("Disciplina já cadastrada nesse curso.");
+                                verifica = false;
+                                return;
+                            }
+
+                        }
+                        if (verifica) {
+
+                            disciplina.setNome(csv[0]);
+                            disciplina.setCargaHoraria(Integer.parseInt(csv[1]));
+                            curso.getDisciplinas().add(disciplina);
+                            disciplinaDao.save(disciplina);
+                            cursoDao.save(curso);
+
+                        }
                     } else {
-                        disciplinaDao.save(disciplina);
+                        System.out.println("Não foi possível cadastrar linha " + contLinhaErro + " curso não cadastrado. ");
                     }
                 }
 
