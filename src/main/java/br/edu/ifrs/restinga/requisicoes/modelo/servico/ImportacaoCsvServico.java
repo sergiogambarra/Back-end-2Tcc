@@ -54,20 +54,34 @@ public class ImportacaoCsvServico {
                     -> {
                 String[] csv = t.split(";");
                 contLinhaErro++;
+                Boolean verifica = false;
                 if (contLinhaErro == 1) {
 
                 } else {
                     Curso curso = new Curso(csv[0]);
                     List<Usuario> usuarios = usuarioDao.findByNome(csv[1]);
-                    if (!usuarios.isEmpty() && !"".equals(curso.getNome())) {
+                    Iterable<Curso> todosCursos = cursoDao.findAll();
+
+                    for (Curso c : todosCursos) {
+                        verifica = false;
+                        if (c.getNome().equalsIgnoreCase(curso.getNome()) == true) {
+                            System.out.println("Não foi possível cadastrar esse curso " + "linha " + contLinhaErro + " já possui curso com esse nome.");
+                            verifica = true;
+                            return;
+                        }
+                    }
+                    if (!usuarios.isEmpty() && !"".equals(curso.getNome()) && verifica == false) {
                         Usuario usuario = usuarios.get(0);
                         PerfilProfessor perfil = (PerfilProfessor) usuario.getPerfil();
                         perfil.setCoordenador(true);
                         curso.setUsuario(usuario);
                         cursoDao.save(curso);
+
                     } else {
                         System.out.println("Não foi possível cadastrar linha " + contLinhaErro + " campo está vazio ou coordenador não está cadastrado.");
+                        return;
                     }
+
                 }
             });
 
@@ -99,7 +113,7 @@ public class ImportacaoCsvServico {
                         for (Disciplina disciplina1 : disciplinasSalva) {
                             verifica = true;
                             if (disciplina1.getNome().equals(csv[0])) {
-                                System.out.println("Disciplina já cadastrada nesse curso.");
+                                System.out.println("Disciplina já cadastrada nesse curso "+" da linha "+contLinhaErro);
                                 verifica = false;
                                 return;
                             }
