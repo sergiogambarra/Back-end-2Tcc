@@ -8,6 +8,8 @@ package br.edu.ifrs.restinga.requisicoes.modelo.servico;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.CursoDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.DisciplinaDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.PerfilDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PerfilProfessorDao;
+import br.edu.ifrs.restinga.requisicoes.modelo.dao.PerfilServidorDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Curso;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Disciplina;
@@ -44,6 +46,12 @@ public class ImportacaoCsvServico {
 
     @Autowired
     PasswordEncoder encode;
+
+    @Autowired
+    PerfilServidorDao perfilServidorDao;
+
+    @Autowired
+    PerfilProfessorDao perfilProfessorDao;
 
     int contLinhaErro = 0;
 
@@ -113,7 +121,7 @@ public class ImportacaoCsvServico {
                         for (Disciplina disciplina1 : disciplinasSalva) {
                             verifica = true;
                             if (disciplina1.getNome().equals(csv[0])) {
-                                System.out.println("Disciplina já cadastrada nesse curso "+" da linha "+contLinhaErro);
+                                System.out.println("Disciplina já cadastrada nesse curso " + " da linha " + contLinhaErro);
                                 verifica = false;
                                 return;
                             }
@@ -149,9 +157,39 @@ public class ImportacaoCsvServico {
 
                 } else {
                     Usuario usuario = new Usuario();
-                    PerfilServidor perfilServidor1 = new PerfilServidor(Integer.parseInt(csv[1]), csv[0]);
+                    Iterable<Usuario> usuarios = usuarioDao.findAll();
 
-                    if (csv[4].equalsIgnoreCase("professor")) {
+                    PerfilServidor perfilServidor1 = new PerfilServidor(Integer.parseInt(csv[1]), csv[0]);
+                    Boolean verificaEmail = false;
+                    Boolean verificaSiape = false;
+                    Iterable<PerfilServidor> perfilServidor = perfilServidorDao.findAll();
+                    Iterable<PerfilProfessor> perfilProfessor = perfilProfessorDao.findAll();
+
+                    for (PerfilServidor perfilServidor2 : perfilServidor) {
+                        if (perfilServidor2.getSiape().equals(Integer.parseInt(csv[1]))) {
+                            System.out.println("Não foi possível cadastrar SIAPE já cadastrado linha " + contLinhaErro);
+                            verificaSiape = true;
+                            return;
+                        }
+                        for (Usuario usuario1 : usuarios) {
+                            if (usuario1.getEmail().equalsIgnoreCase(csv[2])) {
+                                System.out.println("Não foi possível cadastrar EMAIL já cadastrado linha " + contLinhaErro);
+                                verificaEmail = true;
+                                return;
+
+                            }
+
+                        }
+                        for (PerfilProfessor perfilProfessor1 : perfilProfessor) {
+                            if (perfilProfessor1.getSiape().equals(Integer.parseInt(csv[1]))) {
+                                System.out.println("Não foi possível cadastrar SIAPE já cadastrado linha " + contLinhaErro);
+                                verificaSiape = true;
+                                return;
+                            }
+                    }
+                        }
+
+                    if (csv[4].equalsIgnoreCase("professor") && verificaEmail == false && verificaSiape == false) {
                         usuario.setPermissao("PROFESSOR");
                         PerfilProfessor perfil = new PerfilProfessor(Integer.parseInt(csv[1]), csv[0]);
                         if (csv[3].equalsIgnoreCase("sim")) {
@@ -160,19 +198,22 @@ public class ImportacaoCsvServico {
                             perfil.setCoordenador(false);
                         }
                         usuario.setPerfil(perfilDao.save(perfil));
-                    } else {
+                        usuario.setEmail(csv[2]);
+                    } else if (verificaEmail == false && verificaSiape == false) {
                         usuario.setPermissao("SERVIDOR");
                         perfilServidor1.setCargo("SERVIDOR");
+                        usuario.setEmail(csv[2]);
                         usuario.setPerfil(perfilDao.save(perfilServidor1));
 
                     }
-                    usuario.setEmail(csv[2]);
-                    usuario.setUserName(csv[1]);
-                    usuario.setPassword(encode.encode("123456"));
+                    if (verificaEmail == false && verificaSiape == false) {
 
-                    usuarioDao.save(usuario);
+                        usuario.setUserName(csv[1]);
+                        usuario.setPassword(encode.encode("123456"));
+
+                        usuarioDao.save(usuario);
+                    }
                 }
-
             });
 
         }
