@@ -25,5 +25,10 @@ public class RequisicaoAproveitamento extends Requisicao{
         this.disciplinasCursadasAnterior = disciplinasCursadasAnterior;
     }
 
+    void setDisciplinaSolicitada(String progamação) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 
 }
