@@ -25,18 +25,18 @@ public class UsuarioTest {
     public static void tearDownClass() {
     }
     
-    Usuario u;
+    Usuario usuario;
     
     @Before
     public void setUp() {
-        u = new Usuario();
-        u.setAlterouSenha(false);
-        u.setEmail("jader.mmoura@gmail.com");
-        u.setPassword("123");
-        u.setId(1l);
-        u.setPerfil(new PerfilProfessor() {});
-        u.setPermissao("PROFESSOR");
-        u.setUserName("jader");
+        usuario = new Usuario();
+        usuario.setAlterouSenha(false);
+        usuario.setEmail("jader.mmoura@gmail.com");
+        usuario.setPassword("123");
+        usuario.setId(1l);
+        usuario.setPerfil(new PerfilAluno() {});
+        usuario.setPermissao("Aluno");
+        usuario.setUserName("jader");
     }
     
     @After
@@ -49,7 +49,7 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setPassword("123");
         String result = instance.getPassword();
-        assertEquals(u.getPassword(), result);
+        assertEquals(usuario.getPassword(), result);
     }
     
     @Test
@@ -58,7 +58,7 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setUserName("jader");
         String result = instance.getUsername();
-        assertEquals(u.getUsername(), result);
+        assertEquals(usuario.getUsername(), result);
     }
 
     @Test
@@ -67,16 +67,16 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setId(1l);
         Long result = instance.getId();
-        assertEquals(u.getId(), result);
+        assertEquals(usuario.getId(), result);
     }
 
     @Test
     public void testGetPermissao() {
         System.out.println("getPermissao");
         Usuario instance = new Usuario();
-        instance.setPermissao("PROFESSOR");
+        instance.setPermissao("Aluno");
         String result = instance.getPermissao();
-        assertEquals(u.getPermissao(), result);
+        assertEquals(usuario.getPermissao(), result);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setEmail("jader.mmoura@gmail.com");
         String result = instance.getEmail();
-        assertEquals(u.getEmail(), result);
+        assertEquals(usuario.getEmail(), result);
     }
 
     @Test
@@ -94,16 +94,16 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setAlterouSenha(false);
         Boolean result = instance.getAlterouSenha();
-        assertEquals(u.getAlterouSenha(), result);
+        assertEquals(usuario.getAlterouSenha(), result);
     }
 
     @Test
     public void testGetPerfil() {
         System.out.println("getPerfil");
         Usuario instance = new Usuario();
-        instance.setPerfil(new PerfilProfessor());
+        instance.setPerfil(new PerfilAluno());
         Perfil result = instance.getPerfil();
-        assertEquals(u.getPerfil(), result);
+        assertEquals(usuario.getPerfil(), result);
     }
 
     @Test
@@ -152,9 +152,6 @@ public class UsuarioTest {
         
     }
 
-    /**
-     * Test of setAlterouSenha method, of class Usuario.
-     */
     @Test
     public void testSetAlterouSenha() {
         System.out.println("setAlterouSenha");
