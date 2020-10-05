@@ -5,8 +5,12 @@ import br.edu.ifrs.restinga.requisicoes.modelo.dao.PaginacaoRepository;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Anexo;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.AnexoRN;
 import br.edu.ifrs.restinga.requisicoes.modelo.rn.RegraNenocio;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
