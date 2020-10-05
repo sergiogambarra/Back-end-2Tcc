@@ -6,13 +6,13 @@
 package br.edu.ifrs.restinga.requisicoes.controle;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
-import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,58 +22,46 @@ import org.springframework.security.core.Authentication;
  * @author jader
  */
 public class UsuarioControleTest {
+     @Autowired
+    
+    UsuarioControle instance = new UsuarioControle();   
+    Usuario usuario = null;
     
     public UsuarioControleTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
+        Usuario user = new Usuario();
+        user.setEmail("rogefhgseç@gmail.com");
+        user.setUserName("roger");
+        user.setPassword("roger");
+        user.setPermissao("ALUNO");
+        this.usuario = instance.cadastrar(user).getBody();
     }
-    
+
     @After
     public void tearDown() {
     }
 
-    /**
-     * Test of getService method, of class UsuarioControle.
-     */
-    @Test
-    public void testGetService() {
-        System.out.println("getService");
-        UsuarioControle instance = new UsuarioControle();
-        ServicoCRUD<Usuario> expResult = null;
-        ServicoCRUD<Usuario> result = instance.getService();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of cadastroAluno method, of class UsuarioControle.
-     */
     @Test
     public void testCadastroAluno() {
         System.out.println("cadastroAluno");
-        Usuario u = null;
-        UsuarioControle instance = new UsuarioControle();
-        ResponseEntity<Usuario> expResult = null;
-        ResponseEntity<Usuario> result = instance.cadastroAluno(u);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Usuario u = new Usuario();
+        UsuarioControle controle = new UsuarioControle();
+        Usuario user = controle.cadastrar(new Usuario()).getBody();
+        
+        assertEquals(this.usuario, user);
     }
 
-    /**
-     * Test of cadastroServidor method, of class UsuarioControle.
-     */
     @Test
     public void testCadastroServidor() {
         System.out.println("cadastroServidor");
@@ -82,13 +70,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.cadastroServidor(u);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of pesquisaLogin method, of class UsuarioControle.
-     */
     @Test
     public void testPesquisaLogin() {
         System.out.println("pesquisaLogin");
@@ -97,13 +80,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.pesquisaLogin(userName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of listaAlunos method, of class UsuarioControle.
-     */
     @Test
     public void testListaAlunos() {
         System.out.println("listaAlunos");
@@ -111,13 +89,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.listaAlunos();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of listaProfessor method, of class UsuarioControle.
-     */
     @Test
     public void testListaProfessor() {
         System.out.println("listaProfessor");
@@ -125,13 +98,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.listaProfessor();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of listaServidor method, of class UsuarioControle.
-     */
     @Test
     public void testListaServidor() {
         System.out.println("listaServidor");
@@ -139,13 +107,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.listaServidor();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of listaMatricula method, of class UsuarioControle.
-     */
     @Test
     public void testListaMatricula() {
         System.out.println("listaMatricula");
@@ -154,13 +117,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.listaMatricula(matricula);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of listaSiape method, of class UsuarioControle.
-     */
     @Test
     public void testListaSiape() {
         System.out.println("listaSiape");
@@ -169,13 +127,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.listaSiape(siape);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getAutenticado method, of class UsuarioControle.
-     */
     @Test
     public void testGetAutenticado() {
         System.out.println("getAutenticado");
@@ -184,13 +137,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.getAutenticado(authentication);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of trocaSenha method, of class UsuarioControle.
-     */
     @Test
     public void testTrocaSenha() {
         System.out.println("trocaSenha");
@@ -200,13 +148,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.trocaSenha(id, u);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of listarUsuariosPaginacao method, of class UsuarioControle.
-     */
     @Test
     public void testListarUsuariosPaginacao() {
         System.out.println("listarUsuariosPaginacao");
@@ -216,13 +159,8 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.listarUsuariosPaginacao(p, tipo);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of listaPesquisaNome method, of class UsuarioControle.
-     */
     @Test
     public void testListaPesquisaNome() {
         System.out.println("listaPesquisaNome");
@@ -231,8 +169,6 @@ public class UsuarioControleTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.listaPesquisaNome(nome);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
+
 }

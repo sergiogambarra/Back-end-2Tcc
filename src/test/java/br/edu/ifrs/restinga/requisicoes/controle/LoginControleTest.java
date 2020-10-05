@@ -7,6 +7,7 @@ package br.edu.ifrs.restinga.requisicoes.controle;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.TokenDto;
 import br.edu.ifrs.restinga.requisicoes.modelo.dto.UsuarioDto;
+import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,29 +20,30 @@ import static org.junit.Assert.*;
  * @author jader
  */
 public class LoginControleTest {
-    
+
     public LoginControleTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
+    Usuario u;
+
     @Before
     public void setUp() {
+        u = new Usuario();
+        
     }
-    
+
     @After
     public void tearDown() {
     }
 
-    /**
-     * Test of autenticar method, of class LoginControle.
-     */
     @Test
     public void testAutenticar() {
         System.out.println("autenticar");
@@ -50,8 +52,6 @@ public class LoginControleTest {
         TokenDto expResult = null;
         TokenDto result = instance.autenticar(user);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
+
 }
