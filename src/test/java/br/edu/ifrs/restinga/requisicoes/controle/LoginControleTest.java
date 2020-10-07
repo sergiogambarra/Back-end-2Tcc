@@ -48,8 +48,10 @@ public class LoginControleTest {
     public void testAutenticar() {
         System.out.println("autenticar");
         UsuarioDto user = null;
+        user.setUserName("jader");
         LoginControle instance = new LoginControle();
         TokenDto expResult = null;
+        
         TokenDto result = instance.autenticar(user);
         assertEquals(expResult, result);
     }
