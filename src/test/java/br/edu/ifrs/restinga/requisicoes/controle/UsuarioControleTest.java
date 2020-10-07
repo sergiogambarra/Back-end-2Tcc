@@ -7,13 +7,17 @@ package br.edu.ifrs.restinga.requisicoes.controle;
 
 import br.edu.ifrs.restinga.requisicoes.modelo.dao.UsuarioDao;
 import br.edu.ifrs.restinga.requisicoes.modelo.entidade.Usuario;
+import br.edu.ifrs.restinga.requisicoes.modelo.servico.ServicoCRUD;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,14 +31,15 @@ import org.springframework.test.web.servlet.MockMvc;
  *
  * @author jader
  */
-public class UsuarioControleTest extends AbstractTest {
+public class UsuarioControleTest {
 
+    @Mock
     protected MockMvc mvc;
 
     @Autowired
     UsuarioDao usuarioDao;
 
-    @Autowired
+    @MockBean
     UsuarioControle instance;
 
     public UsuarioControleTest() {
@@ -50,7 +55,6 @@ public class UsuarioControleTest extends AbstractTest {
 
     @Before
     public void setUp() {
-        super.setUp();
     }
 
     @After
@@ -66,8 +70,6 @@ public class UsuarioControleTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
-        Usuario[] u = super.mapFromJson(content, Usuario[].class);
-        assertTrue(u.length > 0);
     }
 
     @Test
@@ -187,6 +189,20 @@ public class UsuarioControleTest extends AbstractTest {
         ResponseEntity<Usuario> expResult = null;
         ResponseEntity<Usuario> result = instance.listaPesquisaNome(nome);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getService method, of class UsuarioControle.
+     */
+    @Test
+    public void testGetService() {
+        System.out.println("getService");
+        UsuarioControle instance = new UsuarioControle();
+        ServicoCRUD<Usuario> expResult = null;
+        ServicoCRUD<Usuario> result = instance.getService();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }
