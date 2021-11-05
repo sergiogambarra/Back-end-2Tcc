@@ -142,13 +142,13 @@ public class RequisicaoTest {
         testeRequisiçãoAproveitamento.setId(id);
     }
 
-    @Test
-    public void testSetDataRequisicao() {
-        System.out.println("setDataRequisicao");
-        Date dataRequisicao = new Date();
-        dataRequisicao.setDate(20);
-        testeRequisiçãoAproveitamento.setDataRequisicao(dataRequisicao);
-    }
+//    @Test
+//    public void testSetDataRequisicao() {
+//        System.out.println("setDataRequisicao");
+//        Date dataRequisicao = new Date();
+//        dataRequisicao.setDate(20);
+//        testeRequisiçãoAproveitamento.setDataRequisicao(dataRequisicao);
+//    }
 
     @Test
     public void testSetParecerServidor() {

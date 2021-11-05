@@ -51,7 +51,7 @@ public class Xinicializador {
             usuario.setPassword(encode.encode(this.senha));
             usuario.setPermissao("SERVIDOR");
             usuario.setEmail(this.emailContato);
-            PerfilServidor perfilServidor = new PerfilServidor(1, "Administrador", "ADMIN");
+            PerfilServidor perfilServidor = new PerfilServidor("999999", "Administrador", "ADMIN");
             perfilDao.save(perfilServidor);
             usuario.setPerfil(perfilServidor);
             usuarioDAO.save(usuario);

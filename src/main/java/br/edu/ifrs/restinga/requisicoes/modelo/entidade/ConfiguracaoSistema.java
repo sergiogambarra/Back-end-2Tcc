@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
 @Table(name = "configuracao")
 public class ConfiguracaoSistema implements Entidade {

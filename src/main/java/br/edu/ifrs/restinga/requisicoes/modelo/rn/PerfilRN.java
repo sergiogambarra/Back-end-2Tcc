@@ -26,29 +26,29 @@ public class PerfilRN implements RegraNenocio<Perfil>{
     
     private void validaAluno(PerfilAluno a){
         validaCampo(a.getNome(),"Nome");
-        validaInteiro(a.getMatricula(), "Matricula");
+        validaCampo(a.getMatricula(), "Matricula");
         validaData(a.getDataIngresso(), "DataIngresso");
         validaCampo(a.getTipo(), "Tipo");
-        if (a.getMatricula()> 99999999) {
-            throw new MensagemErroGenericaException("Matricúla não pode ter número superior a 999999999");
-        }
+//        if (a.getMatricula()> 99999999) {
+//            throw new MensagemErroGenericaException("Matricúla não pode ter número superior a 999999999");
+//        }
     }
     
     private void validaProfessor(PerfilProfessor p){
         validaCampo(p.getNome(), "Nome");
-        validaInteiro(p.getSiape(),"Siape");
+        validaCampo(p.getSiape(),"Siape");
         validaCampo(p.getTipo(), "Tipo");
-         if (p.getSiape()> 99999999) {
-            throw new MensagemErroGenericaException("SIAPE não pode ter número superior a 999999999");
-        }
+//         if (p.getSiape()> 99999999) {
+//            throw new MensagemErroGenericaException("SIAPE não pode ter número superior a 999999999");
+//        }
     }
     private void validaServidor(PerfilServidor s){
         validaCampo(s.getCargo(),"Cargo");
         validaCampo(s.getNome(),"Nome");
-        validaInteiro(s.getSiape(),"Siape");
+        validaCampo(s.getSiape(),"Siape");
         validaCampo(s.getTipo(), "Tipo");
-        if (s.getSiape()> 99999999) {
-            throw new MensagemErroGenericaException("SIAPE não pode ter número superior a 999999999");
-        }
+//        if (s.getSiape()> 99999999) {
+//            throw new MensagemErroGenericaException("SIAPE não pode ter número superior a 999999999");
+//        }
     }
 }

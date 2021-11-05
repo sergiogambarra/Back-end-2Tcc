@@ -8,11 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 @Data
 @AllArgsConstructor
@@ -32,12 +32,12 @@ public class Usuario implements Serializable, UserDetails, Entidade {
     private String permissao;
 
     private String email;
-    
+
     private Boolean alterouSenha = false;
 
     @OneToOne
     private Perfil perfil;
-    
+
     public Usuario(Long id, String user) {
         this.id = id;
         this.userName = user;
@@ -48,7 +48,6 @@ public class Usuario implements Serializable, UserDetails, Entidade {
       
     }
 
-    
     
 
     @Override
@@ -66,8 +65,8 @@ public class Usuario implements Serializable, UserDetails, Entidade {
         return true;
     }
 
-    
-    
+
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -88,5 +87,49 @@ public class Usuario implements Serializable, UserDetails, Entidade {
         return null;
     }
 
+    @Override
+    public Long getId() {
+        return id;
+    }
 
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(String permissao) {
+        this.permissao = permissao;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getAlterouSenha() {
+        return alterouSenha;
+    }
+
+    public void setAlterouSenha(Boolean alterouSenha) {
+        this.alterouSenha = alterouSenha;
+    }
 }

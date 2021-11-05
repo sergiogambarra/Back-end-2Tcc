@@ -18,10 +18,10 @@ public interface UsuarioDao extends PaginacaoRepository<Usuario, Long>{
     public Page<Usuario> listarUsuarios(String tipo,Pageable p);
    
     @Query("SELECT u FROM Usuario u join u.perfil p WHERE u.permissao='ALUNO' AND p.matricula=?1")
-    public Usuario findByPerfilMatricula(int matricula);
+    public Usuario findByPerfilMatricula(String matricula);
     
     @Query("SELECT u FROM Usuario u join u.perfil p WHERE p.siape=?1")
-    public Usuario findByPerfilSiape(Integer siape);
+    public Usuario findByPerfilSiape(String siape);
     
     @Query("SELECT u FROM Usuario u join u.perfil p WHERE p.nome=?1 ")
     public List<Usuario> findByNome(String nome);

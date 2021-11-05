@@ -60,7 +60,7 @@ public class ImportacaoCsvServico {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(arquivo.getInputStream(), "UTF-8"))) {
             fileReader.lines().forEach((t)
                     -> {
-                String[] csv = t.split(";");
+                String[] csv = t.split(",");
                 contLinhaErro++;
                 Boolean verifica = false;
                 if (contLinhaErro == 1) {
@@ -102,7 +102,7 @@ public class ImportacaoCsvServico {
             fileReader.lines().forEach((String t)
                     -> {
                 Disciplina disciplina = new Disciplina();
-                String[] csv = t.split(";");
+                String[] csv = t.split(",");
                 contLinhaErro++;
                 Boolean verifica = false;
                 if (contLinhaErro == 1) {
@@ -151,7 +151,7 @@ public class ImportacaoCsvServico {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(arquivo.getInputStream(), "UTF-8"))) {
             fileReader.lines().forEach((String t)
                     -> {
-                String[] csv = t.split(";");
+                String[] csv = t.split(",");
                 contLinhaErro++;
                 if (contLinhaErro == 1) {
 
@@ -159,14 +159,14 @@ public class ImportacaoCsvServico {
                     Usuario usuario = new Usuario();
                     Iterable<Usuario> usuarios = usuarioDao.findAll();
 
-                    PerfilServidor perfilServidor1 = new PerfilServidor(Integer.parseInt(csv[1]), csv[0]);
+                    PerfilServidor perfilServidor1 = new PerfilServidor((csv[1]), csv[0]);
                     Boolean verificaEmail = false;
                     Boolean verificaSiape = false;
                     Iterable<PerfilServidor> perfilServidor = perfilServidorDao.findAll();
                     Iterable<PerfilProfessor> perfilProfessor = perfilProfessorDao.findAll();
 
                     for (PerfilServidor perfilServidor2 : perfilServidor) {
-                        if (perfilServidor2.getSiape().equals(Integer.parseInt(csv[1]))) {
+                        if (perfilServidor2.getSiape().equals(csv[1])) {
                             System.out.println("Não foi possível cadastrar SIAPE já cadastrado linha " + contLinhaErro);
                             verificaSiape = true;
                             return;
@@ -181,7 +181,7 @@ public class ImportacaoCsvServico {
 
                         }
                         for (PerfilProfessor perfilProfessor1 : perfilProfessor) {
-                            if (perfilProfessor1.getSiape().equals(Integer.parseInt(csv[1]))) {
+                            if (perfilProfessor1.getSiape().equals(csv[1])) {
                                 System.out.println("Não foi possível cadastrar SIAPE já cadastrado linha " + contLinhaErro);
                                 verificaSiape = true;
                                 return;
@@ -191,7 +191,7 @@ public class ImportacaoCsvServico {
 
                     if (csv[4].equalsIgnoreCase("professor") && verificaEmail == false && verificaSiape == false) {
                         usuario.setPermissao("PROFESSOR");
-                        PerfilProfessor perfil = new PerfilProfessor(Integer.parseInt(csv[1]), csv[0]);
+                        PerfilProfessor perfil = new PerfilProfessor((csv[1]), csv[0]);
                         if (csv[3].equalsIgnoreCase("sim")) {
                             perfil.setCoordenador(true);
                         } else {

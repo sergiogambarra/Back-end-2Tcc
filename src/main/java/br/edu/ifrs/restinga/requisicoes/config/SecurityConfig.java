@@ -3,8 +3,11 @@ package br.edu.ifrs.restinga.requisicoes.config;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.JwtServico;
 import br.edu.ifrs.restinga.requisicoes.modelo.servico.UsuarioServico;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,11 +15,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.util.Collections;
+
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true
+)
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
+
+    @Value("${ldap.urls}")
+	private String ldapUrls;
+
+	@Value("${ldap.base.dn}")
+	private String ldapBaseDn;
  
     @Autowired
     UsuarioServico userDetails;
@@ -25,13 +43,13 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     JwtServico jwtService;
     
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public OncePerRequestFilter jwtFilter(){
-        return new JwtFilterConfig(userDetails,jwtService);
+        return new JwtFilterConfig(userDetails, jwtService);
     }
 
     @Override
@@ -40,7 +58,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/usuarios/alunos/","/api/login/").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/usuarios/alunos/","/api/login/","/api/login/generatetoken").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/anexos/cursos").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/anexos/disciplinas").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/anexos/usuarios").permitAll()
@@ -61,12 +79,18 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
-    } 
+    }
+
+    @Bean
+    public DefaultSpringSecurityContextSource contextSource() {
+        return new DefaultSpringSecurityContextSource(
+                Collections.singletonList(ldapUrls), ldapBaseDn);
+    }
 
      @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v2/api-docs","/swagger-resources/**", "/configuration/**", "/swagger-ui.html**", "/webjars/**","/static/**","/images/**");
     }
-    
+
     
 }

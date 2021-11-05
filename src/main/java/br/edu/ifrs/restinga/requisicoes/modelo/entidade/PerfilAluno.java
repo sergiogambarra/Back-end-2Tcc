@@ -11,11 +11,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity
 @Table(name = "alunos")
 public class PerfilAluno extends Perfil  {
@@ -28,7 +29,7 @@ public class PerfilAluno extends Perfil  {
     @JsonProperty("tipo")
     private final String tipo = "ALUNO";
     
-    private int matricula; 
+    private String matricula;
     @Temporal(TemporalType.DATE)
     private Date dataIngresso;
     

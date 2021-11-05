@@ -26,16 +26,16 @@ public class PerfilServidor extends Perfil implements Entidade{
     @Transient
     @JsonProperty("tipo")
     private final String tipo = "SERVIDOR";
-    private Integer siape; 
+    private String siape;
     private String cargo;
 
-    public PerfilServidor(Integer siape, String cargo, String nome) {
+    public PerfilServidor(String siape, String cargo, String nome) {
         this.siape = siape;
         this.cargo = cargo;
         super.setNome(nome);
     }
 
-    public PerfilServidor(int siape, String nome) {
+    public PerfilServidor(String siape, String nome) {
         super.setNome(nome);
         this.setSiape(siape);
     }

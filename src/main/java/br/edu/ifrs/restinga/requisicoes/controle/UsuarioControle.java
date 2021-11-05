@@ -68,12 +68,17 @@ public class UsuarioControle extends CRUDControle<Usuario> {
         return new ResponseEntity(servico.listarServidor(),HttpStatus.OK);
     }
     @GetMapping("matricula/{matricula}")
-    public ResponseEntity<Usuario> listaMatricula(@PathVariable int matricula){
+    public ResponseEntity<Usuario> listaMatricula(@PathVariable String matricula){
         return new ResponseEntity(servico.listaUsuarioMatricula(matricula),HttpStatus.OK);
     }
     @GetMapping("siape/{siape}")
-    public ResponseEntity<Usuario> listaSiape(@PathVariable Integer siape){
+    public ResponseEntity<Usuario> listaSiape(@PathVariable String siape){
         return new ResponseEntity(servico.listaProfessorSiape(siape),HttpStatus.OK);
+    }
+
+    @GetMapping("siapeLdap/{siape}")
+    public ResponseEntity<Usuario> listaSiapeLdap(@PathVariable String siape){
+        return new ResponseEntity(servico.listaProfessorSiapeLdap(siape),HttpStatus.OK);
     }
     
      @GetMapping("auth/")

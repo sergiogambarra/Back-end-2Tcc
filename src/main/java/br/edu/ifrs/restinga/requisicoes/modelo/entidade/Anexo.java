@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
 @Table(name = "anexos")
 public class Anexo implements Entidade {
