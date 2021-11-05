@@ -25,10 +25,10 @@ public class PerfilProfessor extends Perfil  {
     @Transient
     @JsonProperty("tipo")
     private final String tipo = "PROFESSOR";
-    private Integer siape; 
+    private String siape;
     private boolean coordenador;
 
-    public PerfilProfessor(int siape, String nome) {
+    public PerfilProfessor(String siape, String nome) {
         super.setNome(nome);
         this.setSiape(siape);
     }

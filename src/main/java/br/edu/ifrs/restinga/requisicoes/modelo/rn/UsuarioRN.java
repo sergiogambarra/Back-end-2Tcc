@@ -18,6 +18,7 @@ public class UsuarioRN implements RegraNenocio<Usuario> {
 
     @Override
     public void validar(Usuario u) {
+        System.out.println(u);
         validaEmail(u.getEmail());
         validaCampo(u.getUsername(), "Login");
         validaCampo(u.getPassword(), "Senha");
@@ -27,7 +28,7 @@ public class UsuarioRN implements RegraNenocio<Usuario> {
         if (u.getEmail().length() > 40) {
             throw new MensagemErroGenericaException("Limite máximo para cadastro de 40 caracteres");
         }
-        if ( u.getPassword().length() > 30) {
+        if ( u.getPassword().length() > 90) {
             throw new MensagemErroGenericaException("Limite máximo para cadastro de 30 caracteres");
         }
     }

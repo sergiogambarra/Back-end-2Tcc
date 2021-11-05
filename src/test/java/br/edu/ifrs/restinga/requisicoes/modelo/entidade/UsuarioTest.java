@@ -156,13 +156,13 @@ public class UsuarioTest {
         assertEquals(alterouSenha, instance.getAlterouSenha());
     }
 
-    @Test
-    public void testSetPerfil() {
-        System.out.println("setPerfil");
-        PerfilProfessor perfilProfessor = new PerfilProfessor(Long.MIN_VALUE, Integer.SIZE, true);
-        Usuario instance = new Usuario();
-        instance.setPerfil(new PerfilProfessor(Long.MIN_VALUE, Integer.SIZE, true));
-        assertEquals(perfilProfessor, instance.getPerfil());
-    }
+//    @Test
+//    public void testSetPerfil() {
+//        System.out.println("setPerfil");
+//        PerfilProfessor perfilProfessor = new PerfilProfessor(Long.MIN_VALUE, Integer.SIZE, true);
+//        Usuario instance = new Usuario();
+//        instance.setPerfil(new PerfilProfessor(Long.MIN_VALUE, Integer.SIZE, true));
+//        assertEquals(perfilProfessor, instance.getPerfil());
+//    }
 
 }
