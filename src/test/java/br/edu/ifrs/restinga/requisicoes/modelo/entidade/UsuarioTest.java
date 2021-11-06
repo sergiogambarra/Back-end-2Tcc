@@ -29,7 +29,7 @@ public class UsuarioTest {
         usuario.setEmail("jader.mmoura@gmail.com");
         usuario.setPassword("123");
         usuario.setId(1l);
-        usuario.setPerfil(new PerfilAluno() {});
+//        usuario.setPerfil(new PerfilAluno() {});
         usuario.setPermissao("Aluno");
         usuario.setUserName("jader");
     }
@@ -96,7 +96,7 @@ public class UsuarioTest {
     public void testGetPerfil() {
         System.out.println("getPerfil");
         Usuario instance = new Usuario();
-        instance.setPerfil(new PerfilAluno());
+//        instance.setPerfil(new PerfilAluno());
         Perfil result = instance.getPerfil();
         assertEquals(usuario.getPerfil(), result);
     }

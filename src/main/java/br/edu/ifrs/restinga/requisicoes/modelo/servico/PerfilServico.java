@@ -34,16 +34,19 @@ public class PerfilServico extends ServicoCRUD<Perfil>{
      public Perfil salvarPerfil(Usuario u){
         switch (u.getPermissao()) {
             case "SERVIDOR":
+                System.out.println(u);
                 PerfilServidor servidor = (PerfilServidor) u.getPerfil();
                 servidor.getNome().toUpperCase();
                 rn.validar(servidor);
                 return dao.save(servidor);
             case "PROFESSOR":
+                System.out.println(u);
                 PerfilProfessor professor = (PerfilProfessor) u.getPerfil();
                 professor.getNome().toUpperCase();
                 rn.validar(professor);
                 return dao.save(professor);
             case "ALUNO":
+                System.out.println(u);
                 PerfilAluno aluno = (PerfilAluno) u.getPerfil();
                 aluno.getNome().toUpperCase();
                 rn.validar(aluno);
