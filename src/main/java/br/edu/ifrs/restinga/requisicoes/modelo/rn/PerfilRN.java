@@ -27,7 +27,7 @@ public class PerfilRN implements RegraNenocio<Perfil>{
     private void validaAluno(PerfilAluno a){
         validaCampo(a.getNome(),"Nome");
         validaCampo(a.getMatricula(), "Matricula");
-        validaData(a.getDataIngresso(), "DataIngresso");
+//        validaData(a.getDataIngresso(), "DataIngresso");
         validaCampo(a.getTipo(), "Tipo");
 //        if (a.getMatricula()> 99999999) {
 //            throw new MensagemErroGenericaException("Matricúla não pode ter número superior a 999999999");

@@ -32,7 +32,13 @@ public class PerfilAluno extends Perfil  {
     private String matricula;
     @Temporal(TemporalType.DATE)
     private Date dataIngresso;
-    
-       
-    
+
+    public PerfilAluno(String matricula, String nome) {
+        this.setMatricula(matricula);
+        super.setNome(nome);
+    }
+
+    public PerfilAluno() {
+
+    }
 }

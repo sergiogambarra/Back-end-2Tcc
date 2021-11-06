@@ -244,8 +244,9 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
                         attrs.get("displayName").toString().substring(13)
                 ));
             } else if (person.getPermissao().equals("eduPersonPrimaryAffiliation: student")) {
-                System.out.println(attrs);
                 person.setPerfil(new PerfilAluno(
+                        attrs.get("uid").toString().substring(5),
+                        attrs.get("displayName").toString().substring(13)
                         ));
                 person.setPermissao("ALUNO");
 
