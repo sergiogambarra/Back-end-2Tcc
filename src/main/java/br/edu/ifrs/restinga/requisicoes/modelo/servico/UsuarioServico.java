@@ -20,7 +20,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ldap.NamingException;
 import org.springframework.ldap.core.AttributesMapper;
+import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.core.support.AbstractContextMapper;
+import org.springframework.ldap.query.LdapQueryBuilder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -93,16 +96,22 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
 		}
     }
 
-    public Boolean pesquisarLdap(String user) {
+    public Boolean pesquisarLdap(String uid) {
         try {
-            ldapTemplate.findOne(query().where("uid").is(user), Usuario.class);
-			return true;
-		} catch (Throwable e){
-			e.getMessage();
-			return false;
-		}
+            ldapTemplate.search(
+                    LdapQueryBuilder.query().where("uid").is(uid),
+                    new AbstractContextMapper<String>() {
+                        protected String doMapFromContext(DirContextOperations ctx) {
+                            System.out.println("######## NameInNamespace -->" + ctx.getNameInNamespace());
+                            return ctx.getNameInNamespace();
+                        }
+                    });
+            return true;
+        } catch (Throwable e) {
+            e.getMessage();
+            return false;
+        }
     }
-
 
     @Transactional
     @Override
@@ -205,12 +214,13 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
     }
 
     public Usuario listaProfessorSiapeLdap(String siape){
-        Usuario user = (Usuario) ldapTemplate.search(query().where("uid").is(siape), new PersonAttributesMapper()).get(0);
-        if (user.getPermissao().equals("PROFESSOR")){
-            return user;
-        } else {
-            return null;
+        if (pesquisarLdap(siape)) {
+            Usuario user = (Usuario) ldapTemplate.search(query().where("uid").is(siape), new PersonAttributesMapper()).get(0);
+            if (user.getPermissao().equals("PROFESSOR")){
+                return user;
+            }
         }
+        return null;
     }
     
     public Page<Usuario> listarPaginacao(Pageable p, String tipo) {
@@ -237,7 +247,7 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
                 person.setPermissao("PROFESSOR");
 
             } else if (person.getPermissao().equals("eduPersonPrimaryAffiliation: employee") &&
-                    (person.getUsername().equals("01810561") || person.getUsername().equals("02347797")) || person.getUsername().equals("02009506")) {
+                    (person.getUsername().equals("01810561") || person.getUsername().equals("01826439")) || person.getUsername().equals("02347797") || person.getUsername().equals("02009506")) {
                 person.setPermissao("SERVIDOR");
                 person.setPerfil(new PerfilServidor(
                         attrs.get("uid").toString().substring(5), "Registros Escolares",
