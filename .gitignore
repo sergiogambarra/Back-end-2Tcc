@@ -1,2 +1,4 @@
 /target/
 /nbproject/
+### Sensitive Data ###
+src/main/resources/application.properties
