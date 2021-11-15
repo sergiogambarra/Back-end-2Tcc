@@ -12,8 +12,8 @@ public class PerfilRN implements RegraNenocio<Perfil>{
 
     @Override
     public void validar(Perfil entidade) {
-        if (entidade.getNome().length() > 40) {
-            throw new MensagemErroGenericaException("Limite máximo de cadastro 40 caracteres");
+        if (entidade.getNome().length() > 100) {
+            throw new MensagemErroGenericaException("Limite máximo de cadastro 100 caracteres");
         }
         if(entidade instanceof PerfilAluno){
             this.validaAluno((PerfilAluno) entidade);

@@ -25,11 +25,11 @@ public class UsuarioRN implements RegraNenocio<Usuario> {
         validaCampo(u.getPermissao(), "Permissão");
         validaCampo(u.getEmail(), "E-mail");
         validaTamanhoLogin(u.getUsername(), "Login");
-        if (u.getEmail().length() > 40) {
-            throw new MensagemErroGenericaException("Limite máximo para cadastro de 40 caracteres");
+        if (u.getEmail().length() > 100) {
+            throw new MensagemErroGenericaException("Limite máximo para cadastro de 100 caracteres");
         }
-        if ( u.getPassword().length() > 90) {
-            throw new MensagemErroGenericaException("Limite máximo para cadastro de 30 caracteres");
+        if ( u.getPassword().length() > 100) {
+            throw new MensagemErroGenericaException("Limite máximo para cadastro de 100 caracteres");
         }
     }
 

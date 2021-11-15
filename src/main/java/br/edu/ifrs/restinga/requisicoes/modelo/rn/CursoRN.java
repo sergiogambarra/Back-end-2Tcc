@@ -11,8 +11,8 @@ public class CursoRN implements RegraNenocio<Curso> {
     public void validar(Curso entidade) {
         String nome = entidade.getNome().trim();
         validaCampo(nome, "Nome");
-        if (nome.length() > 40) {
-            throw new MensagemErroGenericaException("Limite máximo de 40 caracteres para cadastro");
+        if (nome.length() > 100) {
+            throw new MensagemErroGenericaException("Limite máximo de 100 caracteres para cadastro");
         }
         
     }

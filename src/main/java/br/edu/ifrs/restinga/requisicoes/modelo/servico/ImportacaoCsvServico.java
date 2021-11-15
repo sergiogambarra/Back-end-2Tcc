@@ -109,7 +109,8 @@ public class ImportacaoCsvServico {
 
                 } else if (csv.length < 3) {
                     System.out.println("Não foi possível cadastrar linha " + contLinhaErro + " campo vazio ou carga horária não está correta. ");
-                } else if (Integer.parseInt(csv[1]) < 15 || Integer.parseInt(csv[1]) > 300 || csv[0].length() > 45 || "".equals(csv[0].trim())) {
+
+                } else if (Integer.parseInt(csv[1]) < 15 || Integer.parseInt(csv[1]) > 300 || csv[0].length() > 200 || "".equals(csv[0].trim())) {
                     System.out.println("Não foi possível cadastrar linha " + contLinhaErro + " campo vazio ou carga horária não está correta. ");
                 } else {
                     Curso curso = cursoDao.findByNome(csv[2]);

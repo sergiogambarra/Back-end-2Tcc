@@ -30,13 +30,13 @@ public class RequisicaoRN implements RegraNenocio<Requisicao> {
     }
 
     private void validaAproveitamento(RequisicaoAproveitamento req) {
-        if (req.getDisciplinasCursadasAnterior().length() > 45) {
+        if (req.getDisciplinasCursadasAnterior().length() > 100) {
             throw new MensagemErroGenericaException("Limite máximo de 45 caracteres para cadastro de disciplinas cursadas anteriormente.");
         }
     }
 
     private void validaCertificacao(RequisicaoCertificacao req) {
-        if (req.getFormacaoAtividadeAnterior(). length() > 45) {
+        if (req.getFormacaoAtividadeAnterior(). length() > 100) {
             throw new MensagemErroGenericaException("Limite máximo de 45 caracteres para cadastro de atividade exercida anteriormente.");
         }
     }
