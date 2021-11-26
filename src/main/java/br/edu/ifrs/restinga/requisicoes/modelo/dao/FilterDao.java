@@ -29,13 +29,13 @@ public class FilterDao {
     public List<RequisicaoDto> filtro(FiltroDto filtro) {
         Date date = new Date(0);
        
-        StringBuilder sqlBase = new StringBuilder("Select r.id, p.nome, a.matricula, r.data_requisicao, d.nome as Disciplina, r.deferido from requisicao as r ");
+        StringBuilder sqlBase = new StringBuilder("Select r.id, p.nome, a.matricula, r.data_requisicao, d.nome as Disciplina, r.deferido, responsavel_pela_requisicao as responsavel from requisicao as r ");
         sqlBase.append(" INNER JOIN disciplinas as d on (r.disciplina_solicitada_id=d.id) INNER JOIN cursos_disciplinas as cd on (cd.disciplinas_id=d.id)");
         sqlBase.append(" INNER JOIN cursos as c on (c.id=cd.curso_id) INNER JOIN usuarios as u on (r.usuario_id=u.id)");
         sqlBase.append(" INNER JOIN ").append(filtro.getTipoRequisicao()).append(" as rt on r.id=rt.id ").append(" INNER JOIN perfis as p on (u.perfil_id=p.id)");
         sqlBase.append(" INNER JOIN alunos as a on (p.id=a.id) WHERE r.id=rt.id");
         
-         if (filtro.getStatusRequisicao() != null) {
+        if (filtro.getStatusRequisicao() != null) {
             sqlBase.append(" AND r.deferido='").append(filtro.getStatusRequisicao()).append("'");
         }
         if (filtro.getIdCurso() != null) {
@@ -44,8 +44,10 @@ public class FilterDao {
         if (filtro.getIdDisciplina() != null) {
             sqlBase.append(" AND d.id=").append(filtro.getIdDisciplina());
         }
-        
-        System.out.println(filtro.getIdAluno());
+        if (filtro.getResponsavelRequisicao() != null) {
+            sqlBase.append(" AND r.responsavel_pela_requisicao='").append(filtro.getResponsavelRequisicao()).append("'");
+        }
+
         if(filtro.getIdAluno() != null){
             sqlBase.append(" AND a.id=").append(filtro.getIdAluno());
         }

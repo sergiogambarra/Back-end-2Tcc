@@ -79,10 +79,15 @@ public class UsuarioServico extends ServicoCRUD<Usuario> implements UserDetailsS
 
     public Usuario autenticar(UsuarioDto user) {
         rn.validaLogin(user.getUserName(), user.getPassword());
-        UserDetails details = loadUserByUsername(user.getUserName());
-        if (!this.autenticarLdap(user.getUserName(), user.getPassword()))
-            rn.validaSenhaBanco(user.getPassword(), details);
-        Usuario usuario = dao.findByUserName(details.getUsername());
+        Usuario usuario = dao.findByUserName(user.getUserName());
+        UserDetails details;
+        if (usuario == null && this.autenticarLdap(user.getUserName(), user.getPassword())){
+            details = loadUserByUsername(user.getUserName());
+        } else {
+            rn.validaUsuarioNaoEncontrado(usuario);
+            details = loadUserByUsername(user.getUserName());
+        }
+//            rn.validaSenhaBanco(user.getPassword(), details);
         return usuario;
     }
 

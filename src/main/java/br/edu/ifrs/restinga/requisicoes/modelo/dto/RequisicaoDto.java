@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class RequisicaoDto {
     private String id,nomeUsuario,
      matriculaUsuario,
-     data, status,nomeDisciplina;
+     data, status,nomeDisciplina, responsavel;
 
     public RequisicaoDto(Object[] objects) {
        this.id = objects[0].toString();
@@ -30,6 +30,7 @@ public class RequisicaoDto {
        this.data = objects[3].toString();
        this.nomeDisciplina = objects[4].toString();
        this.status = objects[5].toString();
+       this.responsavel = objects[6].toString();
       }
     
 }

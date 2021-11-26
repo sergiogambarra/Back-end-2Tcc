@@ -15,7 +15,7 @@ public interface RegraNenocio<T> {
         public void validar(T entidade);
         
         default void validaTamanhoLogin(String campo, String nomeCampo){
-            if (campo.length() < 6 || campo.length() > 20 ) throw new MensagemErroGenericaException("Campo "+nomeCampo+ " ter que ter entre 6 e 20 caracteres");
+            if (campo.length() < 6 || campo.length() > 50 ) throw new MensagemErroGenericaException("Campo "+nomeCampo+ " ter que ter entre 6 e 50 caracteres");
         }
         
         default void validaCampo(String campo,String nomeCampo){

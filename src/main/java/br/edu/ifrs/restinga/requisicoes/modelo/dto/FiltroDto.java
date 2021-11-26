@@ -27,6 +27,7 @@ public class FiltroDto {
     private String statusRequisicao;
     private String tipoRequisicao;
     private Long idAluno;
+    private String responsavelRequisicao;
     
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Temporal(TemporalType.DATE)
